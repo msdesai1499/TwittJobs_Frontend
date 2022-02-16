@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+/* Registration Page CSS */
+
+/* Home Page Css */
+.carousel-item img {
+  height: 600px;
+}
