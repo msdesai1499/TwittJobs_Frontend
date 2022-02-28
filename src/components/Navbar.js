@@ -17,13 +17,13 @@ const NavBar = () => {
 						<Nav.Link href="#pricing">Contact Us</Nav.Link>
 						<NavDropdown title="Sign In" id="navbarScrollingDropdown">
 							<NavDropdown.Item href="/userlogin">User</NavDropdown.Item>
-							<NavDropdown.Item href="/signin">Institute</NavDropdown.Item>
+							<NavDropdown.Item href="/institutelogin">Institute</NavDropdown.Item>
 						</NavDropdown>
 						<NavDropdown title="Sign Up" id="navbarScrollingDropdown">
 							<NavDropdown.Item href="/userregister">User</NavDropdown.Item>
-							<NavDropdown.Item href="#action4">Institute</NavDropdown.Item>
+							<NavDropdown.Item href="/instituteregister">Institute</NavDropdown.Item>
 						</NavDropdown>
-						<Nav.Link href="/useruploadresume">Upload Resume</Nav.Link>
+
 					</Nav>
 
 				</Navbar>

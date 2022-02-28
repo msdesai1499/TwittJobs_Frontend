@@ -258,7 +258,7 @@ export default function UserActivatedPlanDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

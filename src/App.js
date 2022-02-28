@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import UserLogin from "./components/UserLogin";
 import UserRegister from "./components/UserRegister";
-import Signin from "./components/Signin";
+
 import UserHome from "./components/UserHome"
 import UserEducationDetail from "./components/UserEducationDetail"
 import UserEmploymentDetail from "./components/UserEmploymentDetail"
@@ -22,7 +22,16 @@ import UserNotificationDetail from "./components/UserNotificationDetail";
 import UserChangePasswordDetail from "./components/UserChangePasswordDetail";
 import UserActivatedPlanDetail from "./components/UserActivatedPlanDetail";
 import UserUploadResume from "./components/UserUploadResume";
-
+import InstituteRegister from "./components/InstituteRegister";
+import InstituteLogin from "./components/InstituteLogin";
+import InstituteHome from "./components/InstituteHome";
+import InstituteActivatedSubscriptions from "./components/InstituteActivatedSubscriptions";
+import InstituteDetails from "./components/InstituteDetails";
+import InstituteImageBasket from "./components/InstituteImageBasket";
+import InstituteBranch from "./components/InstituteBranch";
+import InstituteBranchAdd from "./components/InstituteBranchAdd";
+import InstituteContacts from "./components/InstituteContacts";
+import InstituteContactsAdd from "./components/InstituteContactsAdd";
 const App = () => {
   return (
 
@@ -34,7 +43,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/userregister" element={<UserRegister />} />
-        <Route path="/signin" element={<Signin />} />
+
         <Route path="/userhome" element={<UserHome />} />
         <Route path="/usereducation" element={<UserEducationDetail />} />
         <Route path="/useremployment" element={<UserEmploymentDetail />} />
@@ -51,6 +60,17 @@ const App = () => {
         <Route path="/userchangepassword" element={<UserChangePasswordDetail />} />
         <Route path="/useractivatedplan" element={<UserActivatedPlanDetail />} />
         <Route path="/useruploadresume" element={<UserUploadResume />} />
+        <Route path="/instituteregister" element={<InstituteRegister />} />
+        <Route path="/institutelogin" element={<InstituteLogin />} />
+        <Route path="/institutehome" element={<InstituteHome />} />
+        <Route path="/instituteactivatedsubscriptions" element={<InstituteActivatedSubscriptions />} />
+        <Route path="/institutedetails" element={<InstituteDetails />} />
+        <Route path="/instituteimagebasket" element={<InstituteImageBasket />} />
+        <Route path="/institutebranch" element={<InstituteBranch />} />
+        <Route path="/institutebranchadd" element={<InstituteBranchAdd />} />
+        <Route path="/institutecontacts" element={<InstituteContacts />} />
+        <Route path="/institutecontactsadd" element={<InstituteContactsAdd />} />
+
       </Routes>
 
     </>

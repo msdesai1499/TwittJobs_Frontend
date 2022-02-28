@@ -43,6 +43,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import ArticleIcon from '@mui/icons-material/Article';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const drawerWidth = 300;
@@ -161,11 +162,17 @@ export default function UserResearchInfoDetail() {
 		axios.post(`${base_url}/client/researchInfo`, UserResearchInfo).then(
 			(response) => {
 				console.log(response);
-				console.log("Research Details added Successfully");
+
+				if (response.data === "Research Information Saved") {
+					toast.success("Research Information added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				getAllResearchInfoFromServer();
 			}, (error) => {
 				console.log(error);
-				console.log("Error");
+				toast.error("Error Occurred");
 			}
 		)
 
@@ -338,7 +345,7 @@ export default function UserResearchInfoDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

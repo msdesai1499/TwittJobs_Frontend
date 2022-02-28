@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -32,6 +33,10 @@ import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDo
 import ArticleIcon from '@mui/icons-material/Article';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
+import axios from "axios";
+import base_url from "../api/bootapi";
+
+
 const drawerWidth = 300;
 
 
@@ -84,6 +89,36 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserUploadResume() {
+
+	const [UserResume, setUserResume] = useState({ id: document.cookie });
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log("Form Submitted");
+		const loginFormData = new FormData();
+		loginFormData.append("file", UserResume.file)
+		loginFormData.append("id", UserResume.id)
+
+		console.log(UserResume.id);
+
+		axios({
+			method: "post",
+			url: `${base_url}/client/uploadResume`,
+			data: loginFormData,
+			headers: { "Content-Type": "multipart/form-data" },
+		})
+			.then(function (response) {
+				//handle success
+				console.log(response);
+			})
+			.catch(function (response) {
+				//handle error
+				console.log(response);
+			});
+
+	}
+
+
+
 
 	const [open1, setOpen1] = React.useState(true);
 
@@ -174,73 +209,73 @@ export default function UserUploadResume() {
 					</ListItemButton>
 					<Collapse in={open1} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/userpreference">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Preference Selection" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/userhome" >
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Personal Information" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/usereducation">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Educational Details" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/useremployment">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Employment Information" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/userportfolio">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Portfolio" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/usersalary">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Salary Details" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/usermedical">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Medical Information" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/userresearchinfo">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Research Information" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/userachievement">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Achievement & Awards" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/usercertification">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Certification Details" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/userdocument">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Document Details" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/userresearchpaper">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -254,7 +289,7 @@ export default function UserUploadResume() {
 						</ListItemIcon>
 						<ListItemText primary="Upload Resume" />
 					</ListItemButton>
-					<ListItemButton >
+					<ListItemButton component="a" href="/usernotification">
 						<ListItemIcon>
 							<NotificationsActiveOutlinedIcon fontSize="medium" />
 						</ListItemIcon>
@@ -270,13 +305,13 @@ export default function UserUploadResume() {
 					</ListItemButton>
 					<Collapse in={open2} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton >
+							<ListItemButton component="a" href="/userchangepassword">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="medium" />
 								</ListItemIcon>
 								<ListItemText primary="Change Password" />
 							</ListItemButton>
-							<ListItemButton >
+							<ListItemButton component="a" href="/useractivatedplan">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="medium" />
 								</ListItemIcon>
@@ -289,44 +324,49 @@ export default function UserUploadResume() {
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
-				<div className='container'>
-					<div style={{ display: 'flex', justifyContent: 'center' }}>
-						<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-							<ArticleIcon />
-						</Avatar>
+				<form onSubmit={handleSubmit}>
+					<div className='container'>
+						<div style={{ display: 'flex', justifyContent: 'center' }}>
+							<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+								<ArticleIcon />
+							</Avatar>
+						</div>
+						<div style={{ display: 'flex', justifyContent: 'center' }}>
+							<Typography component="h1" variant="h5">
+								Submit Resume
+							</Typography>
+						</div>
+						<div style={{ paddingTop: "2rem" }}>
+							<Grid container rowSpacing={4} columnSpacing={4} style={{ display: "flex", justifyContent: "center" }}>
+								<Grid item xs={6} >
+									<TextField
+										type="file"
+										required
+										autoFocus
+										fullWidth
+										label="Upload Resume"
+										InputLabelProps={{ shrink: true }}
+										onChange={(e) => {
+
+											setUserResume({ ...UserResume, file: e.target.files[0] })
+										}}
+									/>
+								</Grid>
+							</Grid>
+						</div>
+
 					</div>
-					<div style={{ display: 'flex', justifyContent: 'center' }}>
-						<Typography component="h1" variant="h5">
-							Submit Resume
-						</Typography>
-					</div>
-					<div style={{ paddingTop: "2rem" }}>
-						<Grid container rowSpacing={4} columnSpacing={4} style={{ display: "flex", justifyContent: "center" }}>
-							<Grid item xs={6} >
-								<TextField
-									type="file"
-									required
-									autoFocus
-									fullWidth
-									label="Upload Resume"
-									InputLabelProps={{ shrink: true }}
-								/>
+					<div className='container' style={{ paddingTop: "2rem", display: "flex", justifyContent: "right" }}>
+						<Grid container columnSpacing={2} style={{ display: "flex", justifyContent: "center" }}>
+
+							<Grid item>
+								<Button type="submit" variant='contained' color='success' endIcon={<DoneIcon />}>Upload RESUME</Button>
 							</Grid>
 						</Grid>
+
+
 					</div>
-
-				</div>
-				<div className='container' style={{ paddingTop: "2rem", display: "flex", justifyContent: "right" }}>
-					<Grid container columnSpacing={2} style={{ display: "flex", justifyContent: "center" }}>
-
-						<Grid item>
-							<Button variant='contained' color='success' endIcon={<DoneIcon />}>Upload RESUME</Button>
-						</Grid>
-					</Grid>
-
-
-				</div>
-
+				</form>
 			</Main>
 		</Box>
 	);

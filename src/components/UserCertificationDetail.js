@@ -44,6 +44,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import ArticleIcon from '@mui/icons-material/Article';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const drawerWidth = 300;
@@ -159,10 +160,15 @@ export default function UserCertificationDetail() {
 		axios.post(`${base_url}/client/certificationInfo`, UserCertification).then(
 			(response) => {
 				console.log(response);
-				console.log("Certification Details added Successfully");
+				if (response.data === "Certification Info Saved") {
+					toast.success("Certification Information Saved Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				getAllResearchPapersFromServer();
 			}, (error) => {
-				console.log(error);
+				toast.error("Error Occurred");
 				console.log("Error");
 			}
 		)
@@ -332,7 +338,7 @@ export default function UserCertificationDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

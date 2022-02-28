@@ -45,6 +45,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';	
 
 
 const drawerWidth = 300;
@@ -132,10 +133,17 @@ export default function UserDocumentDetail() {
 		})
 			.then(function (response) {
 				//handle success
+				if (response.data === "Documents saved successfully") {
+					toast.success("User Documents Added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				console.log(response);
 			})
 			.catch(function (response) {
 				//handle error
+				toast.error("Error Occurred");
 				console.log(response);
 			});
 
@@ -307,7 +315,7 @@ export default function UserDocumentDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

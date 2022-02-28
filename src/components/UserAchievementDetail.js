@@ -44,6 +44,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import ArticleIcon from '@mui/icons-material/Article';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
 
 const drawerWidth = 300;
 
@@ -160,11 +161,17 @@ export default function UserAchievementDetail() {
 		axios.post(`${base_url}/client/awardsInfo`, UserAchievement).then(
 			(response) => {
 				console.log(response);
-				console.log("Awards and Achievements Details added Successfully");
+				if (response.data === "Awards Info Saved") {
+					toast.success("Achievement Detail added");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				getAllAchievementsFromServer();
 			}, (error) => {
 				console.log(error);
-				console.log("Error");
+				toast.error("Error Occurred");
+
 			}
 		)
 
@@ -334,7 +341,7 @@ export default function UserAchievementDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume" >
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

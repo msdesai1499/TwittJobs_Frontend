@@ -38,6 +38,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BookIcon from '@mui/icons-material/Book';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
 
 const drawerWidth = 300;
 
@@ -142,19 +143,22 @@ export default function UserPortfolioDetail() {
 	};
 
 	const [UserPortfolio, setUserPortfolio] = useState({ userId: document.cookie });
-	const handleSubmit = async () => {
-		let a = document.cookie;
-		console.log(typeof a);
-		await setUserPortfolio({ ...UserPortfolio, userId: a })
+	const handleSubmit = () => {
+
 		console.log(UserPortfolio);
 		axios.post(`${base_url}/client/portfolioInfo`, UserPortfolio).then(
 			(response) => {
 				console.log(response);
-				console.log("Portfolio Details added Successfully");
+				if (response.data === "Portfolio details saved successfully") {
+					toast.success("Portfolio Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				getAllPortfolioFromServer();
 			}, (error) => {
 				console.log(error);
-				console.log("Error");
+				toast.error("Error Occurred");
 			}
 		)
 
@@ -326,7 +330,7 @@ export default function UserPortfolioDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

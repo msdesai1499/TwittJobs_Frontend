@@ -42,6 +42,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BadgeIcon from '@mui/icons-material/Badge';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const drawerWidth = 300;
@@ -98,6 +99,61 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function UserEmploymentDetail() {
 
 
+	const [UserData, setUserData] = useState({ userId: document.cookie });
+
+	const getAllEducationFromServer = () => {
+		const loginFormData = new FormData();
+		loginFormData.append("userId", UserEmployment.userId)
+		console.log(loginFormData.get("userId"));
+		axios({
+			method: "post",
+			url: `${base_url}/client/employmentDetail`,
+			data: loginFormData,
+			headers: { "Content-Type": "multipart/form-data" },
+		})
+			.then(function (response) {
+				//handle success
+				console.log(response);
+				setBanks(response.data);
+			})
+			.catch(function (response) {
+				//handle error
+				console.log(response);
+			});
+	};
+
+
+	useEffect(() => {
+		getAllEducationFromServer();
+	}, []);
+
+
+	const [banks, setBanks] = useState([])
+
+
+
+
+	const renderCard = (hostels, index) => {
+
+		return (
+
+			<tr>
+				<td>{hostels.typeOfExperience}</td>
+				<td>{hostels.organizationName}</td>
+				<td>{hostels.fromDate}</td>
+				<td>{hostels.toDate}</td>
+				<td>{hostels.experienceCertificateDate}</td>
+
+				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+			</tr>
+		);
+	};
+
+
+
+
+
+
 	const [UserEmployment, setUserEmployment] = useState({ userId: document.cookie });
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -122,10 +178,19 @@ export default function UserEmploymentDetail() {
 		})
 			.then(function (response) {
 				//handle success
+
+				if (response.data === "Employment details saved successfully") {
+					toast.success("Employment Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				console.log(response);
+				getAllEducationFromServer();
 			})
 			.catch(function (response) {
 				//handle error
+				toast.error("Error Occurred");
 				console.log(response);
 			});
 
@@ -294,7 +359,7 @@ export default function UserEmploymentDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>
@@ -481,7 +546,6 @@ export default function UserEmploymentDetail() {
 							<Table striped bordered hover>
 								<thead>
 									<tr>
-										<th>Date</th>
 										<th>Type of Experience</th>
 										<th>Name of Organization</th>
 										<th>From Date</th>
@@ -491,15 +555,7 @@ export default function UserEmploymentDetail() {
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1-01-2022</td>
-										<td>SSC</td>
-										<td>10th</td>
-										<td>MIT</td>
-										<td>SPPU</td>
-										<td>31-01-2022</td>
-										<td><Button variant="contained"><BuildCircleIcon /></Button></td>
-									</tr>
+									{banks.map(renderCard)}
 								</tbody>
 							</Table>
 						</div>

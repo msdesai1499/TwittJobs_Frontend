@@ -40,6 +40,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
 
 const drawerWidth = 300;
 
@@ -133,11 +134,19 @@ export default function UserMedicalDetail() {
 		console.log(UserMedical);
 		axios.post(`${base_url}/client/medicalInfo`, UserMedical).then(
 			(response) => {
+
+				if (response.data === "Medical Information Saved Successfully") {
+					toast.success("Medical Information added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				console.log(response);
-				console.log("Medical Details added Successfully");
+
 			}, (error) => {
 				console.log(error);
-				console.log("Error");
+				toast.error("Error Occurred");
+
 			}
 		)
 
@@ -309,7 +318,7 @@ export default function UserMedicalDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

@@ -140,13 +140,17 @@ export default function UserResearchPaperDetail() {
 		axios.post(`${base_url}/client/researchPaper`, UserResearchPaper).then(
 			(response) => {
 				console.log(response);
-
-				console.log("Research Paper Details added Successfully");
+				if (response.data === "Research paper details saved successfully") {
+					toast.success("Research Paper Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				getAllResearchPapersFromServer();
 
 			}, (error) => {
 				console.log(error);
-				console.log("Error");
+				toast.error("Error Occurred");
 			}
 		)
 
@@ -317,7 +321,7 @@ export default function UserResearchPaperDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>
@@ -366,7 +370,7 @@ export default function UserResearchPaperDetail() {
 					</div>
 					<div style={{ display: 'flex', justifyContent: 'center' }}>
 						<Typography component="h1" variant="h5">
-							Research Information
+							Research Paper Information
 						</Typography>
 					</div>
 					<div className='container' style={{ paddingTop: "2rem" }}>

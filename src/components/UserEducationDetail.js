@@ -42,6 +42,7 @@ import Table from 'react-bootstrap/Table';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
 
 const drawerWidth = 300;
 
@@ -160,11 +161,15 @@ export default function UserEducationDetails() {
 		axios.post(`${base_url}/client/educationDetails`, UserEducation).then(
 			(response) => {
 				console.log(response);
-				console.log("Education Details added Successfully");
+				if (response.data === "Education details saved successfully") {
+					toast.success("Educational Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 				getAllEducationFromServer();
 			}, (error) => {
 				console.log(error);
-				console.log("Error");
 			}
 		)
 
@@ -336,7 +341,7 @@ export default function UserEducationDetails() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>

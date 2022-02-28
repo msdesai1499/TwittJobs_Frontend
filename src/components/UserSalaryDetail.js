@@ -35,6 +35,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { toast } from "react-toastify";
 
 const drawerWidth = 300;
 
@@ -114,10 +115,17 @@ export default function UserSalaryDetail() {
 			.then(function (response) {
 				//handle success
 				console.log(response);
+				if (response.data === "Salary details saved successfully") {
+					toast.success("Salary Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
 			})
 			.catch(function (response) {
 				//handle error
 				console.log(response);
+				toast.error("Error Occurred");
 			});
 
 	}
@@ -286,7 +294,7 @@ export default function UserSalaryDetail() {
 							</ListItemButton>
 						</List>
 					</Collapse>
-					<ListItemButton >
+					<ListItemButton component="a" href="/useruploadresume">
 						<ListItemIcon>
 							<CloudUploadOutlinedIcon fontSize="medium" />
 						</ListItemIcon>
