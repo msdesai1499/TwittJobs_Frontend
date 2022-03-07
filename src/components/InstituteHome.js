@@ -288,7 +288,7 @@ export default function InstituteHome() {
 					</ListItemButton>
 					<Collapse in={open4} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutecourses">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -305,19 +305,19 @@ export default function InstituteHome() {
 					</ListItemButton>
 					<Collapse in={open5} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobposting">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Job Posting" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutepostingresult">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Posting result" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteemailstatus">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -335,19 +335,19 @@ export default function InstituteHome() {
 					</ListItemButton>
 					<Collapse in={open6} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobapplyreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Job Apply report" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteuserreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Users report " />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteexportedreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>

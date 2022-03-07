@@ -42,12 +42,13 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from '@mui/icons-material/Speed';
 import SearchIcon from '@mui/icons-material/Search';
 import DownloadIcon from '@mui/icons-material/Download';
-import ReplyIcon from '@mui/icons-material/Reply';
+
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActive';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUpload';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+
 import $ from 'jquery';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -63,10 +64,7 @@ import { Icon } from '@iconify/react';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import axios from "axios";
-import base_url from "../api/bootapi";
-import { toast } from 'react-toastify';
-import { useState, useEffect } from 'react';
+
 
 const drawerWidth = 300;
 
@@ -120,42 +118,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function InstituteBranchAdd() {
-
-
-	const [InstituteBranchDetails, setInstituteBranchDetails] = useState({ orgId: document.cookie });
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log("Form Submitted");
-		console.log(InstituteBranchDetails.orgId);
-
-		axios({
-			method: "post",
-			url: `${base_url}/company/companyBranches/addBranch`,
-			data: InstituteBranchDetails,
-
-		})
-			.then(function (response) {
-				//handle success
-
-				if (response.data === "Branch Details Saved") {
-					toast.success("Organization Branch Details added Successfully");
-				}
-				else {
-					toast.error("Error Occurred");
-				}
-				console.log(response);
-
-			})
-			.catch(function (response) {
-				//handle error
-				toast.error("Error Occurred");
-				console.log(response);
-			});
-
-	}
-
-
+export default function InstituteJobPosting() {
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -362,7 +325,7 @@ export default function InstituteBranchAdd() {
 					</ListItemButton>
 					<Collapse in={open5} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobposting">
+							<ListItemButton sx={{ pl: 2 }} >
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -418,155 +381,56 @@ export default function InstituteBranchAdd() {
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
-				<div className='container'>
+				<div className='container' >
 
 					<div className='container'>
-						<Grid container rowSpacing={2} columnSpacing={3}>
+						<Grid container rowSpacing={2}>
 							<Grid item xs={12}>
-								<form onSubmit={handleSubmit}>
-									<Card id="Card1">
-										<CardHeader
-											title="Organization Branches"
-											titleTypographyProps={{ variant: 'h5' }}
-											titleStyle={{ textAlign: "center" }}
-											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-										/>
-										<Grid container style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: "1rem", paddingRight: "1rem" }} rowSpacing={2} columnSpacing={3}>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Branch Location"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, branchLocation: e.target.value })
-													}}
-
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Wesbite URL"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, websiteUrl: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Mobile No "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, mobile: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Telephone No"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, telephone: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Email ID 1 "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, email: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Email ID 2 "
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Contact Person"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, contactPerson: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Contact Person Designation "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, contactPersonDesignation: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="PinCode"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, pincode: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<FormControl fullWidth>
-													<InputLabel id="demo-simple-select-label">Status</InputLabel>
-													<Select
+								<Card id="Card1">
+									<CardHeader
+										title="Job Posting"
+										titleTypographyProps={{ variant: 'h5' }}
+										titleStyle={{ textAlign: "center" }}
+										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+									/>
+									<div className='container' style={{ paddingBottom: "1rem", paddingTop: "1rem", display: "flex", justifyContent: "right" }}>
+										<Button component="a" href="/institutejobpostingadd" variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
+										<Button variant='contained' color="error" style={{ marginLeft: "1rem" }} endIcon={<DeleteIcon />}>DELETE</Button>
+									</div>
+									<div className='container'>
+										<Table striped bordered hover>
+											<thead>
+												<tr>
+													<th><input type="checkbox" /></th>
+													<th>Job Posting Date</th>
+													<th>Advertisement Heading </th>
+													<th>Organization Name</th>
+													<th>job Posting No</th>
+													<th>Organization branch</th>
+													<th>Status</th>
+													<th>Action</th>
 
 
-														label="Status"
-														onChange={(e) => {
+												</tr>
+												<tr>
+													<td><input type="checkbox" /></td>
+													<td>Alandi</td>
+													<td>Pune</td>
+													<td>12345678</td>
+													<td>123@gmail.com</td>
+													<td></td>
+													<td></td>
 
-															setInstituteBranchDetails({ ...InstituteBranchDetails, branchStatus: e.target.value })
-														}}
-													>
-														<MenuItem value="Active">Active</MenuItem>
-														<MenuItem value="Inactive">Inactive</MenuItem>
+													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
+												</tr>
+											</thead>
+											<tbody>
 
-													</Select>
-												</FormControl>
-											</Grid>
-											<Grid item xs={8}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Address"
-													autoComplete="address"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, address: e.target.value })
-													}}
-												/>
-											</Grid>
-										</Grid>
-										<div className='container' style={{ display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem" }}>
-											<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />} >SUBMIT</Button>
-											<Button component="a" href="/institutebranch" variant="contained" style={{ marginLeft: "1rem " }} endIcon={<ReplyIcon />}>Go Back</Button>
-										</div>
-									</Card>
-								</form>
+											</tbody>
+										</Table>
+									</div>
+								</Card>
 							</Grid>
-
 						</Grid>
 					</div>
 

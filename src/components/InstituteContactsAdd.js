@@ -63,7 +63,10 @@ import { Icon } from '@iconify/react';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-
+import axios from "axios";
+import base_url from "../api/bootapi";
+import { toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 
 const drawerWidth = 300;
 
@@ -118,6 +121,69 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstituteContactsAdd() {
+
+
+	const [InstituteContactDetails, setInstituteContactDetails] = useState({ orgId: document.cookie });
+	const [InstituteSocialMediaDetails, setInstituteSocialMediaDetails] = useState({ orgId: document.cookie });
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("Form Submitted");
+		console.log(InstituteContactDetails.orgId);
+
+		axios({
+			method: "post",
+			url: `${base_url}/company/companyContacts/addContact`,
+			data: InstituteContactDetails,
+
+		})
+			.then(function (response) {
+				//handle success
+
+				if (response.data === "Contact Saved Successfully") {
+					toast.success("Organization Contacts Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
+				console.log(response);
+
+			})
+			.catch(function (response) {
+				//handle error
+				toast.error("Error Occurred");
+				console.log(response);
+			});
+
+
+		axios({
+			method: "post",
+			url: `${base_url}/company/socialMediaDetails`,
+			data: InstituteSocialMediaDetails,
+
+		})
+			.then(function (response) {
+				//handle success
+
+				if (response.data === "Social Media Info Saved") {
+					toast.success("Organization Social Media Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
+				console.log(response);
+
+			})
+			.catch(function (response) {
+				//handle error
+				toast.error("Error Occurred");
+				console.log(response);
+			});
+
+	}
+
+
+
+
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -234,13 +300,13 @@ export default function InstituteContactsAdd() {
 					</ListItemButton>
 					<Collapse in={open1} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutehome">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Home" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteactivatedsubscriptions" >
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -258,7 +324,7 @@ export default function InstituteContactsAdd() {
 					</ListItemButton>
 					<Collapse in={open2} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteimagebasket">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -277,19 +343,19 @@ export default function InstituteContactsAdd() {
 					</ListItemButton>
 					<Collapse in={open3} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutedetails">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Organization details" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutebranch">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Organization branch" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutecontacts">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -307,7 +373,7 @@ export default function InstituteContactsAdd() {
 					</ListItemButton>
 					<Collapse in={open4} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutecourses">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -324,19 +390,19 @@ export default function InstituteContactsAdd() {
 					</ListItemButton>
 					<Collapse in={open5} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobposting">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Job Posting" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutepostingresult">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Posting result" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteemailstatus">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -354,19 +420,19 @@ export default function InstituteContactsAdd() {
 					</ListItemButton>
 					<Collapse in={open6} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobapplyreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Job Apply report" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteuserreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Users report " />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteexportedreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -385,209 +451,234 @@ export default function InstituteContactsAdd() {
 					<div className='container'>
 						<Grid container rowSpacing={2}>
 							<Grid item xs={12}>
-								<Card id="Card1">
-									<CardHeader
-										title="Organization Contacts"
-										titleTypographyProps={{ variant: 'h5' }}
-										titleStyle={{ textAlign: "center" }}
-										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-									/>
-									<Grid container columnSpacing={3} style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: '1rem' }}>
-										<Grid item xs={6}>
-											<Card>
-												<CardHeader
-													title=" Contact Details"
-													titleTypographyProps={{ variant: 'h5' }}
-													titleStyle={{ textAlign: "center" }}
-													style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-												/>
-												<Grid container rowSpacing={2} style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: '1rem', paddingRight: "1rem" }}>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Designation"
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="email"
-															label="Contact Email 1"
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="email"
-															label="Contact Email 2"
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="url"
-															label="Photo URL"
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Contact Person"
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Contact Mobile 1"
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Contact Mobile 2"
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Profile Sequence Number"
-														/>
-													</Grid>
-												</Grid>
-												<div className='container' style={{ padding: "0rem 1rem 1rem 1rem" }}>
-													<Button variant="contained" color="success" endIcon={<DoneIcon />}>SUBMIT</Button>
-													<Button component="a" href="/institutecontacts" variant="contained" style={{ marginLeft: "1rem " }} endIcon={<ReplyIcon />}>Go Back</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={6}>
-											<Card>
-												<CardHeader
-													title="Social Media Account URL"
-													titleTypographyProps={{ variant: 'h5' }}
-													titleStyle={{ textAlign: "center" }}
-													style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-												/>
-												<Grid container rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="facebook"
-															InputProps={{
-																startAdornment: (
-																	<InputAdornment position="start">
-																		<FacebookIcon style={{ color: "blue" }} />
-																	</InputAdornment>
-																),
-															}}
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Twitter"
-															InputProps={{
-																startAdornment: (
-																	<InputAdornment position="start">
-																		<TwitterIcon style={{ color: "skyblue" }} />
-																	</InputAdornment>
-																),
-															}}
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Skype"
-															InputProps={{
-																startAdornment: (
-																	<InputAdornment position="start">
-																		<Icon icon="mdi:skype" style={{ transform: "scale(2)", color: "darkblue" }} />
-																	</InputAdornment>
-																),
-															}}
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Instagram"
-															InputProps={{
-																startAdornment: (
-																	<InputAdornment position="start">
-																		<InstagramIcon style={{ color: "#8a3ab9" }} />
-																	</InputAdornment>
-																),
-															}}
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Linked In"
-															InputProps={{
-																startAdornment: (
-																	<InputAdornment position="start">
-																		<LinkedInIcon style={{ color: "darkblue" }} />
-																	</InputAdornment>
-																),
-															}}
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="YouTube"
-															InputProps={{
-																startAdornment: (
-																	<InputAdornment position="start">
-																		<YouTubeIcon style={{ color: "red" }} />
-																	</InputAdornment>
-																),
-															}}
-														/>
-													</Grid>
-													<div className='container' style={{ paddingTop: '1rem', paddingLeft: '1rem' }}>
-														Short Description
-													</div>
-													<Grid item xs={12}>
-														<Editor apiKey="xx25k2b5mqr063n0g3w6t5qzf6spgc09m2rnm1jkaohib6so"
-															onInit={(evt, editor) => editorRef.current = editor}
-															initialValue="<p>Enter the Short description of the organization.</p>"
-															init={{
-																height: 150,
-																menubar: false,
-																plugins: [
-																	'advlist autolink lists link image charmap print preview anchor',
-																	'searchreplace visualblocks code fullscreen',
-																	'insertdatetime media table paste code help wordcount'
-																],
-																toolbar: 'undo redo | formatselect | ' +
-																	'bold italic backcolor | alignleft aligncenter ' +
-																	'alignright alignjustify | bullist numlist outdent indent | ' +
-																	'removeformat | help',
-																content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-															}}
-														/>
-													</Grid>
-												</Grid>
+								<form onSubmit={handleSubmit}>
+									<Card id="Card1">
+										<CardHeader
+											title="Organization Contacts"
+											titleTypographyProps={{ variant: 'h5' }}
+											titleStyle={{ textAlign: "center" }}
+											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+										/>
+										<Grid container columnSpacing={3} style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: '1rem' }}>
+											<Grid item xs={6}>
+												<Card>
+													<CardHeader
+														title=" Contact Details"
+														titleTypographyProps={{ variant: 'h5' }}
+														titleStyle={{ textAlign: "center" }}
+														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+													/>
+													<Grid container rowSpacing={2} style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: '1rem', paddingRight: "1rem" }}>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Designation"
+																onChange={(e) => {
 
-											</Card>
-										</Grid>
-									</Grid>
-								</Card>
+																	setInstituteContactDetails({ ...InstituteContactDetails, designation: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="email"
+																label="Contact Email 1"
+																onChange={(e) => {
 
+																	setInstituteContactDetails({ ...InstituteContactDetails, contactEmail: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="email"
+																label="Contact Email 2"
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="url"
+																label="Photo URL"
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Contact Person"
+																onChange={(e) => {
+
+																	setInstituteContactDetails({ ...InstituteContactDetails, contactPerson: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Contact Mobile 1"
+																onChange={(e) => {
+
+																	setInstituteContactDetails({ ...InstituteContactDetails, contactMobile: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Contact Mobile 2"
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Profile Sequence Number"
+																onChange={(e) => {
+
+																	setInstituteContactDetails({ ...InstituteContactDetails, profileSequenceNumber: e.target.value })
+																}}
+															/>
+														</Grid>
+													</Grid>
+
+												</Card>
+											</Grid>
+											<Grid item xs={6}>
+												<Card>
+													<CardHeader
+														title="Social Media Account URL"
+														titleTypographyProps={{ variant: 'h5' }}
+														titleStyle={{ textAlign: "center" }}
+														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+													/>
+													<Grid container rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="facebook"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<FacebookIcon style={{ color: "blue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, facebookUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Twitter"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<TwitterIcon style={{ color: "skyblue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, twitterUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Skype"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<Icon icon="mdi:skype" style={{ transform: "scale(2)", color: "darkblue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, skypeUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Instagram"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<InstagramIcon style={{ color: "#8a3ab9" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, instagramUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Linked In"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<LinkedInIcon style={{ color: "darkblue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, linkedInUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="YouTube"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<YouTubeIcon style={{ color: "red" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, youtubeUrl 	: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<div className='container' style={{ padding: "0rem 1rem 1rem 1rem" }}>
+																<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />}>SUBMIT</Button>
+																<Button component="a" href="/institutecontacts" variant="contained" style={{ marginLeft: "1rem " }} endIcon={<ReplyIcon />}>Go Back</Button>
+															</div>
+														</Grid>
+													</Grid>
+
+												</Card>
+											</Grid>
+										</Grid>
+									</Card>
+								</form>
 							</Grid>
 						</Grid>
 					</div>

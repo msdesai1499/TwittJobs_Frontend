@@ -62,7 +62,10 @@ import { Icon } from '@iconify/react';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-
+import axios from "axios";
+import base_url from "../api/bootapi";
+import { toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 
 const drawerWidth = 300;
 
@@ -117,6 +120,44 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstituteDetails() {
+
+
+	const [InstituteDetails, setInstituteDetails] = useState({ orgId: document.cookie });
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("Form Submitted");
+		console.log(InstituteDetails.orgId);
+
+		axios({
+			method: "post",
+			url: `${base_url}/company/companyDetails`,
+			data: InstituteDetails,
+
+		})
+			.then(function (response) {
+				//handle success
+
+				if (response.data === "Organization Info added Successfully") {
+					toast.success("Organization Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
+				console.log(response);
+
+			})
+			.catch(function (response) {
+				//handle error
+				toast.error("Error Occurred");
+				console.log(response);
+			});
+
+	}
+
+
+
+
+
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -233,13 +274,13 @@ export default function InstituteDetails() {
 					</ListItemButton>
 					<Collapse in={open1} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutehome" >
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutehome">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Home" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteactivatedsubscriptions"  >
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteactivatedsubscriptions" >
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -306,7 +347,7 @@ export default function InstituteDetails() {
 					</ListItemButton>
 					<Collapse in={open4} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutecourses">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -323,19 +364,19 @@ export default function InstituteDetails() {
 					</ListItemButton>
 					<Collapse in={open5} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobposting">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Job Posting" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutepostingresult">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Posting result" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteemailstatus">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -353,19 +394,19 @@ export default function InstituteDetails() {
 					</ListItemButton>
 					<Collapse in={open6} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobapplyreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Job Apply report" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteuserreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Users report " />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteexportedreports">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -384,272 +425,56 @@ export default function InstituteDetails() {
 					<div className='container'>
 						<Grid container rowSpacing={2}>
 							<Grid item xs={12}>
-								<Card id="Card1">
-									<CardHeader
-										title="Organization Details"
-										titleTypographyProps={{ variant: 'h5' }}
-										titleStyle={{ textAlign: "center" }}
-										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-									/>
-									<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
-										<Grid item xs={6}>
-											<Card>
-												<CardHeader
-													title="Organization Type"
-													titleStyle={{ textAlign: "center" }}
-													style={{ backgroundColor: "#D3D3D3" }} />
-												<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
-													<Grid item xs={12}>
-														<FormControl fullWidth>
-															<InputLabel id="demo-simple-select-label">Type</InputLabel>
-															<Select
-
-
-																label="Type"
-
-															>
-																<MenuItem value="School">School</MenuItem>
-																<MenuItem value="College">College</MenuItem>
-																<MenuItem value="Coaching Class">Coaching Class</MenuItem>
-																<MenuItem value="Institute">Institute</MenuItem>
-																<MenuItem value="Training Center">Training Center</MenuItem>
-																<MenuItem value="University">University</MenuItem>
-																<MenuItem value="NGO/Foundation">NGO/Foundation</MenuItem>
-																<MenuItem value="Other">Other</MenuItem>
-															</Select>
-														</FormControl>
-													</Grid>
-
-												</Grid>
-
-											</Card>
-
-										</Grid>
-										<Grid item xs={6}>
-											<Card>
-												<CardHeader
-													title="Organization Name"
-													titleStyle={{ textAlign: "center" }}
-													style={{ backgroundColor: "#D3D3D3" }}
-												/>
-												<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															type="text"
-															label="Name of Organization"
-															required
-														/>
-													</Grid>
-												</Grid>
-											</Card>
-										</Grid>
-
-										<Grid item xs={6}>
-											<Card>
-												<CardHeader
-													title="Organization Description"
-													titleStyle={{ textAlign: "center" }}
-													style={{ backgroundColor: "#D3D3D3" }}
-												/>
-												<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
-													<div className='container' style={{ paddingLeft: '1rem' }}>
-														Short Description
-													</div>
-													<Grid item xs={12}>
-														<Editor apiKey="xx25k2b5mqr063n0g3w6t5qzf6spgc09m2rnm1jkaohib6so"
-															onInit={(evt, editor) => editorRef.current = editor}
-															initialValue="<p>Enter the short description of the organization.</p>"
-															init={{
-																height: 400,
-																menubar: false,
-																plugins: [
-																	'advlist autolink lists link image charmap print preview anchor',
-																	'searchreplace visualblocks code fullscreen',
-																	'insertdatetime media table paste code help wordcount'
-																],
-																toolbar: 'undo redo | formatselect | ' +
-																	'bold italic backcolor | alignleft aligncenter ' +
-																	'alignright alignjustify | bullist numlist outdent indent | ' +
-																	'removeformat | help',
-																content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-															}}
-														/>
-													</Grid>
-													<div className='container' style={{ paddingTop: '1rem', paddingLeft: '1rem' }}>
-														Long Description
-													</div>
-													<Grid item xs={12}>
-														<Editor apiKey="xx25k2b5mqr063n0g3w6t5qzf6spgc09m2rnm1jkaohib6so"
-															onInit={(evt, editor) => editorRef.current = editor}
-															initialValue="<p>Enter the Long description of the organization.</p>"
-															init={{
-																height: 400,
-																menubar: false,
-																plugins: [
-																	'advlist autolink lists link image charmap print preview anchor',
-																	'searchreplace visualblocks code fullscreen',
-																	'insertdatetime media table paste code help wordcount'
-																],
-																toolbar: 'undo redo | formatselect | ' +
-																	'bold italic backcolor | alignleft aligncenter ' +
-																	'alignright alignjustify | bullist numlist outdent indent | ' +
-																	'removeformat | help',
-																content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-															}}
-														/>
-													</Grid>
-													<div className='container' style={{ paddingTop: '1rem', paddingLeft: '1rem' }}>
-														Organization Vision
-													</div>
-													<Grid item xs={12}>
-														<Editor apiKey="xx25k2b5mqr063n0g3w6t5qzf6spgc09m2rnm1jkaohib6so"
-															onInit={(evt, editor) => editorRef.current = editor}
-															initialValue="<p>Enter the Vision of the organization.</p>"
-															init={{
-																height: 200,
-																menubar: false,
-																plugins: [
-																	'advlist autolink lists link image charmap print preview anchor',
-																	'searchreplace visualblocks code fullscreen',
-																	'insertdatetime media table paste code help wordcount'
-																],
-																toolbar: 'undo redo | formatselect | ' +
-																	'bold italic backcolor | alignleft aligncenter ' +
-																	'alignright alignjustify | bullist numlist outdent indent | ' +
-																	'removeformat | help',
-																content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-															}}
-														/>
-													</Grid>
-													<div className='container' style={{ paddingTop: '1rem', paddingLeft: '1rem' }}>
-														Organization Slogan
-													</div>
-													<Grid item xs={12}>
-														<TextField
-															fullWidth
-															label="Organization Slogan"
-														/>
-													</Grid>
-													<div className='container' style={{ paddingTop: '1rem', paddingLeft: '1rem' }}>
-														Organization Address
-													</div>
-													<Grid item xs={12}>
-														<Editor apiKey="xx25k2b5mqr063n0g3w6t5qzf6spgc09m2rnm1jkaohib6so"
-															onInit={(evt, editor) => editorRef.current = editor}
-															initialValue="<p>Enter the Address of the organization.</p>"
-															init={{
-																height: 200,
-																menubar: false,
-																plugins: [
-																	'advlist autolink lists link image charmap print preview anchor',
-																	'searchreplace visualblocks code fullscreen',
-																	'insertdatetime media table paste code help wordcount'
-																],
-																toolbar: 'undo redo | formatselect | ' +
-																	'bold italic backcolor | alignleft aligncenter ' +
-																	'alignright alignjustify | bullist numlist outdent indent | ' +
-																	'removeformat | help',
-																content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-															}}
-														/>
-													</Grid>
-												</Grid>
-											</Card>
-										</Grid>
-
-										<Grid item xs={6}>
-											<Card>
-												<CardHeader
-													title="Organization Contact Details"
-													titleStyle={{ textAlign: "center" }}
-													style={{ backgroundColor: "#D3D3D3" }}
-												/>
-												<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
-													<Grid item xs={6}>
-														<TextField
-															type="email"
-															label="Email ID 1"
-															autoComplete='email'
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={6}>
-														<TextField
-															type="email"
-															label="Email ID 2"
-															autoComplete='email'
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															type="number"
-															label="Mobile Number"
-
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={6}>
-														<TextField
-															type="number"
-															label="Whatsapp Number"
-
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={6}>
-														<TextField
-															type="number"
-															label="Telephone Number"
-
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={6}>
-														<TextField
-															type="text"
-															label="Contact Person"
-
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={6}>
-														<TextField
-															type="text"
-															label="Contact Person Designation"
-
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={12}>
-														<TextField
-															type="Url"
-															label="Website URL"
-
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={6}>
-														<TextField
-															type="Url"
-															label="Location Map URL"
-
-															fullWidth
-														/>
-													</Grid>
-													<Grid item xs={6}>
-														<TextField
-															type="Url"
-															label="Organization Logo URL"
-
-															fullWidth
-														/>
-													</Grid>
-												</Grid>
-												<Card >
+								<form onSubmit={handleSubmit}>
+									<Card id="Card1">
+										<CardHeader
+											title="Organization Details"
+											titleTypographyProps={{ variant: 'h5' }}
+											titleStyle={{ textAlign: "center" }}
+											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+										/>
+										<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
+											<Grid item xs={6}>
+												<Card>
 													<CardHeader
-														title="Social Media Account URL"
+														title="Organization Type"
+														titleStyle={{ textAlign: "center" }}
+														style={{ backgroundColor: "#D3D3D3" }} />
+													<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
+														<Grid item xs={12}>
+															<FormControl fullWidth>
+																<InputLabel id="demo-simple-select-label">Type</InputLabel>
+																<Select
+
+
+																	label="Type"
+																	onChange={(e) => {
+
+																		setInstituteDetails({ ...InstituteDetails, organizationType: e.target.value })
+																	}}
+
+																>
+																	<MenuItem value="School">School</MenuItem>
+																	<MenuItem value="College">College</MenuItem>
+																	<MenuItem value="Coaching Class">Coaching Class</MenuItem>
+																	<MenuItem value="Institute">Institute</MenuItem>
+																	<MenuItem value="Training Center">Training Center</MenuItem>
+																	<MenuItem value="University">University</MenuItem>
+																	<MenuItem value="NGO/Foundation">NGO/Foundation</MenuItem>
+																	<MenuItem value="Other">Other</MenuItem>
+																</Select>
+															</FormControl>
+														</Grid>
+
+													</Grid>
+
+												</Card>
+
+											</Grid>
+											<Grid item xs={6}>
+												<Card>
+													<CardHeader
+														title="Organization Name"
 														titleStyle={{ textAlign: "center" }}
 														style={{ backgroundColor: "#D3D3D3" }}
 													/>
@@ -658,100 +483,99 @@ export default function InstituteDetails() {
 															<TextField
 																fullWidth
 																type="text"
-																label="facebook"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<FacebookIcon style={{ color: "blue" }} />
-																		</InputAdornment>
-																	),
+																label="Name of Organization"
+																required
+																onChange={(e) => {
+
+																	setInstituteDetails({ ...InstituteDetails, organizationName: e.target.value })
 																}}
 															/>
 														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Twitter"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<TwitterIcon style={{ color: "skyblue" }} />
-																		</InputAdornment>
-																	),
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Skype"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<Icon icon="mdi:skype" style={{ transform: "scale(2)", color: "darkblue" }} />
-																		</InputAdornment>
-																	),
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Instagram"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<InstagramIcon style={{ color: "#8a3ab9" }} />
-																		</InputAdornment>
-																	),
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Linked In"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<LinkedInIcon style={{ color: "darkblue" }} />
-																		</InputAdornment>
-																	),
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="YouTube"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<YouTubeIcon style={{ color: "red" }} />
-																		</InputAdornment>
-																	),
-																}}
-															/>
-														</Grid>
-														<div className='container' style={{ paddingTop: "1rem", marginRight: '-0.5rem', display: 'flex', justifyContent: 'right' }} >
-															<Button variant='contained' color='success' endIcon={<DoneIcon />}>SUBMIT</Button>
-														</div>
 													</Grid>
 												</Card>
-											</Card>
+											</Grid>
+
+											<Grid item xs={6}>
+												<Card>
+													<CardHeader
+														title="Organization Description"
+														titleStyle={{ textAlign: "center" }}
+														style={{ backgroundColor: "#D3D3D3" }}
+													/>
+													<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
+
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																label="Description"
+																onChange={(e) => {
+
+																	setInstituteDetails({ ...InstituteDetails, organizationDescription: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																label="Organization Address"
+																onChange={(e) => {
+
+																	setInstituteDetails({ ...InstituteDetails, organizationAddress: e.target.value })
+																}}
+															/>
+														</Grid>
+
+
+													</Grid>
+												</Card>
+											</Grid>
+
+											<Grid item xs={6}>
+												<Card>
+
+													<Card >
+														<CardHeader
+															title="Organization Vision"
+															titleStyle={{ textAlign: "center" }}
+															style={{ backgroundColor: "#D3D3D3" }}
+														/>
+
+														<Grid container columnSpacing={2} rowSpacing={2} style={{ paddingTop: "2rem", paddingRight: "1rem", paddingLeft: "1rem", paddingBottom: "2rem" }}>
+															<Grid item xs={12}>
+																<TextField
+																	fullWidth
+																	label="Organization Slogan"
+																	onChange={(e) => {
+
+																		setInstituteDetails({ ...InstituteDetails, organizationSlogan: e.target.value })
+																	}}
+																/>
+															</Grid>
+															<Grid item xs={12}>
+																<TextField
+																	fullWidth
+																	label="Organization Vision"
+																	onChange={(e) => {
+
+																		setInstituteDetails({ ...InstituteDetails, organizationVision: e.target.value })
+																	}}
+																/>
+															</Grid>
+															<div className='container' style={{ paddingTop: "1rem", marginRight: '-0.5rem', display: 'flex', justifyContent: 'right' }} >
+																<Button type="submit" variant='contained' color='success' endIcon={<DoneIcon />}>SUBMIT</Button>
+															</div>
+														</Grid>
+													</Card>
+												</Card>
+											</Grid>
+
 										</Grid>
 
-									</Grid>
 
 
 
-
-								</Card>
+									</Card>
+								</form>
 							</Grid>
 
 

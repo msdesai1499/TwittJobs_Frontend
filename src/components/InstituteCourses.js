@@ -42,7 +42,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from '@mui/icons-material/Speed';
 import SearchIcon from '@mui/icons-material/Search';
 import DownloadIcon from '@mui/icons-material/Download';
-import ReplyIcon from '@mui/icons-material/Reply';
+
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActive';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUpload';
@@ -67,6 +67,7 @@ import axios from "axios";
 import base_url from "../api/bootapi";
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
+
 
 const drawerWidth = 300;
 
@@ -120,26 +121,25 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function InstituteBranchAdd() {
+export default function InstituteCourses() {
 
-
-	const [InstituteBranchDetails, setInstituteBranchDetails] = useState({ orgId: document.cookie });
-	const handleSubmit = (e) => {
+	const [InstitutePostDetails, setInstitutePostDetails] = useState({ orgId: document.cookie });
+	const handleSubmit1 = (e) => {
 		e.preventDefault();
 		console.log("Form Submitted");
-		console.log(InstituteBranchDetails.orgId);
+		console.log(InstitutePostDetails.orgId);
 
 		axios({
 			method: "post",
-			url: `${base_url}/company/companyBranches/addBranch`,
-			data: InstituteBranchDetails,
+			url: `${base_url}/company/courseSection/posts/addPost`,
+			data: InstitutePostDetails,
 
 		})
 			.then(function (response) {
 				//handle success
 
-				if (response.data === "Branch Details Saved") {
-					toast.success("Organization Branch Details added Successfully");
+				if (response.data === "Post Details Saved") {
+					toast.success("Organization Post Details added Successfully");
 				}
 				else {
 					toast.error("Error Occurred");
@@ -154,6 +154,73 @@ export default function InstituteBranchAdd() {
 			});
 
 	}
+
+	const [InstituteProgramDetails, setInstituteProgramDetails] = useState({ orgId: document.cookie });
+	const handleSubmit2 = (e) => {
+		e.preventDefault();
+		console.log("Form Submitted");
+		console.log(InstituteProgramDetails.orgId);
+
+		axios({
+			method: "post",
+			url: `${base_url}/company/courseSection/programs/addProgram`,
+			data: InstituteProgramDetails,
+
+		})
+			.then(function (response) {
+				//handle success
+
+				if (response.data === "Program Details Saved") {
+					toast.success("Organization Program Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
+				console.log(response);
+
+			})
+			.catch(function (response) {
+				//handle error
+				toast.error("Error Occurred");
+				console.log(response);
+			});
+
+	}
+
+	const [InstituteCourseDetails, setInstituteCourseDetails] = useState({ orgId: document.cookie });
+	const handleSubmit3 = (e) => {
+		e.preventDefault();
+		console.log("Form Submitted");
+		console.log(InstituteCourseDetails.orgId);
+
+		axios({
+			method: "post",
+			url: `${base_url}/company/courseSection/courses/addCourse`,
+			data: InstituteCourseDetails,
+
+		})
+			.then(function (response) {
+				//handle success
+
+				if (response.data === "Course Details Saved") {
+					toast.success("Organization Course Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
+				console.log(response);
+
+			})
+			.catch(function (response) {
+				//handle error
+				toast.error("Error Occurred");
+				console.log(response);
+			});
+
+	}
+
+
+
 
 
 
@@ -345,7 +412,7 @@ export default function InstituteBranchAdd() {
 					</ListItemButton>
 					<Collapse in={open4} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutecourses">
+							<ListItemButton sx={{ pl: 2 }} >
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -418,155 +485,341 @@ export default function InstituteBranchAdd() {
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
-				<div className='container'>
+				<div className='container' >
 
 					<div className='container'>
-						<Grid container rowSpacing={2} columnSpacing={3}>
+						<Grid container rowSpacing={2}>
 							<Grid item xs={12}>
-								<form onSubmit={handleSubmit}>
+								<form onSubmit={handleSubmit1}>
 									<Card id="Card1">
 										<CardHeader
-											title="Organization Branches"
+											title="Post Details "
 											titleTypographyProps={{ variant: 'h5' }}
 											titleStyle={{ textAlign: "center" }}
 											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
 										/>
-										<Grid container style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: "1rem", paddingRight: "1rem" }} rowSpacing={2} columnSpacing={3}>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Branch Location"
-													onChange={(e) => {
+										<Grid container rowSpacing={2} columnSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+											<Grid container xs={4} rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
 
-														setInstituteBranchDetails({ ...InstituteBranchDetails, branchLocation: e.target.value })
-													}}
+												<Grid item xs={12}>
 
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Wesbite URL"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, websiteUrl: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Mobile No "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, mobile: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Telephone No"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, telephone: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Email ID 1 "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, email: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Email ID 2 "
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Contact Person"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, contactPerson: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Contact Person Designation "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, contactPersonDesignation: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="PinCode"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, pincode: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<FormControl fullWidth>
-													<InputLabel id="demo-simple-select-label">Status</InputLabel>
-													<Select
-
-
-														label="Status"
+													<TextField
+														fullWidth
+														label="Post Name"
 														onChange={(e) => {
 
-															setInstituteBranchDetails({ ...InstituteBranchDetails, branchStatus: e.target.value })
+															setInstitutePostDetails({ ...InstitutePostDetails, postName: e.target.value })
 														}}
-													>
-														<MenuItem value="Active">Active</MenuItem>
-														<MenuItem value="Inactive">Inactive</MenuItem>
+													/>
 
-													</Select>
-												</FormControl>
+												</Grid>
+												<Grid item xs={12} >
+
+													<FormControl fullWidth>
+														<InputLabel id="demo-simple-select-label">Status</InputLabel>
+														<Select
+															fullWidth
+															label="Status"
+															onChange={(e) => {
+
+																setInstitutePostDetails({ ...InstitutePostDetails, postStatus: e.target.value })
+															}}
+														>
+															<MenuItem value="true">Active</MenuItem>
+															<MenuItem value="false">Inactive</MenuItem>
+
+														</Select>
+													</FormControl>
+
+												</Grid>
+
 											</Grid>
-											<Grid item xs={8}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Address"
-													autoComplete="address"
-													onChange={(e) => {
+											<Grid container xs={8} rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+												<Grid item xs={12}>
 
-														setInstituteBranchDetails({ ...InstituteBranchDetails, address: e.target.value })
-													}}
-												/>
+													<TextField
+
+														fullWidth
+														label="Post Details"
+														onChange={(e) => {
+
+															setInstitutePostDetails({ ...InstitutePostDetails, postDetails: e.target.value })
+														}}
+													/>
+
+												</Grid>
 											</Grid>
 										</Grid>
-										<div className='container' style={{ display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem" }}>
-											<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />} >SUBMIT</Button>
-											<Button component="a" href="/institutebranch" variant="contained" style={{ marginLeft: "1rem " }} endIcon={<ReplyIcon />}>Go Back</Button>
+										<div className='container' style={{ padding: "0rem 1rem 1rem 1rem", display: "flex", justifyContent: "right" }}>
+											<Button type="submit" variant="contained" color='success' endIcon={<DoneIcon />}>Submit</Button>
 										</div>
+
+
 									</Card>
 								</form>
 							</Grid>
+							<Grid item xs={12}>
+								<Card style={{ padding: "1rem 0rem 0rem 0rem" }}>
+									<div className='container'>
+										<Table striped bordered hover>
+											<thead>
+												<tr>
+													<th><input type="checkbox" /></th>
+													<th>Added Date</th>
+													<th>Post Name</th>
+													<th>Status</th>
+													<th>Action</th>
+												</tr>
+												<tr>
+													<td><input type="checkbox" /></td>
+													<td>Alandi</td>
+													<td>Pune</td>
+													<td>123@gmail.com</td>
+													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
+												</tr>
+											</thead>
+										</Table>
+										<div style={{ display: "flex", justifyContent: "right", paddingBottom: '1rem' }}>
+											{
+												<Button variant='contained' color="error" endIcon={<DeleteIcon />}>DELETE</Button>
+											}
+										</div>
+									</div>
+								</Card>
+							</Grid>
+							<Grid item xs={12}>
+								<form onSubmit={handleSubmit2}>
+									<Card id="Card2">
+										<CardHeader
+											title="Program Details "
+											titleTypographyProps={{ variant: 'h5' }}
+											titleStyle={{ textAlign: "center" }}
+											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+										/>
+										<Grid container rowSpacing={2} columnSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+											<Grid container xs={4} rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
 
+												<Grid item xs={12}>
+
+													<TextField
+														fullWidth
+														label="Program Name"
+														onChange={(e) => {
+
+															setInstituteProgramDetails({ ...InstituteProgramDetails, programName: e.target.value })
+														}}
+													/>
+
+												</Grid>
+												<Grid item xs={12} >
+
+													<FormControl fullWidth>
+														<InputLabel id="demo-simple-select-label">Program Status</InputLabel>
+														<Select
+															fullWidth
+															label="Program Status"
+															onChange={(e) => {
+
+																setInstituteProgramDetails({ ...InstituteProgramDetails, programStatus: e.target.value })
+															}}
+
+														>
+															<MenuItem value="true">Active</MenuItem>
+															<MenuItem value="false">Inactive</MenuItem>
+
+														</Select>
+													</FormControl>
+
+												</Grid>
+											</Grid>
+											<Grid container xs={8} rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+												<Grid item xs={12}>
+
+													<TextField
+														fullWidth
+														label="Program Details"
+														onChange={(e) => {
+
+															setInstituteProgramDetails({ ...InstituteProgramDetails, programDetails: e.target.value })
+														}}
+													/>
+
+												</Grid>
+											</Grid>
+										</Grid>
+										<div className='container' style={{ padding: "0rem 1rem 1rem 1rem", display: "flex", justifyContent: "right" }}>
+											<Button type="submit" variant="contained" color='success' endIcon={<DoneIcon />}>Submit</Button>
+										</div>
+
+
+									</Card>
+								</form>
+
+							</Grid>
+							<Grid item xs={12}>
+								<Card style={{ padding: "1rem 0rem 0rem 0rem" }}>
+									<div className='container'>
+										<Table striped bordered hover>
+											<thead>
+												<tr>
+													<th><input type="checkbox" /></th>
+													<th>Added Date</th>
+													<th>Program Name</th>
+													<th>Status</th>
+													<th>Action</th>
+												</tr>
+												<tr>
+													<td><input type="checkbox" /></td>
+													<td>Alandi</td>
+													<td>Pune</td>
+													<td>123@gmail.com</td>
+													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
+												</tr>
+											</thead>
+										</Table>
+										<div style={{ display: "flex", justifyContent: "right", paddingBottom: '1rem' }}>
+											{
+												<Button variant='contained' color="error" endIcon={<DeleteIcon />}>DELETE</Button>
+											}
+										</div>
+									</div>
+								</Card>
+							</Grid>
+							<Grid item xs={12}>
+								<form onSubmit={handleSubmit3}>
+									<Card id="Card3">
+										<CardHeader
+											title="Course Details "
+											titleTypographyProps={{ variant: 'h5' }}
+											titleStyle={{ textAlign: "center" }}
+											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+										/>
+										<Grid container rowSpacing={2} columnSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+											<Grid container xs={4} rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+												<Grid item xs={12} >
+
+													<FormControl fullWidth>
+														<InputLabel id="demo-simple-select-label">Educational Discipline</InputLabel>
+														<Select
+															fullWidth
+															label="Educational Discipline"
+															onChange={(e) => {
+
+																setInstituteCourseDetails({ ...InstituteCourseDetails, educationDiscipline: e.target.value })
+															}}
+														>
+															<MenuItem value="Distance and Learning Center">Distance and Learning Center</MenuItem>
+															<MenuItem value="Training and Development">Training and Development</MenuItem>
+															<MenuItem value="Coaching Tutor">Coaching Tutor</MenuItem>
+															<MenuItem value="Home Tutor">Home Tutor</MenuItem>
+															<MenuItem value="Agriculture Education">Agriculture Education</MenuItem>
+															<MenuItem value="Liberal Education">Liberal Education</MenuItem>
+															<MenuItem value="Business Education">Business Education</MenuItem>
+															<MenuItem value="Vocational Educational">Vocational Education</MenuItem>
+															<MenuItem value="Polytechnic Educational">Polytechnic Education</MenuItem>
+															<MenuItem value="Law Educational">Law Education</MenuItem>
+															<MenuItem value="Management Educational">Management Education</MenuItem>
+															<MenuItem value="Commerce Educational">Commerce Education</MenuItem>
+															<MenuItem value="Science Educational">Science Education</MenuItem>
+															<MenuItem value="Arts Educational">Arts Education</MenuItem>
+															<MenuItem value="Arts,Commerce & Science">Arts,Commerce & Science</MenuItem>
+															<MenuItem value="Pharmacy Educational">Pharmacy Education</MenuItem>
+															<MenuItem value="Medical Educational">Medical Education</MenuItem>
+															<MenuItem value="Engineering and Technology">Engineering and Technology</MenuItem>
+															<MenuItem value="Pre-Primary">Pre-Primary</MenuItem>
+
+
+														</Select>
+													</FormControl>
+
+												</Grid>
+												<Grid item xs={12}>
+
+													<TextField
+														fullWidth
+														label="Course Name"
+														onChange={(e) => {
+
+															setInstituteCourseDetails({ ...InstituteCourseDetails, courseName: e.target.value })
+														}}
+													/>
+
+												</Grid>
+
+												<Grid item xs={12} >
+
+													<FormControl fullWidth>
+														<InputLabel id="demo-simple-select-label">Course Status</InputLabel>
+														<Select
+															fullWidth
+															label="Course Status"
+															onChange={(e) => {
+
+																setInstituteCourseDetails({ ...InstituteCourseDetails, courseStatus: e.target.value })
+															}}
+														>
+															<MenuItem value="true">Active</MenuItem>
+															<MenuItem value="false">Inactive</MenuItem>
+
+														</Select>
+													</FormControl>
+
+												</Grid>
+											</Grid>
+											<Grid container xs={8} rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+												<Grid item xs={12}>
+
+													<TextField
+														fullWidth
+														label="Course Details"
+														onChange={(e) => {
+
+															setInstituteCourseDetails({ ...InstituteCourseDetails, courseDetails: e.target.value })
+														}}
+													/>
+
+												</Grid>
+											</Grid>
+										</Grid>
+										<div className='container' style={{ padding: "0rem 1rem 1rem 1rem", display: "flex", justifyContent: "right" }}>
+											<Button type="submit" variant="contained" color='success' endIcon={<DoneIcon />}>Submit</Button>
+										</div>
+
+
+									</Card>
+								</form>
+							</Grid>
+							<Grid item xs={12}>
+								<Card style={{ padding: "1rem 0rem 0rem 0rem" }}>
+									<div className='container'>
+										<Table striped bordered hover>
+											<thead>
+												<tr>
+													<th><input type="checkbox" /></th>
+													<th>Added Date</th>
+													<th>Discipline Type</th>
+													<th>Course Name</th>
+													<th>Status</th>
+													<th>Action</th>
+												</tr>
+												<tr>
+													<td><input type="checkbox" /></td>
+													<td>Enginerring</td>
+													<td>Alandi</td>
+													<td>Pune</td>
+													<td>123@gmail.com</td>
+													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
+												</tr>
+											</thead>
+										</Table>
+										<div style={{ display: "flex", justifyContent: "right", paddingBottom: '1rem' }}>
+											{
+												<Button variant='contained' color="error" endIcon={<DeleteIcon />}>DELETE</Button>
+											}
+										</div>
+									</div>
+								</Card>
+							</Grid>
 						</Grid>
 					</div>
 

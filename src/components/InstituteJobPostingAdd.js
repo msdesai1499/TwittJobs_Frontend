@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
+import ReplyIcon from '@mui/icons-material/Reply';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -42,12 +43,13 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from '@mui/icons-material/Speed';
 import SearchIcon from '@mui/icons-material/Search';
 import DownloadIcon from '@mui/icons-material/Download';
-import ReplyIcon from '@mui/icons-material/Reply';
+
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActive';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUpload';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+
 import $ from 'jquery';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -55,14 +57,7 @@ import Table from 'react-bootstrap/Table';
 import SaveIcon from '@mui/icons-material/Save';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import SchoolIcon from '@mui/icons-material/School';
-import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InputAdornment from '@mui/material/InputAdornment';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import { Icon } from '@iconify/react';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import YouTubeIcon from '@mui/icons-material/YouTube';
+
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { toast } from 'react-toastify';
@@ -120,26 +115,26 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function InstituteBranchAdd() {
+export default function InstituteJobPostingAdd() {
 
 
-	const [InstituteBranchDetails, setInstituteBranchDetails] = useState({ orgId: document.cookie });
+	const [InstituteJobDetails, setInstituteJobDetails] = useState({ orgId: document.cookie });
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log("Form Submitted");
-		console.log(InstituteBranchDetails.orgId);
+		console.log(InstituteJobDetails.orgId);
 
 		axios({
 			method: "post",
-			url: `${base_url}/company/companyBranches/addBranch`,
-			data: InstituteBranchDetails,
+			url: `${base_url}/company/posting/jobs/addJob`,
+			data: InstituteJobDetails,
 
 		})
 			.then(function (response) {
 				//handle success
 
-				if (response.data === "Branch Details Saved") {
-					toast.success("Organization Branch Details added Successfully");
+				if (response.data === "Job Posted") {
+					toast.success("Job Posted added Successfully");
 				}
 				else {
 					toast.error("Error Occurred");
@@ -154,6 +149,8 @@ export default function InstituteBranchAdd() {
 			});
 
 	}
+
+
 
 
 
@@ -421,152 +418,323 @@ export default function InstituteBranchAdd() {
 				<div className='container'>
 
 					<div className='container'>
-						<Grid container rowSpacing={2} columnSpacing={3}>
+						<Grid container rowSpacing={2}>
 							<Grid item xs={12}>
 								<form onSubmit={handleSubmit}>
 									<Card id="Card1">
 										<CardHeader
-											title="Organization Branches"
+											title="Job Posting"
 											titleTypographyProps={{ variant: 'h5' }}
 											titleStyle={{ textAlign: "center" }}
 											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
 										/>
-										<Grid container style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: "1rem", paddingRight: "1rem" }} rowSpacing={2} columnSpacing={3}>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Branch Location"
-													onChange={(e) => {
+										<Grid container columnSpacing={3} style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: '1rem' }}>
+											<Grid item xs={6}>
+												<Card >
+													<CardHeader
+														title=" Organization Details"
+														titleTypographyProps={{ variant: 'h5' }}
+														titleStyle={{ textAlign: "center" }}
+														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+													/>
+													<Grid container rowSpacing={2} style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: '1rem', paddingRight: "1rem" }}>
 
-														setInstituteBranchDetails({ ...InstituteBranchDetails, branchLocation: e.target.value })
-													}}
+														<Grid item xs={12}>
+															<FormControl fullWidth>
+																<InputLabel id="demo-simple-select-label">Organization Branch</InputLabel>
+																<Select
 
-												/>
+
+																	label="Organization Branch"
+																	onChange={(e) => {
+
+																		setInstituteJobDetails({ ...InstituteJobDetails, orgBranch: e.target.value })
+																	}}
+																>
+																	<MenuItem value="Accounts">Accounts</MenuItem>
+																	<MenuItem value="Teaching">Teaching</MenuItem>
+																	<MenuItem value="Asssitance">Assistance</MenuItem>
+																	<MenuItem value="Management">Management</MenuItem>
+																</Select>
+															</FormControl>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="date"
+																label="Date of Posting"
+																InputLabelProps={{ shrink: true }}
+																onChange={(e) => {
+
+																	setInstituteJobDetails({ ...InstituteJobDetails, dateOfPosting: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="date"
+																label="Deadline Date"
+																InputLabelProps={{ shrink: true }}
+																onChange={(e) => {
+
+																	setInstituteJobDetails({ ...InstituteJobDetails, deadlineDate: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Video name"
+																onChange={(e) => {
+
+																	setInstituteJobDetails({ ...InstituteJobDetails, videoName: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="url"
+																label="Video URL"
+																onChange={(e) => {
+
+																	setInstituteJobDetails({ ...InstituteJobDetails, videoUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<FormControl fullWidth>
+																<InputLabel id="demo-simple-select-label">Posting Status</InputLabel>
+																<Select
+
+
+																	label="Posting Status"
+																	onChange={(e) => {
+
+																		setInstituteJobDetails({ ...InstituteJobDetails, postingStatus: e.target.value })
+																	}}
+																>
+																	<MenuItem value="true">Active</MenuItem>
+																	<MenuItem value="false">Inactive</MenuItem>
+																</Select>
+															</FormControl>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Note"
+																onChange={(e) => {
+
+																	setInstituteJobDetails({ ...InstituteJobDetails, note: e.target.value })
+																}}
+															/>
+														</Grid>
+													</Grid>
+
+												</Card>
 											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Wesbite URL"
-													onChange={(e) => {
+											<Grid item xs={6} style={{ paddingRight: "1rem" }}>
+												<Card>
+													<CardHeader
+														title="Advertisement Details"
+														titleTypographyProps={{ variant: 'h5' }}
+														titleStyle={{ textAlign: "center" }}
+														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+													/>
+													<Grid container rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Advertisement Heading"
+																onChange={(e) => {
 
-														setInstituteBranchDetails({ ...InstituteBranchDetails, websiteUrl: e.target.value })
-													}}
-												/>
+																	setInstituteJobDetails({ ...InstituteJobDetails, advertismentHeading: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Job Description"
+																onChange={(e) => {
+
+																	setInstituteJobDetails({ ...InstituteJobDetails, jobDescription: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Roles and Responsibilities"
+																onChange={(e) => {
+
+																	setInstituteJobDetails({ ...InstituteJobDetails, rolesAndResponsibilites: e.target.value })
+																}}
+															/>
+														</Grid>
+													</Grid>
+
+												</Card>
 											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Mobile No "
-													onChange={(e) => {
+											<Grid item xs={12}>
+												<Card style={{ marginRight: "1rem", marginTop: "1rem" }}>
+													<div className='container' style={{ marginTop: "1rem" }}>
+														<Table striped bordered hover>
+															<thead>
+																<tr>
+																	<th>Course Name</th>
+																	<th>Program</th>
+																	<th>Post</th>
+																	<th>Qualification</th>
+																	<th>Experience</th>
+																	<th>Caste</th>
+																	<th>Working Type</th>
 
-														setInstituteBranchDetails({ ...InstituteBranchDetails, mobile: e.target.value })
-													}}
-												/>
+
+																</tr>
+																<tr>
+																	<td>
+																		<FormControl fullWidth>
+																			<InputLabel id="demo-simple-select-label">Course Name</InputLabel>
+																			<Select
+																				labelId="demo-simple-select-label"
+																				id="demo-simple-select"
+
+																				label="Course Name"
+																				onChange={(e) => {
+
+																					setInstituteJobDetails({ ...InstituteJobDetails, courseName: e.target.value })
+																				}}
+
+																			>
+																				<MenuItem value="Course 1">Course 1</MenuItem>
+																				<MenuItem value="Course 2">Course 2</MenuItem>
+																				<MenuItem value="Course 3">Course 3</MenuItem>
+																			</Select>
+																		</FormControl>
+																	</td>
+																	<td>
+																		<FormControl fullWidth>
+																			<InputLabel id="demo-simple-select-label">Program</InputLabel>
+																			<Select
+																				labelId="demo-simple-select-label"
+																				id="demo-simple-select"
+
+																				label="Program"
+																				onChange={(e) => {
+
+																					setInstituteJobDetails({ ...InstituteJobDetails, programName: e.target.value })
+																				}}
+
+																			>
+																				<MenuItem value="Program 1">Program 1</MenuItem>
+																				<MenuItem value="Program 2">Program 2</MenuItem>
+																				<MenuItem value="Program 3">Program 3</MenuItem>
+																			</Select>
+																		</FormControl>
+																	</td>
+																	<td>
+																		<FormControl fullWidth>
+																			<InputLabel id="demo-simple-select-label">Post Name</InputLabel>
+																			<Select
+																				labelId="demo-simple-select-label"
+																				id="demo-simple-select"
+
+																				label="Post Name"
+																				onChange={(e) => {
+
+																					setInstituteJobDetails({ ...InstituteJobDetails, postName: e.target.value })
+																				}}
+
+																			>
+																				<MenuItem value="Post 1">Post 1</MenuItem>
+																				<MenuItem value="Post 2">Post 2</MenuItem>
+																				<MenuItem value="Post 3">Post 3</MenuItem>
+																			</Select>
+																		</FormControl>
+																	</td>
+																	<td>
+																		<TextField
+																			type="text"
+																			label="Qualification"
+																			fullWidth
+																			onChange={(e) => {
+
+																				setInstituteJobDetails({ ...InstituteJobDetails, qualification: e.target.value })
+																			}}
+																		/>
+																	</td>
+																	<td>
+																		<TextField
+																			type="text"
+																			label="Experience"
+																			fullWidth
+																			onChange={(e) => {
+
+																				setInstituteJobDetails({ ...InstituteJobDetails, experience: e.target.value })
+																			}}
+																		/>
+																	</td>
+
+
+																	<td>
+																		<TextField
+																			type="text"
+																			label="Caste"
+																			fullWidth
+																			onChange={(e) => {
+
+																				setInstituteJobDetails({ ...InstituteJobDetails, caste: e.target.value })
+																			}}
+																		/>
+																	</td>
+																	<td>
+																		<FormControl fullWidth>
+																			<InputLabel id="demo-simple-select-label">Working Type</InputLabel>
+																			<Select
+																				labelId="demo-simple-select-label"
+																				id="demo-simple-select"
+
+																				label="Working Type"
+																				onChange={(e) => {
+
+																					setInstituteJobDetails({ ...InstituteJobDetails, workingType: e.target.value })
+																				}}
+
+																			>
+																				<MenuItem value="Full Time">Full Time</MenuItem>
+																				<MenuItem value="Part Time">Part Time</MenuItem>
+																			</Select>
+																		</FormControl>
+																	</td>
+																</tr>
+															</thead>
+															<tbody>
+
+															</tbody>
+														</Table>
+
+														<div style={{ paddingBottom: "1rem" }} >
+															<Button variant="contained" color="success">Add More...</Button>
+														</div>
+
+													</div>
+												</Card>
 											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Telephone No"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, telephone: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Email ID 1 "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, email: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Email ID 2 "
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Contact Person"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, contactPerson: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Contact Person Designation "
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, contactPersonDesignation: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<TextField
-													fullWidth
-													type="text"
-													label="PinCode"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, pincode: e.target.value })
-													}}
-												/>
-											</Grid>
-											<Grid item xs={4}>
-												<FormControl fullWidth>
-													<InputLabel id="demo-simple-select-label">Status</InputLabel>
-													<Select
-
-
-														label="Status"
-														onChange={(e) => {
-
-															setInstituteBranchDetails({ ...InstituteBranchDetails, branchStatus: e.target.value })
-														}}
-													>
-														<MenuItem value="Active">Active</MenuItem>
-														<MenuItem value="Inactive">Inactive</MenuItem>
-
-													</Select>
-												</FormControl>
-											</Grid>
-											<Grid item xs={8}>
-												<TextField
-													fullWidth
-													type="text"
-													label="Address"
-													autoComplete="address"
-													onChange={(e) => {
-
-														setInstituteBranchDetails({ ...InstituteBranchDetails, address: e.target.value })
-													}}
-												/>
-											</Grid>
+											<div className='container' style={{ display: "flex", justifyContent: "right", paddingTop: '1rem' }}>
+												<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />}>Submit</Button>
+												<Button component="a" href="/institutejobposting" variant='contained' style={{ marginLeft: '1rem', marginRight: '.3rem' }} endIcon={<ReplyIcon />}> Go Back</Button>
+											</div>
 										</Grid>
-										<div className='container' style={{ display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem" }}>
-											<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />} >SUBMIT</Button>
-											<Button component="a" href="/institutebranch" variant="contained" style={{ marginLeft: "1rem " }} endIcon={<ReplyIcon />}>Go Back</Button>
-										</div>
 									</Card>
 								</form>
 							</Grid>
-
 						</Grid>
 					</div>
 

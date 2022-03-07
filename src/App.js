@@ -32,6 +32,14 @@ import InstituteBranch from "./components/InstituteBranch";
 import InstituteBranchAdd from "./components/InstituteBranchAdd";
 import InstituteContacts from "./components/InstituteContacts";
 import InstituteContactsAdd from "./components/InstituteContactsAdd";
+import InstituteCourses from "./components/InstituteCourses";
+import InstituteJobPosting from "./components/InstituteJobPosting";
+import InstituteJobPostingAdd from "./components/InstituteJobPostingAdd";
+import InstitutePostingResult from "./components/InstitutePostingResult";
+import InstituteEmailStatus from "./components/InstituteEmailStatus";
+import InstituteJobApplyReports from "./components/InstituteJobApplyReports";
+import InstituteUserReports from "./components/InstituteUserReports";
+import InstituteExportedReports from "./components/InstituteExportedReports";
 const App = () => {
   return (
 
@@ -70,6 +78,15 @@ const App = () => {
         <Route path="/institutebranchadd" element={<InstituteBranchAdd />} />
         <Route path="/institutecontacts" element={<InstituteContacts />} />
         <Route path="/institutecontactsadd" element={<InstituteContactsAdd />} />
+        <Route path="/institutecourses" element={<InstituteCourses />} />
+        <Route path="/institutejobposting" element={<InstituteJobPosting />} />
+        <Route path="/institutejobpostingadd" element={<InstituteJobPostingAdd />} />
+        <Route path="/institutepostingresult" element={<InstitutePostingResult />} />
+        <Route path="/instituteemailstatus" element={<InstituteEmailStatus />} />
+        <Route path="/institutejobapplyreports" element={<InstituteJobApplyReports />} />
+        <Route path="/instituteuserreports" element={<InstituteUserReports />} />
+        <Route path="/instituteexportedreports" element={<InstituteExportedReports />} />
+
 
       </Routes>
 
