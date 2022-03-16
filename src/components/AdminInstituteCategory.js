@@ -5,34 +5,23 @@ import { Editor } from '@tinymce/tinymce-react';
 import Toolbar from '@mui/material/Toolbar';
 import PublishIcon from '@mui/icons-material/Publish';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import FormControl from '@mui/material/FormControl';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import IconButton from '@mui/material/IconButton';
 import CardHeader from '@mui/material/CardHeader';
 import MenuIcon from '@mui/icons-material/Menu';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import FolderIcon from '@mui/icons-material/Folder';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import PersonIcon from '@mui/icons-material/Person';
 import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
-import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import Drawer from '@mui/material/Drawer';
 import ListItemButton from '@mui/material/ListItemButton';
 import Collapse from '@mui/material/Collapse';
@@ -40,36 +29,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from '@mui/icons-material/Speed';
-import SearchIcon from '@mui/icons-material/Search';
-import DownloadIcon from '@mui/icons-material/Download';
-
+import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActive';
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUpload';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-
-import $ from 'jquery';
-import DoneIcon from '@mui/icons-material/Done';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Table from 'react-bootstrap/Table';
-import SaveIcon from '@mui/icons-material/Save';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
-import SchoolIcon from '@mui/icons-material/School';
-import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InputAdornment from '@mui/material/InputAdornment';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import { Icon } from '@iconify/react';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import axios from "axios";
-import base_url from "../api/bootapi";
-import { ToastContainer, toast } from 'react-toastify';
-import { useState, useEffect } from 'react';
-
-
+import AlignVertical from '@mui/icons-material/AlignVerticalBottom';
+import LocationCity from '@mui/icons-material/LocationCity';
+import SendIcon from '@mui/icons-material/Send';
 const drawerWidth = 300;
 
 
@@ -122,70 +95,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function InstituteJobPosting() {
-
-
-
-	const getAllInstituteJobsFromServer = () => {
-		axios.get(`${base_url}/company/posting/jobs`, { params: { orgId: document.cookie } }).then(
-			(response) => {
-				//For Success
-				console.log(response)
-				console.log(response.data)
-
-				setJobs(response.data);
-
-			},
-			(error) => {
-				//For Error
-				console.log(error)
-				toast.error("Something went wrong");
-			}
-		);
-	};
-
-
-	useEffect(() => {
-		getAllInstituteJobsFromServer();
-	}, []);
-
-
-	const [jobs, setJobs] = useState([])
-
-
-
-
-	const renderCard = (inst, index) => {
-
-		return (
-
-			<tr>
-				<td>{inst.jobId}</td>
-				<td>{inst.orgBranch}</td>
-				<td>{inst.dateOfPosting}</td>
-				<td>{inst.deadlineDate}</td>
-				<td>{inst.videoName}</td>
-				<a href={inst.videoUrl} ><td>{inst.videoUrl}</td></a>
-				<td>{inst.note}</td>
-				<td>{inst.advertismentHeading}</td>
-				<td>{inst.jobDescription}</td>
-				<td>{inst.rolesAndResponsibilites}</td>
-				<td>{inst.courseName}</td>
-				<td>{inst.programName}</td>
-				<td>{inst.postName}</td>
-				<td>{inst.qualification}</td>
-				<td>{inst.experience}</td>
-				<td>{inst.caste}</td>
-				<td>{inst.workingType}</td>
-
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
-			</tr>
-		);
-	};
-
-
-
-
+export default function AdminInstituteCategory() {
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -241,6 +151,15 @@ export default function InstituteJobPosting() {
 		setOpen(false);
 	};
 
+	const [open7, setOpen7] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen7(true);
+	};
+
+	const handleClose = () => {
+		setOpen7(false);
+	};
 
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -302,35 +221,35 @@ export default function InstituteJobPosting() {
 					</ListItemButton>
 					<Collapse in={open1} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutehome">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Home" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteactivatedsubscriptions" >
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Activated Subscriptions" />
+								<ListItemText primary="Subscriptions plans report" />
 							</ListItemButton>
 
 						</List>
 					</Collapse>
 					<ListItemButton onClick={handleClick1}>
 						<ListItemIcon>
-							<FolderIcon fontSize="medium" />
+							<SettingsIcon fontSize="medium" />
 						</ListItemIcon>
-						<ListItemText primary="Media Section" />
+						<ListItemText primary="Settings" />
 						{open2 ? <ExpandLess /> : <ExpandMore />}
 					</ListItemButton>
 					<Collapse in={open2} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteimagebasket">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Image Basket" />
+								<ListItemText primary="Manage User" />
 							</ListItemButton>
 
 
@@ -338,44 +257,44 @@ export default function InstituteJobPosting() {
 					</Collapse>
 					<ListItemButton onClick={handleClick2}>
 						<ListItemIcon>
-							<CorporateFareIcon fontSize="medium" />
+							<AlignVertical fontSize="medium" />
 						</ListItemIcon>
-						<ListItemText primary="Organization Section" />
+						<ListItemText primary="Marketing & Promotion" />
 						{open3 ? <ExpandLess /> : <ExpandMore />}
 					</ListItemButton>
 					<Collapse in={open3} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutedetails">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Organization details" />
+								<ListItemText primary="Proposal Management" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutebranch">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Organization branch" />
+								<ListItemText primary="Inquiry Management" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutecontacts">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Organization contacts" />
+								<ListItemText primary="Inquiry Standards" />
 							</ListItemButton>
 
 						</List>
 					</Collapse>
 					<ListItemButton onClick={handleClick3}>
 						<ListItemIcon>
-							<SchoolIcon fontSize="medium" />
+							<ArticleIcon fontSize="medium" />
 						</ListItemIcon>
-						<ListItemText primary="Course Section" />
+						<ListItemText primary="News Section" />
 						{open4 ? <ExpandLess /> : <ExpandMore />}
 					</ListItemButton>
 					<Collapse in={open4} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutecourses">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -385,30 +304,30 @@ export default function InstituteJobPosting() {
 					</Collapse>
 					<ListItemButton onClick={handleClick4}>
 						<ListItemIcon>
-							<PublishIcon fontSize="medium" />
+							<LocationCity fontSize="medium" />
 						</ListItemIcon>
-						<ListItemText primary="Posting Section" />
+						<ListItemText primary="Institute Setting" />
 						{open5 ? <ExpandLess /> : <ExpandMore />}
 					</ListItemButton>
 					<Collapse in={open5} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} >
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Job Posting" />
+								<ListItemText primary="Institue Category" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutepostingresult">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Posting result" />
+								<ListItemText primary="File Import" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteemailstatus">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Email status" />
+								<ListItemText primary="Institue Details" />
 							</ListItemButton>
 
 						</List>
@@ -417,29 +336,24 @@ export default function InstituteJobPosting() {
 						<ListItemIcon>
 							<PublishIcon fontSize="medium" />
 						</ListItemIcon>
-						<ListItemText primary="Download Reports" />
+						<ListItemText primary="Posting Section" />
 						{open6 ? <ExpandLess /> : <ExpandMore />}
 					</ListItemButton>
 					<Collapse in={open6} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutejobapplyreports">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Job Apply report" />
+								<ListItemText primary="Posting Result" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteuserreports">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Users report " />
+								<ListItemText primary="Email status " />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteexportedreports">
-								<ListItemIcon>
-									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
-								</ListItemIcon>
-								<ListItemText primary="Exported report" />
-							</ListItemButton>
+
 
 						</List>
 					</Collapse>
@@ -448,54 +362,53 @@ export default function InstituteJobPosting() {
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
-				<div className='container' >
+				<div className='container'>
 
 					<div className='container'>
 						<Grid container rowSpacing={2}>
 							<Grid item xs={12}>
 								<Card id="Card1">
 									<CardHeader
-										title="Job Posting"
+										title="Institute Category"
 										titleTypographyProps={{ variant: 'h5' }}
 										titleStyle={{ textAlign: "center" }}
 										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
 									/>
 									<div className='container' style={{ paddingBottom: "1rem", paddingTop: "1rem", display: "flex", justifyContent: "right" }}>
-										<Button component="a" href="/institutejobpostingadd" variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
+
+										<Button variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
 										<Button variant='contained' color="error" style={{ marginLeft: "1rem" }} endIcon={<DeleteIcon />}>DELETE</Button>
+
 									</div>
 									<div className='container'>
 										<Table striped bordered hover>
 											<thead>
 												<tr>
+													<th><input type="checkbox" /></th>
+													<th>Added Date</th>
+													<th>Category Name</th>
+													<th>Category Sub Name </th>
+													<th>Status </th>
 
-													<th>Job Id </th>
-													<th>Organization Branch</th>
-													<th>Date of Posting</th>
-													<th>Deadline</th>
-													<th>Video Name</th>
-													<th>Video Url</th>
-													<th>Note</th>
-													<th>Adv Heading</th>
-													<th>Job Description</th>
-													<th>Role</th>
-													<th>Course Name</th>
-													<th>Program Name</th>
-													<th>Post Name</th>
-													<th>Qualification</th>
-													<th>Experience</th>
-													<th>Caste</th>
-													<th>Working Type</th>
 													<th>Action</th>
 
 
 												</tr>
+												<tr>
+													<td><input type="checkbox" /></td>
+													<td>Alandi</td>
+													<td>Pune</td>
+													<td>1</td>
 
+													<td>1</td>
+
+
+													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
+												</tr>
 											</thead>
 											<tbody>
-												{jobs.map(renderCard)}
-											</tbody>
 
+											</tbody>
 										</Table>
 									</div>
 								</Card>

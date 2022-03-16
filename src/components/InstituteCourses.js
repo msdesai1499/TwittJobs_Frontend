@@ -123,6 +123,123 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function InstituteCourses() {
 
+
+	const getAllInstituteCoursePostsFromServer = () => {
+		axios.get(`${base_url}/company/courseSection/posts`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response)
+				console.log(response.data)
+
+				setPosts(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+	const getAllInstituteCourseProgramsFromServer = () => {
+		axios.get(`${base_url}/company/courseSection/programs`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response)
+				console.log(response.data)
+
+				setPrograms(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+	const getAllInstituteCoursesFromServer = () => {
+		axios.get(`${base_url}/company/courseSection/courses`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response)
+				console.log(response.data)
+
+				setCourses(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+
+	useEffect(() => {
+		getAllInstituteCoursePostsFromServer();
+		getAllInstituteCourseProgramsFromServer();
+		getAllInstituteCoursesFromServer();
+	}, []);
+
+
+	const [posts, setPosts] = useState([])
+	const [programs, setPrograms] = useState([])
+	const [courses, setCourses] = useState([])
+
+
+
+
+	const renderCard1 = (inst, index) => {
+
+		return (
+
+			<tr>
+				<td>{inst.postName}</td>
+				<td>{inst.postDetails}</td>
+
+				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+			</tr>
+		);
+	};
+
+	const renderCard2 = (inst, index) => {
+
+		return (
+
+			<tr>
+				<td>{inst.programName}</td>
+				<td>{inst.programDetails}</td>
+
+				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+			</tr>
+		);
+	};
+
+	const renderCard3 = (inst, index) => {
+
+		return (
+
+			<tr>
+				<td>{inst.courseName}</td>
+				<td>{inst.educationDiscipline}</td>
+				<td>{inst.courseDetails}</td>
+
+				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+			</tr>
+		);
+	};
+
+
+
+
+
+
+
+
 	const [InstitutePostDetails, setInstitutePostDetails] = useState({ orgId: document.cookie });
 	const handleSubmit1 = (e) => {
 		e.preventDefault();
@@ -140,11 +257,13 @@ export default function InstituteCourses() {
 
 				if (response.data === "Post Details Saved") {
 					toast.success("Organization Post Details added Successfully");
+					getAllInstituteCoursePostsFromServer();
 				}
 				else {
 					toast.error("Error Occurred");
 				}
 				console.log(response);
+
 
 			})
 			.catch(function (response) {
@@ -172,6 +291,7 @@ export default function InstituteCourses() {
 
 				if (response.data === "Program Details Saved") {
 					toast.success("Organization Program Details added Successfully");
+					getAllInstituteCourseProgramsFromServer();
 				}
 				else {
 					toast.error("Error Occurred");
@@ -204,6 +324,7 @@ export default function InstituteCourses() {
 
 				if (response.data === "Course Details Saved") {
 					toast.success("Organization Course Details added Successfully");
+					getAllInstituteCoursesFromServer();
 				}
 				else {
 					toast.error("Error Occurred");
@@ -564,20 +685,15 @@ export default function InstituteCourses() {
 										<Table striped bordered hover>
 											<thead>
 												<tr>
-													<th><input type="checkbox" /></th>
-													<th>Added Date</th>
+
 													<th>Post Name</th>
-													<th>Status</th>
+													<th>Details</th>
 													<th>Action</th>
 												</tr>
-												<tr>
-													<td><input type="checkbox" /></td>
-													<td>Alandi</td>
-													<td>Pune</td>
-													<td>123@gmail.com</td>
-													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
-												</tr>
 											</thead>
+											<tbody>
+												{posts.map(renderCard1)}
+											</tbody>
 										</Table>
 										<div style={{ display: "flex", justifyContent: "right", paddingBottom: '1rem' }}>
 											{
@@ -662,20 +778,15 @@ export default function InstituteCourses() {
 										<Table striped bordered hover>
 											<thead>
 												<tr>
-													<th><input type="checkbox" /></th>
-													<th>Added Date</th>
 													<th>Program Name</th>
-													<th>Status</th>
+													<th>Details</th>
 													<th>Action</th>
 												</tr>
-												<tr>
-													<td><input type="checkbox" /></td>
-													<td>Alandi</td>
-													<td>Pune</td>
-													<td>123@gmail.com</td>
-													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
-												</tr>
+
 											</thead>
+											<tbody>
+												{programs.map(renderCard2)}
+											</tbody>
 										</Table>
 										<div style={{ display: "flex", justifyContent: "right", paddingBottom: '1rem' }}>
 											{
@@ -795,22 +906,16 @@ export default function InstituteCourses() {
 										<Table striped bordered hover>
 											<thead>
 												<tr>
-													<th><input type="checkbox" /></th>
-													<th>Added Date</th>
+
 													<th>Discipline Type</th>
 													<th>Course Name</th>
-													<th>Status</th>
+													<th>Details</th>
 													<th>Action</th>
 												</tr>
-												<tr>
-													<td><input type="checkbox" /></td>
-													<td>Enginerring</td>
-													<td>Alandi</td>
-													<td>Pune</td>
-													<td>123@gmail.com</td>
-													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
-												</tr>
 											</thead>
+											<tbody>
+												{courses.map(renderCard3)}
+											</tbody>
 										</Table>
 										<div style={{ display: "flex", justifyContent: "right", paddingBottom: '1rem' }}>
 											{

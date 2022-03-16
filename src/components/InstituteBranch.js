@@ -63,7 +63,10 @@ import { Icon } from '@iconify/react';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-
+import axios from "axios";
+import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 
 const drawerWidth = 300;
 
@@ -118,6 +121,56 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstituteBranch() {
+
+	const getAllInstituteBranchFromServer = () => {
+		axios.get(`${base_url}/company/companyBranches`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response)
+				console.log(response.data)
+
+				setBanks(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+
+	useEffect(() => {
+		getAllInstituteBranchFromServer();
+	}, []);
+
+
+	const [banks, setBanks] = useState([])
+
+
+
+
+	const renderCard = (inst, index) => {
+
+		return (
+
+			<tr>
+				<td>{inst.branchLocation}</td>
+				<a href={inst.websiteUrl} ><td>{inst.websiteUrl}</td></a>
+				<td>{inst.email}</td>
+				<td>{inst.mobile}</td>
+				<td>{inst.contactPerson}</td>
+				<td>{inst.branchStatus}</td>
+
+				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+			</tr>
+		);
+	};
+
+
+
+
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -400,30 +453,18 @@ export default function InstituteBranch() {
 										<Table striped bordered hover>
 											<thead>
 												<tr>
-													<th><input type="checkbox" /></th>
-													<th>Branch Name</th>
-													<th>Location</th>
-													<th>Contact</th>
-													<th>Email ID</th>
+
+													<th>Branch Location</th>
+													<th>Branch Website</th>
+													<th>Email Id</th>
+													<th>Mobile No</th>
 													<th>Contact Person</th>
 													<th>Status</th>
 													<th>Action</th>
-
-
-												</tr>
-												<tr>
-													<td><input type="checkbox" /></td>
-													<td>Alandi</td>
-													<td>Pune</td>
-													<td>12345678</td>
-													<td>123@gmail.com</td>
-													<td>ABC</td>
-													<td>Inactive</td>
-													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
 												</tr>
 											</thead>
 											<tbody>
-
+												{banks.map(renderCard)}
 											</tbody>
 										</Table>
 									</div>

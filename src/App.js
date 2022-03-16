@@ -40,6 +40,9 @@ import InstituteEmailStatus from "./components/InstituteEmailStatus";
 import InstituteJobApplyReports from "./components/InstituteJobApplyReports";
 import InstituteUserReports from "./components/InstituteUserReports";
 import InstituteExportedReports from "./components/InstituteExportedReports";
+import AdminManageUser from "./components/AdminManageUser";
+import AdminManageUserAdd from "./components/AdminManageUserAdd";
+
 const App = () => {
   return (
 
@@ -86,6 +89,8 @@ const App = () => {
         <Route path="/institutejobapplyreports" element={<InstituteJobApplyReports />} />
         <Route path="/instituteuserreports" element={<InstituteUserReports />} />
         <Route path="/instituteexportedreports" element={<InstituteExportedReports />} />
+        <Route path="/adminmanageuser" element={<AdminManageUser />} />
+        <Route path="/adminmanageuseradd" element={<AdminManageUserAdd />} />
 
 
       </Routes>
