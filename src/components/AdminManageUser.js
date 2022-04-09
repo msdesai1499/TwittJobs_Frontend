@@ -221,7 +221,7 @@ export default function AdminManageUser() {
 					</ListItemButton>
 					<Collapse in={open1} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -245,7 +245,7 @@ export default function AdminManageUser() {
 					</ListItemButton>
 					<Collapse in={open2} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminmanageuser">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -264,19 +264,19 @@ export default function AdminManageUser() {
 					</ListItemButton>
 					<Collapse in={open3} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminproposalmanagement">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Proposal Management" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininquirymanagement">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Inquiry Management" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininquirystandards">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -294,11 +294,11 @@ export default function AdminManageUser() {
 					</ListItemButton>
 					<Collapse in={open4} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminnews" >
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="Courses" />
+								<ListItemText primary="News" />
 							</ListItemButton>
 						</List>
 					</Collapse>
@@ -311,19 +311,19 @@ export default function AdminManageUser() {
 					</ListItemButton>
 					<Collapse in={open5} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininstitutecategory">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Institue Category" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininstitutefileimport">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="File Import" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininstitutedetails">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -341,19 +341,12 @@ export default function AdminManageUser() {
 					</ListItemButton>
 					<Collapse in={open6} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }}>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminpostingresult">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Posting Result" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }}>
-								<ListItemIcon>
-									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
-								</ListItemIcon>
-								<ListItemText primary="Email status " />
-							</ListItemButton>
-
 
 						</List>
 					</Collapse>

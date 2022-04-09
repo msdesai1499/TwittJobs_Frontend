@@ -30,7 +30,6 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from '@mui/icons-material/Speed';
 import ArticleIcon from '@mui/icons-material/Article';
-import MailIcon from '@mui/icons-material/Mail';
 import SettingsIcon from '@mui/icons-material/Settings';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import Dialog from "@mui/material/Dialog";
@@ -45,11 +44,9 @@ import AlignVertical from '@mui/icons-material/AlignVerticalBottom';
 import LocationCity from '@mui/icons-material/LocationCity';
 import SendIcon from '@mui/icons-material/Send';
 import Select from '@mui/material/Select';
-import LockIcon from '@mui/icons-material/Lock';
 import DoneIcon from '@mui/icons-material/Done';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import ReplyIcon from '@mui/icons-material/Reply';
-import PhoneIcon from '@mui/icons-material/Phone';
 const drawerWidth = 300;
 
 
@@ -102,7 +99,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function AdminManageUserAdd() {
+export default function AdminProposalManagementAdd() {
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -369,120 +366,136 @@ export default function AdminManageUserAdd() {
 							<Grid item xs={12}>
 								<Card id="Card1">
 									<CardHeader
-										title="Manage User"
+										title="Proposal Management"
 										titleTypographyProps={{ variant: 'h5' }}
 										titleStyle={{ textAlign: "center" }}
 										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
 									/>
 									<div className='container'>
-										<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2} >
-											<Grid item xs={12}>
+										<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+											<Grid item xs={6}>
 												<Card style={{ marginRight: "1rem" }}>
 													<div className='container'>
 														<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2}>
-															<Grid item xs={4}>
-																<TextField
-																	fullWidth
-																	label="First Name"
-																	type="text"
-																/>
-															</Grid>
-
-															<Grid item xs={4}>
-																<TextField
-																	label="Last Name"
-																	fullWidth
-																/>
-															</Grid>
-															<Grid item xs={4}>
-																<TextField
-																	type="email"
-																	label="Email"
-																	autoComplete='email'
-																	fullWidth
-																/>
-															</Grid>
-															<Grid item xs={4}>
-																<TextField
-																	label="Mobile No."
-																	fullWidth
-																	autoComplete='on'
-																/>
-															</Grid>
-															<Grid item xs={4}>
+															<Grid item xs={12}>
 																<FormControl fullWidth>
-																	<InputLabel>Account Status</InputLabel>
+																	<InputLabel id="demo-simple-select-label">Select Institue</InputLabel>
 																	<Select
 
-																		label="Account Status"
+																		label="Select Institue"
 
 																	>
-																		<MenuItem value="Active">Active</MenuItem>
-																		<MenuItem value="Inactive">Inactive</MenuItem>
+																		<MenuItem value="MIT Academy of Engineering">MIT Academy of Engineering</MenuItem>
+																		<MenuItem value="Dr. Babasaheb Ambedkar Marathwada University">Dr. Babasaheb Ambedkar Marathwada University</MenuItem>
+																		<MenuItem value="Dr. Babasaheb Ambedkar Technological University">Dr. Babasaheb Ambedkar Technological University</MenuItem>
+																		<MenuItem value="Gondwana University">Gondwana University</MenuItem>
+																		<MenuItem value="	College of Engineering, Pune (COEP)">	College of Engineering, Pune (COEP)</MenuItem>
+																		<MenuItem value="Government College of Engineering, Aurangabad">Government College of Engineering, Aurangabad</MenuItem>
+																		<MenuItem value="	Government College of Engineering, Karad">	Government College of Engineering, Karad</MenuItem>
+																		<MenuItem value="	Government College of Engineering, Amravati">	Government College of Engineering, Amravati</MenuItem>
+																		<MenuItem value="Veermata Jijabai Technological Institute">Veermata Jijabai Technological Institute</MenuItem>
+																		<MenuItem value="Walchand College of Engineering">Walchand College of Engineering</MenuItem>
+																		<MenuItem value="	Sardar Patel College of Engineering">	Sardar Patel College of Engineering</MenuItem>
+																		<MenuItem value="Shri Guru Gobind Singhji Institute of Engineering and Technology">Shri Guru Gobind Singhji Institute of Engineering and Technology</MenuItem>
+																		<MenuItem value="Usha Mittal Institute of Technology">Usha Mittal Institute of Technology</MenuItem>
+																		<MenuItem value="Institute of Chemical Technology">Institute of Chemical Technology</MenuItem>
+																		<MenuItem value="	Dr. Babasaheb Ambedkar Technological University">	Dr. Babasaheb Ambedkar Technological University</MenuItem>
+																		<MenuItem value="	Department of Technology, Shivaji University, Kolhapur">	Department of Technology, Shivaji University, Kolhapur</MenuItem>
+																		<MenuItem value="University Department of Chemical Technology, Aurangabad">University Department of Chemical Technology, Aurangabad</MenuItem>
+																		<MenuItem value="University Institute of Chemical Technology, Kavayitri Bahinabai Chaudhari North Maharashtra University">University Institute of Chemical Technology, Kavayitri Bahinabai Chaudhari North Maharashtra University</MenuItem>
+																		<MenuItem value="	University Department of Sant Gadge Baba Amravati University">	University Department of Sant Gadge Baba Amravati University</MenuItem>
+																		<MenuItem value="Laxminarayan Institute of Technology">Laxminarayan Institute of Technology</MenuItem>
+																		<MenuItem value="Government College of Engineering, Nagpur">Government College of Engineering, Nagpur</MenuItem>
 
 
 
 																	</Select>
 																</FormControl>
 															</Grid>
-															<Grid item xs={4}>
+
+															<Grid item xs={6}>
 																<FormControl fullWidth>
-																	<InputLabel>Member Group</InputLabel>
+																	<InputLabel id="demo-simple-select-label">Enquiry Name</InputLabel>
 																	<Select
 
-																		label="Member Group"
+																		label="Enquiry Name"
 
 																	>
-																		<MenuItem value="Institute">Institue</MenuItem>
-																		<MenuItem value="Super Admin">Super Admin</MenuItem>
+																		<MenuItem value="Sample">Sample</MenuItem>
 
 
 
 																	</Select>
 																</FormControl>
 															</Grid>
-															<Grid item xs={12}>
+															<Grid item xs={6}>
 																<TextField
-																	type="text"
-																	label="Password"
-
+																	label="Po No."
 																	fullWidth
 																/>
 															</Grid>
-															<div style={{ display: 'flex', justifyContent: 'left', paddingTop: '1rem', paddingLeft: '1rem' }}>
-																<Button variant='contained' color='success' endIcon={<DoneIcon />}>Submit</Button>
-															</div>
-
-
-
-														</Grid>
-													</div>
-
-												</Card>
-											</Grid>
-
-											<Grid item xs={12}>
-												<Card>
-													<CardHeader
-														title="Change Email"
-														titleTypographyProps={{ variant: 'h5' }}
-														titleStyle={{ textAlign: "center" }}
-														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-													/>
-													<div className='container' style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-														<Grid item container columnSpacing={2}>
-															<Grid item xs={12}>
+															<Grid item xs={6}>
 																<TextField
-																	type="email"
-																	label="New Email"
+																	type="date"
+																	label="Start Date"
+																	InputLabelProps={{ shrink: true }}
 																	fullWidth
-																	autoComplete='email'
 																/>
 															</Grid>
-
-															<div style={{ paddingTop: '1rem', paddingLeft: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'left' }}>
-																<Button variant='contained' color="primary" endIcon={<MailIcon />}>Change Email</Button>
-															</div>
+															<Grid item xs={6}>
+																<TextField
+																	type="date"
+																	label="Delivery Date"
+																	InputLabelProps={{ shrink: true }}
+																	fullWidth
+																/>
+															</Grid>
+															<Grid item xs={12}>
+																<div >
+																	Payment Terms
+																</div>
+																<Editor apiKey="xx25k2b5mqr063n0g3w6t5qzf6spgc09m2rnm1jkaohib6so"
+																	onInit={(evt, editor) => editorRef.current = editor}
+																	initialValue="<p>Enter the Payment terms here.</p>"
+																	init={{
+																		height: 300,
+																		menubar: false,
+																		plugins: [
+																			'advlist autolink lists link image charmap print preview anchor',
+																			'searchreplace visualblocks code fullscreen',
+																			'insertdatetime media table paste code help wordcount'
+																		],
+																		toolbar: 'undo redo | formatselect | ' +
+																			'bold italic backcolor | alignleft aligncenter ' +
+																			'alignright alignjustify | bullist numlist outdent indent | ' +
+																			'removeformat | help',
+																		content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+																	}}
+																/>
+															</Grid>
+															<Grid item xs={12}>
+																<div >
+																	Important Note
+																</div>
+																<Editor apiKey="xx25k2b5mqr063n0g3w6t5qzf6spgc09m2rnm1jkaohib6so"
+																	onInit={(evt, editor) => editorRef.current = editor}
+																	initialValue="<p>Enter the Important Notes here.</p>"
+																	init={{
+																		height: 300,
+																		menubar: false,
+																		plugins: [
+																			'advlist autolink lists link image charmap print preview anchor',
+																			'searchreplace visualblocks code fullscreen',
+																			'insertdatetime media table paste code help wordcount'
+																		],
+																		toolbar: 'undo redo | formatselect | ' +
+																			'bold italic backcolor | alignleft aligncenter ' +
+																			'alignright alignjustify | bullist numlist outdent indent | ' +
+																			'removeformat | help',
+																		content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+																	}}
+																/>
+															</Grid>
 														</Grid>
 													</div>
 
@@ -490,57 +503,76 @@ export default function AdminManageUserAdd() {
 											</Grid>
 											<Grid item xs={6}>
 												<Card>
-													<CardHeader
-														title="Change Password"
-														titleTypographyProps={{ variant: 'h5' }}
-														titleStyle={{ textAlign: "center" }}
-														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-													/>
-													<div className='container' style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-														<Grid item container columnSpacing={2} rowSpacing={2}>
-															<Grid item xs={12}>
+													<div className='container'>
+														<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2}>
+															<Grid item xs={6}>
 																<TextField
-																	type="password"
-																	label="New Password"
 																	fullWidth
+																	type="date"
+																	label='Proposal Date'
+																	InputLabelProps={{ shrink: true }}
+																/>
+															</Grid>
+															<Grid item xs={6}>
+																<TextField
+																	fullWidth
+																	type="date"
+																	label='PO Date'
+																	InputLabelProps={{ shrink: true }}
 																/>
 															</Grid>
 															<Grid item xs={12}>
 																<TextField
-																	type="password"
-																	label="Confirm Password"
+																	label="First Page Image"
 																	fullWidth
 																/>
 															</Grid>
-															<div style={{ paddingTop: '1rem', paddingLeft: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'left' }}>
-																<Button variant='contained' color="primary" endIcon={<LockIcon />}>Change Password</Button>
-															</div>
-														</Grid>
-													</div>
+															<Grid item xs={6}>
+																<FormControl fullWidth>
+																	<InputLabel>Proposal Status</InputLabel>
+																	<Select
 
-												</Card>
-											</Grid>
-											<Grid item xs={6}>
-												<Card>
-													<CardHeader
-														title="Change Contact Number"
-														titleTypographyProps={{ variant: 'h5' }}
-														titleStyle={{ textAlign: "center" }}
-														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-													/>
-													<div className='container' style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-														<Grid item container columnSpacing={2}>
-															<Grid item xs={12}>
-																<TextField
-																	type="Number"
-																	label="New Contact Number"
-																	fullWidth
-																/>
-															</Grid>
+																		label="Proposal Status"
 
-															<div style={{ paddingTop: '1rem', paddingLeft: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'left' }}>
-																<Button variant='contained' color="primary" endIcon={<PhoneIcon />}>Change Number</Button>
-															</div>
+																	>
+																		<MenuItem value="Proposal Communication">Proposal Communication</MenuItem>
+
+
+
+																	</Select>
+																</FormControl>
+															</Grid>
+															<Grid item xs={6}>
+																<FormControl fullWidth>
+																	<InputLabel>Select Bank Account</InputLabel>
+																	<Select
+
+																		label="Select Bank Account"
+
+																	>
+																		<MenuItem value="Sachin Tupekar">Sachin Tupekar</MenuItem>
+																		<MenuItem value="Swaraj IT Services">Swaraj IT Services</MenuItem>
+
+
+
+																	</Select>
+																</FormControl>
+															</Grid>
+															<Grid item xs={12}>
+																<FormControl fullWidth>
+																	<InputLabel>Customer Contact List</InputLabel>
+																	<Select
+
+																		label="Customer Contact List"
+
+																	>
+																		<MenuItem value="Sample">Sample</MenuItem>
+
+
+
+																	</Select>
+																</FormControl>
+															</Grid>
 														</Grid>
 													</div>
 
@@ -548,9 +580,65 @@ export default function AdminManageUserAdd() {
 											</Grid>
 										</Grid>
 									</div>
+									<div className='container'> <Table striped bordered hover>
+										<thead>
+											<tr>
+												<th>Type</th>
+												<th>Description</th>
+												<th>Unit</th>
+												<th>Units Rate </th>
+												<th>Amount </th>
 
 
 
+
+											</tr>
+											<tr>
+												<td> <FormControl fullWidth>
+													<InputLabel>Select Type</InputLabel>
+													<Select
+
+														label="Select Type"
+
+													>
+														<MenuItem value="Hosting Renew">Hosting Renew</MenuItem>
+														<MenuItem value="Domain Renew">Domain Renew</MenuItem>
+														<MenuItem value="Development One Time">Development One Time</MenuItem>
+														<MenuItem value="Development Monthly">Development Monthly</MenuItem>
+														<MenuItem value="Development Weekly">Development Weekly</MenuItem>
+														<MenuItem value="Development Hours">Development Hours</MenuItem>
+
+
+													</Select>
+												</FormControl></td>
+												<td><TextField
+													label="Description"
+													fullWidth
+												/></td>
+												<td><TextField
+													label="Unit"
+													fullWidth
+												/></td>
+												<td><TextField
+													label="Units Rate"
+													fullWidth
+												/></td>
+												<td><TextField
+													label="Amount"
+													fullWidth
+												/></td>
+
+											</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</Table>
+										<div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+											<Button variant="contained" color='success' style={{ marginRight: '1rem' }} endIcon={<DoneIcon />}>Submit</Button>
+											<Button variant="contained" endIcon={<ReplyIcon />}>Go Back</Button>
+										</div>
+									</div>
 
 								</Card>
 							</Grid>

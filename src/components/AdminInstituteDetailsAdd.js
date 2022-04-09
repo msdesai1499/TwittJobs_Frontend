@@ -30,7 +30,6 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from '@mui/icons-material/Speed';
 import ArticleIcon from '@mui/icons-material/Article';
-import MailIcon from '@mui/icons-material/Mail';
 import SettingsIcon from '@mui/icons-material/Settings';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import Dialog from "@mui/material/Dialog";
@@ -45,11 +44,9 @@ import AlignVertical from '@mui/icons-material/AlignVerticalBottom';
 import LocationCity from '@mui/icons-material/LocationCity';
 import SendIcon from '@mui/icons-material/Send';
 import Select from '@mui/material/Select';
-import LockIcon from '@mui/icons-material/Lock';
 import DoneIcon from '@mui/icons-material/Done';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import ReplyIcon from '@mui/icons-material/Reply';
-import PhoneIcon from '@mui/icons-material/Phone';
 const drawerWidth = 300;
 
 
@@ -102,7 +99,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function AdminManageUserAdd() {
+export default function AdminInstituteDetailsAdd() {
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -369,178 +366,146 @@ export default function AdminManageUserAdd() {
 							<Grid item xs={12}>
 								<Card id="Card1">
 									<CardHeader
-										title="Manage User"
+										title="Institute Details"
 										titleTypographyProps={{ variant: 'h5' }}
 										titleStyle={{ textAlign: "center" }}
 										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
 									/>
 									<div className='container'>
-										<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2} >
-											<Grid item xs={12}>
+										<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+											<Grid item xs={6}>
 												<Card style={{ marginRight: "1rem" }}>
 													<div className='container'>
 														<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2}>
-															<Grid item xs={4}>
+															<Grid item xs={6}>
+																<FormControl fullWidth>
+																	<InputLabel id="demo-simple-select-label">Institute Category</InputLabel>
+																	<Select
+																		fullWidth
+																		label="Institute Category"
+
+																	>
+																		<MenuItem value="Distance Learning Center">Distance Learning Center</MenuItem>
+																		<MenuItem value="Service Provider">Service Provider</MenuItem>
+																		<MenuItem value="Incubation Center">Incubation Center</MenuItem>
+																		<MenuItem value="Training & Development">Training & Development</MenuItem>
+																		<MenuItem value="Coaching Classes/Institute">Coaching Classes/Institute</MenuItem>
+																		<MenuItem value="School">School</MenuItem>
+																		<MenuItem value="Other">Other</MenuItem>
+																		<MenuItem value="Arts,Commerce&Science">Arts,Commerce&Science</MenuItem>
+																		<MenuItem value="Pharmacy">Pharmacy</MenuItem>
+																		<MenuItem value="Architecture">Architecture</MenuItem>
+																		<MenuItem value="Engineering">Engineering</MenuItem>
+
+
+
+																	</Select>
+																</FormControl>
+															</Grid>
+
+															<Grid item xs={6}>
 																<TextField
-																	fullWidth
-																	label="First Name"
+																	label="Institute Name"
 																	type="text"
-																/>
-															</Grid>
-
-															<Grid item xs={4}>
-																<TextField
-																	label="Last Name"
 																	fullWidth
 																/>
 															</Grid>
-															<Grid item xs={4}>
+
+															<Grid item xs={12}>
 																<TextField
-																	type="email"
-																	label="Email"
-																	autoComplete='email'
+																	type="address"
+																	autoComplete='address'
+																	label="Address"
 																	fullWidth
 																/>
 															</Grid>
-															<Grid item xs={4}>
+															<Grid item xs={6}>
 																<TextField
-																	label="Mobile No."
+																	type="text"
+																	label="Principal Name"
 																	fullWidth
-																	autoComplete='on'
 																/>
 															</Grid>
-															<Grid item xs={4}>
-																<FormControl fullWidth>
-																	<InputLabel>Account Status</InputLabel>
-																	<Select
-
-																		label="Account Status"
-
-																	>
-																		<MenuItem value="Active">Active</MenuItem>
-																		<MenuItem value="Inactive">Inactive</MenuItem>
-
-
-
-																	</Select>
-																</FormControl>
-															</Grid>
-															<Grid item xs={4}>
-																<FormControl fullWidth>
-																	<InputLabel>Member Group</InputLabel>
-																	<Select
-
-																		label="Member Group"
-
-																	>
-																		<MenuItem value="Institute">Institue</MenuItem>
-																		<MenuItem value="Super Admin">Super Admin</MenuItem>
-
-
-
-																	</Select>
-																</FormControl>
+															<Grid item xs={6}>
+																<TextField
+																	type="number"
+																	label="Principal Contact No."
+																	fullWidth
+																/>
 															</Grid>
 															<Grid item xs={12}>
 																<TextField
 																	type="text"
+																	label="Email "
+																	fullWidth
+																/>
+															</Grid>
+															<Grid item xs={6}>
+																<TextField
+																	type="text"
+																	label="Website"
+																	fullWidth
+																/>
+															</Grid>
+															<Grid item xs={6}>
+																<TextField
+																	type="text"
+																	label="Image URL "
+																	fullWidth
+																/>
+															</Grid>
+														</Grid>
+													</div>
+
+												</Card>
+											</Grid>
+											<Grid item xs={6}>
+												<Card>
+													<div className='container'>
+														<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2}>
+															<Grid item xs={12}>
+																<TextField
+																	label="Organization Contact No"
+																	fullWidth
+																	type="text"
+																/>
+
+															</Grid>
+															<Grid item xs={6}>
+																<TextField
+																	type="text"
+																	label="City"
+																	fullWidth
+																/>
+															</Grid>
+															<Grid item xs={6}>
+																<TextField
+																	label="PinCode"
+																	type="number"
+																	fullWidth
+																/>
+															</Grid>
+															<Grid item xs={6}>
+																<TextField
+																	label="Head of Organization"
+																	fullWidth
+																	type="text"
+																/>
+															</Grid>
+															<Grid item xs={6}>
+																<TextField
+																	label="Contact No. of Head of Organization"
+																	type="number"
+																	fullWidth
+																/>
+															</Grid>
+															<Grid item xs={12}>
+																<TextField
+																	type="password"
 																	label="Password"
-
 																	fullWidth
 																/>
 															</Grid>
-															<div style={{ display: 'flex', justifyContent: 'left', paddingTop: '1rem', paddingLeft: '1rem' }}>
-																<Button variant='contained' color='success' endIcon={<DoneIcon />}>Submit</Button>
-															</div>
-
-
-
-														</Grid>
-													</div>
-
-												</Card>
-											</Grid>
-
-											<Grid item xs={12}>
-												<Card>
-													<CardHeader
-														title="Change Email"
-														titleTypographyProps={{ variant: 'h5' }}
-														titleStyle={{ textAlign: "center" }}
-														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-													/>
-													<div className='container' style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-														<Grid item container columnSpacing={2}>
-															<Grid item xs={12}>
-																<TextField
-																	type="email"
-																	label="New Email"
-																	fullWidth
-																	autoComplete='email'
-																/>
-															</Grid>
-
-															<div style={{ paddingTop: '1rem', paddingLeft: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'left' }}>
-																<Button variant='contained' color="primary" endIcon={<MailIcon />}>Change Email</Button>
-															</div>
-														</Grid>
-													</div>
-
-												</Card>
-											</Grid>
-											<Grid item xs={6}>
-												<Card>
-													<CardHeader
-														title="Change Password"
-														titleTypographyProps={{ variant: 'h5' }}
-														titleStyle={{ textAlign: "center" }}
-														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-													/>
-													<div className='container' style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-														<Grid item container columnSpacing={2} rowSpacing={2}>
-															<Grid item xs={12}>
-																<TextField
-																	type="password"
-																	label="New Password"
-																	fullWidth
-																/>
-															</Grid>
-															<Grid item xs={12}>
-																<TextField
-																	type="password"
-																	label="Confirm Password"
-																	fullWidth
-																/>
-															</Grid>
-															<div style={{ paddingTop: '1rem', paddingLeft: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'left' }}>
-																<Button variant='contained' color="primary" endIcon={<LockIcon />}>Change Password</Button>
-															</div>
-														</Grid>
-													</div>
-
-												</Card>
-											</Grid>
-											<Grid item xs={6}>
-												<Card>
-													<CardHeader
-														title="Change Contact Number"
-														titleTypographyProps={{ variant: 'h5' }}
-														titleStyle={{ textAlign: "center" }}
-														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-													/>
-													<div className='container' style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-														<Grid item container columnSpacing={2}>
-															<Grid item xs={12}>
-																<TextField
-																	type="Number"
-																	label="New Contact Number"
-																	fullWidth
-																/>
-															</Grid>
-
-															<div style={{ paddingTop: '1rem', paddingLeft: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'left' }}>
-																<Button variant='contained' color="primary" endIcon={<PhoneIcon />}>Change Number</Button>
-															</div>
 														</Grid>
 													</div>
 
@@ -549,7 +514,10 @@ export default function AdminManageUserAdd() {
 										</Grid>
 									</div>
 
-
+									<div style={{ paddingTop: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'right', paddingRight: '1rem' }}>
+										<Button variant="contained" color='success' style={{ marginRight: '1rem' }} endIcon={<DoneIcon />}>Submit</Button>
+										<Button variant="contained" endIcon={<ReplyIcon />}>Go Back</Button>
+									</div>
 
 
 								</Card>

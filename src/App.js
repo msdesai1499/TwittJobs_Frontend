@@ -42,6 +42,19 @@ import InstituteUserReports from "./components/InstituteUserReports";
 import InstituteExportedReports from "./components/InstituteExportedReports";
 import AdminManageUser from "./components/AdminManageUser";
 import AdminManageUserAdd from "./components/AdminManageUserAdd";
+import AdminInstituteCategory from "./components/AdminInstituteCategory"
+import AdminInstituteCategoryAdd from "./components/AdminInstituteCategoryAdd"
+import AdminInstituteDetails from "./components/AdminInstituteDetails"
+import AdminInstituteDetailsAdd from "./components/AdminInstituteDetailsAdd"
+import AdminInstituteFileImport from "./components/AdminInstituteFileImport"
+import AdminInstituteFileImportAdd from "./components/AdminInstituteFileImportAdd"
+import AdminPostingResult from "./components/AdminPostingResult"
+import AdminProposalManagement from "./components/AdminProposalManagement"
+import AdminProposalManagementAdd from "./components/AdminProposalManagementAdd"
+import AdminNews from "./components/AdminNews"
+import AdminInquiryStandards from "./components/AdminInquiryStandards"
+import AdminInquiryStandardsAdd from "./components/AdminInquiryStandardsAdd"
+import AdminInquiryManagement from "./components/AdminInquiryManagement"
 
 const App = () => {
   return (
@@ -91,6 +104,20 @@ const App = () => {
         <Route path="/instituteexportedreports" element={<InstituteExportedReports />} />
         <Route path="/adminmanageuser" element={<AdminManageUser />} />
         <Route path="/adminmanageuseradd" element={<AdminManageUserAdd />} />
+        <Route path="/admininstitutecategory" element={<AdminInstituteCategory />} />
+        <Route path="/admininstitutecategoryadd" element={<AdminInstituteCategoryAdd />} />
+        <Route path="/admininstitutedetails" element={<AdminInstituteDetails />} />
+        <Route path="/admininstitutedetailsadd" element={<AdminInstituteDetailsAdd />} />
+        <Route path="/admininstitutefileimport" element={<AdminInstituteFileImport />} />
+        <Route path="/admininstitutefileimportadd" element={<AdminInstituteFileImportAdd />} />
+        <Route path="/adminpostingresult" element={<AdminPostingResult />} />
+        <Route path="/adminproposalmanagement" element={<AdminProposalManagement />} />
+        <Route path="/adminproposalmanagementadd" element={<AdminProposalManagementAdd />} />
+        <Route path="/adminnews" element={<AdminNews />} />
+        <Route path="/admininquirystandards" element={<AdminInquiryStandards />} />
+        <Route path="/admininquirystandardsadd" element={<AdminInquiryStandardsAdd />} />
+        <Route path="/admininquirymanagement" element={<AdminInquiryManagement />} />
+
 
 
       </Routes>
