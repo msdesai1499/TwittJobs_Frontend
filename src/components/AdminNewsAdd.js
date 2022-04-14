@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
@@ -43,6 +44,13 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import AlignVertical from '@mui/icons-material/AlignVerticalBottom';
 import LocationCity from '@mui/icons-material/LocationCity';
 import SendIcon from '@mui/icons-material/Send';
+import Select from '@mui/material/Select';
+import DoneIcon from '@mui/icons-material/Done';
+import { FormControl, InputLabel, MenuItem } from '@mui/material';
+import ReplyIcon from '@mui/icons-material/Reply';
+import axios from "axios";
+import base_url from "../api/bootapi";
+import { toast } from 'react-toastify';
 const drawerWidth = 300;
 
 
@@ -95,7 +103,45 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function AdminInstituteFileImport() {
+export default function AdminNewsAdd() {
+
+	const [AddNews, setAddNews] = useState({});
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log("Form Submitted");
+		const loginFormData = new FormData();
+		loginFormData.append("file", AddNews.file)
+		loginFormData.append("newsheading", AddNews.newsheading)
+		loginFormData.append("socialMediaLink", AddNews.socialMediaLink)
+		loginFormData.append("noticeSection", AddNews.noticeSection)
+
+
+		axios({
+			method: "post",
+			url: `${base_url}/newsSection/newsDetails/addNews`,
+			data: loginFormData,
+			headers: { "Content-Type": "multipart/form-data" },
+		})
+			.then(function (response) {
+				//handle success
+				if (response.data === "Admin News saved successfully") {
+					toast.success("Admin News Added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
+				console.log(response);
+			})
+			.catch(function (response) {
+				//handle error
+				toast.error("Error Occurred");
+				console.log(response);
+			});
+
+	}
+
+
+
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -221,7 +267,7 @@ export default function AdminInstituteFileImport() {
 					</ListItemButton>
 					<Collapse in={open1} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -245,7 +291,7 @@ export default function AdminInstituteFileImport() {
 					</ListItemButton>
 					<Collapse in={open2} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminmanageuser">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -264,19 +310,19 @@ export default function AdminInstituteFileImport() {
 					</ListItemButton>
 					<Collapse in={open3} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminproposalmanagement">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Proposal Management" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininquirymanagement">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Inquiry Management" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininquirystandards">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -294,11 +340,11 @@ export default function AdminInstituteFileImport() {
 					</ListItemButton>
 					<Collapse in={open4} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminnews" >
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
-								<ListItemText primary="News" />
+								<ListItemText primary="Courses" />
 							</ListItemButton>
 						</List>
 					</Collapse>
@@ -311,19 +357,19 @@ export default function AdminInstituteFileImport() {
 					</ListItemButton>
 					<Collapse in={open5} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininstitutecategory">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Institue Category" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininstitutefileimport">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="File Import" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/admininstitutedetails">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -341,12 +387,19 @@ export default function AdminInstituteFileImport() {
 					</ListItemButton>
 					<Collapse in={open6} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/adminpostingresult">
+							<ListItemButton sx={{ pl: 2 }}>
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
 								<ListItemText primary="Posting Result" />
 							</ListItemButton>
+							<ListItemButton sx={{ pl: 2 }}>
+								<ListItemIcon>
+									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
+								</ListItemIcon>
+								<ListItemText primary="Email status " />
+							</ListItemButton>
+
 
 						</List>
 					</Collapse>
@@ -356,59 +409,115 @@ export default function AdminInstituteFileImport() {
 			<Main open={open}>
 				<DrawerHeader />
 				<div className='container'>
+					<form onSubmit={handleSubmit}>
+						<div className='container'>
+							<Grid container columnSpacing={4}>
+								<Grid item xs={12}>
+									<Card id="Card1">
+										<CardHeader
+											title="News Details"
+											titleTypographyProps={{ variant: 'h5' }}
+											titleStyle={{ textAlign: "center" }}
+											style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+										/>
+										<div className='container'>
+											<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+												<Grid item xs={6}>
+													<Card style={{ marginRight: "1rem" }}>
+														<div className='container'>
+															<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2}>
+																<Grid item xs={12}>
+																	<TextField
+																		type='text'
+																		fullWidth
+																		label='News & Updates Heading'
+																		onChange={(e) => {
 
-					<div className='container'>
-						<Grid container rowSpacing={2}>
-							<Grid item xs={12}>
-								<Card id="Card1">
-									<CardHeader
-										title="File Import"
-										titleTypographyProps={{ variant: 'h5' }}
-										titleStyle={{ textAlign: "center" }}
-										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-									/>
-									<div className='container' style={{ paddingBottom: "1rem", paddingTop: "1rem", display: "flex", justifyContent: "right" }}>
+																			setAddNews({ ...AddNews, newsheading: e.target.value })
+																		}}
 
-										<Button component="a" href="/admininstitutefileimportadd" variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
-										<Button variant='contained' color="error" style={{ marginLeft: "1rem" }} endIcon={<DeleteIcon />}>DELETE</Button>
+																	/>
 
-									</div>
-									<div className='container'>
-										<Table striped bordered hover>
-											<thead>
-												<tr>
-													<th><input type="checkbox" /></th>
-													<th>Added Date</th>
-													<th>File Name</th>
-													<th>Customer </th>
-													<th>File Count</th>
-													<th>Status</th>
-
-
-
-												</tr>
-												<tr>
-													<td><input type="checkbox" /></td>
-													<td>Alandi</td>
-													<td>Pune</td>
-													<td>1</td>
-													<td>1</td>
-													<td>1</td>
+																</Grid>
 
 
 
-												</tr>
-											</thead>
-											<tbody>
+																<Grid item xs={12}>
+																	<TextField
+																		type="text"
+																		label="Social Media News Post Link"
+																		fullWidth
 
-											</tbody>
-										</Table>
-									</div>
-								</Card>
+																		onChange={(e) => {
+
+																			setAddNews({ ...AddNews, socialMediaLink: e.target.value })
+																		}}
+																	/>
+																</Grid>
+																<Grid item xs={6} >
+																	<TextField
+																		type="file"
+																		required
+																		autoFocus
+																		fullWidth
+																		label="Upload News"
+																		InputLabelProps={{ shrink: true }}
+																		onChange={(e) => {
+
+																			setAddNews({ ...AddNews, file: e.target.files[0] })
+																		}}
+																	/>
+																</Grid>
+
+
+															</Grid>
+														</div>
+
+													</Card>
+												</Grid>
+												<Grid item xs={6}>
+													<Card>
+														<div className='container'>
+															<Grid container style={{ paddingTop: '1rem', paddingBottom: '1rem' }} columnSpacing={2} rowSpacing={2}>
+
+
+																<Grid item xs={12}>
+																	<div>
+																		Notice Section
+																	</div>
+																	<Grid item xs={12}>
+																		<TextField
+																			type="text"
+																			label="Notice Section"
+																			fullWidth
+																			onChange={(e) => {
+
+																				setAddNews({ ...AddNews, noticeSection: e.target.value })
+																			}}
+
+																		/>
+																	</Grid>
+																</Grid>
+
+															</Grid>
+														</div>
+
+													</Card>
+												</Grid>
+											</Grid>
+										</div>
+
+										<div style={{ paddingTop: '1rem', paddingBottom: '1rem', display: 'flex', justifyContent: 'right', paddingRight: '1rem' }}>
+											<Button type="submit" variant="contained" color='success' style={{ marginRight: '1rem' }} endIcon={<DoneIcon />}>Submit</Button>
+											<Button variant="contained" endIcon={<ReplyIcon />}>Go Back</Button>
+										</div>
+
+
+									</Card>
+								</Grid>
 							</Grid>
-						</Grid>
-					</div>
-
+						</div>
+					</form>
 
 
 				</div>

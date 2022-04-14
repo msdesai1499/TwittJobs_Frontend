@@ -52,9 +52,11 @@ import AdminPostingResult from "./components/AdminPostingResult"
 import AdminProposalManagement from "./components/AdminProposalManagement"
 import AdminProposalManagementAdd from "./components/AdminProposalManagementAdd"
 import AdminNews from "./components/AdminNews"
+import AdminNewsAdd from "./components/AdminNewsAdd"
 import AdminInquiryStandards from "./components/AdminInquiryStandards"
 import AdminInquiryStandardsAdd from "./components/AdminInquiryStandardsAdd"
 import AdminInquiryManagement from "./components/AdminInquiryManagement"
+
 
 const App = () => {
   return (
@@ -114,6 +116,7 @@ const App = () => {
         <Route path="/adminproposalmanagement" element={<AdminProposalManagement />} />
         <Route path="/adminproposalmanagementadd" element={<AdminProposalManagementAdd />} />
         <Route path="/adminnews" element={<AdminNews />} />
+        <Route path="/adminnewsadd" element={<AdminNewsAdd />} />
         <Route path="/admininquirystandards" element={<AdminInquiryStandards />} />
         <Route path="/admininquirystandardsadd" element={<AdminInquiryStandardsAdd />} />
         <Route path="/admininquirymanagement" element={<AdminInquiryManagement />} />

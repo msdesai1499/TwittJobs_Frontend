@@ -417,7 +417,7 @@ export default function AdminProposalManagement() {
 									/>
 									<div className='container' style={{ paddingBottom: "1rem", paddingTop: "1rem", display: "flex", justifyContent: "right" }}>
 										<Button variant='contained' color='primary' onClick={handleClickOpen} style={{ marginRight: "1rem" }} endIcon={<SendIcon />}>Send Mail</Button>
-										<Button variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
+										<Button component="a" href="/adminproposalmanagementadd" variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
 										<Button variant='contained' color="error" style={{ marginLeft: "1rem" }} endIcon={<DeleteIcon />}>DELETE</Button>
 
 									</div>

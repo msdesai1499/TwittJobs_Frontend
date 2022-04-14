@@ -370,7 +370,7 @@ export default function AdminInstituteDetails() {
 									/>
 									<div className='container' style={{ paddingBottom: "1rem", paddingTop: "1rem", display: "flex", justifyContent: "right" }}>
 
-										<Button variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
+										<Button component="a" href="/admininstitutedetailsadd" variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
 										<Button variant='contained' color="error" style={{ marginLeft: "1rem" }} endIcon={<DeleteIcon />}>DELETE</Button>
 
 									</div>

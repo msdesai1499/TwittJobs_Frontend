@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
@@ -65,6 +66,11 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import AlignVertical from '@mui/icons-material/AlignVerticalBottom';
 import LocationCity from '@mui/icons-material/LocationCity';
+import axios from "axios";
+import base_url from "../api/bootapi";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 const drawerWidth = 300;
 
@@ -119,6 +125,51 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function AdminNews() {
+
+
+	const getAllNewsFromServer = () => {
+		axios.get(`${base_url}/newsSection/newsDetails`).then(
+			(response) => {
+				//For Success
+				console.log(response)
+				console.log(response.data)
+
+				setBanks(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+
+	useEffect(() => {
+		getAllNewsFromServer();
+	}, []);
+
+
+	const [banks, setBanks] = useState([])
+
+	const renderCard = (hostels, index) => {
+
+		return (
+
+			<tr>
+				<td>{hostels.newsheading}</td>
+				<td>{hostels.socialMediaLink}</td>
+				<td>{hostels.noticeSection}</td>
+
+
+				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+			</tr>
+
+		);
+	};
+
+
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -382,31 +433,22 @@ export default function AdminNews() {
 										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
 									/>
 									<div className='container' style={{ paddingBottom: "1rem", paddingTop: "1rem", display: "flex", justifyContent: "right" }}>
-										<Button variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
+										<Button component="a" href="/adminnewsadd" variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
 										<Button variant='contained' color="error" style={{ marginLeft: "1rem" }} endIcon={<DeleteIcon />}>DELETE</Button>
 									</div>
 									<div className='container'>
 										<Table striped bordered hover>
 											<thead>
 												<tr>
-													<th><input type="checkbox" /></th>
-													<th>Added Date</th>
-													<th>News and Updates Headings</th>
+													<th>News Heading</th>
+													<th>Social Media Link</th>
+													<th>Notice Section</th>
 
 
 													<th>Action</th>
 
-
 												</tr>
-												<tr>
-													<td><input type="checkbox" /></td>
-													<td>Alandi</td>
-													<td>Pune</td>
 
-
-
-													<td><Button variant="contained" startIcon={<BuildCircleIcon />} ></Button></td>
-												</tr>
 											</thead>
 											<tbody>
 
