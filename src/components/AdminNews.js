@@ -158,8 +158,8 @@ export default function AdminNews() {
 		return (
 
 			<tr>
-				<td>{hostels.newsheading}</td>
-				<td>{hostels.socialMediaLink}</td>
+				<td>{hostels.newsUpdatesHeading}</td>
+				<td>{hostels.socialMediaNewsPostLink}</td>
 				<td>{hostels.noticeSection}</td>
 
 
@@ -451,7 +451,7 @@ export default function AdminNews() {
 
 											</thead>
 											<tbody>
-
+												{banks.map(renderCard)}
 											</tbody>
 										</Table>
 									</div>

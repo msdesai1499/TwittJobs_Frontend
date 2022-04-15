@@ -306,34 +306,11 @@ export default function InstituteContactsAdd() {
 								</ListItemIcon>
 								<ListItemText primary="Home" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteactivatedsubscriptions" >
-								<ListItemIcon>
-									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
-								</ListItemIcon>
-								<ListItemText primary="Activated Subscriptions" />
-							</ListItemButton>
-
-						</List>
-					</Collapse>
-					<ListItemButton onClick={handleClick1}>
-						<ListItemIcon>
-							<FolderIcon fontSize="medium" />
-						</ListItemIcon>
-						<ListItemText primary="Media Section" />
-						{open2 ? <ExpandLess /> : <ExpandMore />}
-					</ListItemButton>
-					<Collapse in={open2} timeout="auto" unmountOnExit>
-						<List component="div" disablePadding>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteimagebasket">
-								<ListItemIcon>
-									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
-								</ListItemIcon>
-								<ListItemText primary="Image Basket" />
-							</ListItemButton>
 
 
 						</List>
 					</Collapse>
+
 					<ListItemButton onClick={handleClick2}>
 						<ListItemIcon>
 							<CorporateFareIcon fontSize="medium" />
@@ -426,18 +403,6 @@ export default function InstituteContactsAdd() {
 								</ListItemIcon>
 								<ListItemText primary="Job Apply report" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteuserreports">
-								<ListItemIcon>
-									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
-								</ListItemIcon>
-								<ListItemText primary="Users report " />
-							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} component="a" href="/instituteexportedreports">
-								<ListItemIcon>
-									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
-								</ListItemIcon>
-								<ListItemText primary="Exported report" />
-							</ListItemButton>
 
 						</List>
 					</Collapse>
@@ -491,20 +456,7 @@ export default function InstituteContactsAdd() {
 																}}
 															/>
 														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="email"
-																label="Contact Email 2"
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="url"
-																label="Photo URL"
-															/>
-														</Grid>
+
 														<Grid item xs={12}>
 															<TextField
 																fullWidth
@@ -527,13 +479,7 @@ export default function InstituteContactsAdd() {
 																}}
 															/>
 														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Contact Mobile 2"
-															/>
-														</Grid>
+
 														<Grid item xs={12}>
 															<TextField
 																fullWidth
@@ -662,7 +608,7 @@ export default function InstituteContactsAdd() {
 																}}
 																onChange={(e) => {
 
-																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, youtubeUrl 	: e.target.value })
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, youtubeUrl: e.target.value })
 																}}
 															/>
 														</Grid>
