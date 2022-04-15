@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/Navbar"
 import Home from "./components/Home";
 import About from "./components/About";
+import ContactUs from "./components/ContactUs";
 import UserLogin from "./components/UserLogin";
 import UserRegister from "./components/UserRegister";
 
@@ -71,6 +72,8 @@ const App = () => {
         <Route path="/userregister" element={<UserRegister />} />
 
         <Route path="/userhome" element={<UserHome />} />
+        <Route path="/contactus" element={<ContactUs />} />
+
         <Route path="/usereducation" element={<UserEducationDetail />} />
         <Route path="/useremployment" element={<UserEmploymentDetail />} />
         <Route path="/userportfolio" element={<UserPortfolioDetail />} />

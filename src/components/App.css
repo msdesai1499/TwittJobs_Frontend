@@ -1,0 +1,29 @@
+#container {
+	height:250px; 
+	position:relative; 
+	overflow:hidden;
+  }
+  
+  .photobanner {
+	position:absolute; 
+	top:0px; 
+	left:0px; 
+	overflow:hidden; 
+	white-space: nowrap;
+	animation: bannermove 10s linear infinite;
+  }
+  
+  .photobanner img {    
+	margin: 0 0.5em 
+  }
+  
+  @keyframes bannermove {
+	0% {
+	  transform: translate3d(0, 0, 0);
+	}
+  
+	100% {
+	  transform: translate3d(-161.3rem, 0, 0);
+	
+	}
+  }

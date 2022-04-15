@@ -14,7 +14,7 @@ const NavBar = () => {
 					<Nav className="me-auto">
 						<Nav.Link href="/">Home</Nav.Link>
 						<Nav.Link href="/about">About Us</Nav.Link>
-						<Nav.Link href="#pricing">Contact Us</Nav.Link>
+						<Nav.Link href="/contactus">Contact Us</Nav.Link>
 						<NavDropdown title="Sign In" id="navbarScrollingDropdown">
 							<NavDropdown.Item href="/userlogin">User</NavDropdown.Item>
 							<NavDropdown.Item href="/institutelogin">Institute</NavDropdown.Item>
