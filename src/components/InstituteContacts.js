@@ -68,6 +68,8 @@ import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 const drawerWidth = 300;
 
@@ -124,6 +126,48 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function InstituteContacts() {
 
 
+	const [modalIsOpen, setmodalIsOpen] = useState(false);
+	const [DeleteUserData, setDeleteUserData] = useState({ orgId: document.cookie });
+
+	const checkOrgName = (name) => {
+		if (name === DeleteUserData.designation) {
+			console.log(DeleteUserData);
+			const loginFormData = new FormData();
+			loginFormData.append("orgId", DeleteUserData.orgId)
+			loginFormData.append("designation", DeleteUserData.designation)
+			axios({
+				method: "delete",
+				url: `${base_url}/company/companyContacts`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "contact deleted successfully") {
+						toast.success("Contact details deleted successfully");
+						setmodalIsOpen(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllInstituteBranchFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter valid Contact Detail");
+		}
+
+	}
+
+
+
+
 	const getAllInstituteBranchFromServer = () => {
 		axios.get(`${base_url}/company/companyContacts`, { params: { id: document.cookie } }).then(
 			(response) => {
@@ -163,7 +207,58 @@ export default function InstituteContacts() {
 				<td>{inst.contactMobile}</td>
 				<td>{inst.contactEmail}</td>
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen}
+						onRequestClose={() => setmodalIsOpen(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering designation
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter designation"
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, designation: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkOrgName(inst.designation)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
 			</tr>
 		);
 	};

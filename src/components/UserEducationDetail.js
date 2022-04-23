@@ -43,6 +43,8 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 const drawerWidth = 300;
 
@@ -97,6 +99,43 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function UserEducationDetails() {
 
+	const [modalIsOpen, setmodalIsOpen] = useState(false);
+	const [DeleteUserData, setDeleteUserData] = useState({ id: document.cookie });
+
+	const checkOrgName = (name) => {
+		if (name === DeleteUserData.qualificationLevel) {
+			const loginFormData = new FormData();
+			loginFormData.append("id", DeleteUserData.id)
+			loginFormData.append("qualificationLevel", DeleteUserData.qualificationLevel)
+			axios({
+				method: "delete",
+				url: `${base_url}/client/educationDetails`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "Record deleted successfully") {
+						toast.success("Record deleted successfully");
+						setmodalIsOpen(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllEducationFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter valid Qualification Level");
+		}
+
+	}
 
 
 	const [UserData, setUserData] = useState({ userId: document.cookie });
@@ -144,7 +183,58 @@ export default function UserEducationDetails() {
 				<td>{hostels.gradePercentage}</td>
 				<td>{hostels.areaOfSpecialization}</td>
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen}
+						onRequestClose={() => setmodalIsOpen(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering Qualification Level
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter Qualification Level"
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, qualificationLevel: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkOrgName(hostels.qualificationLevel)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
 			</tr>
 		);
 	};

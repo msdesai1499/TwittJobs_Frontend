@@ -44,6 +44,8 @@ import ArticleIcon from '@mui/icons-material/Article';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 
 const drawerWidth = 300;
@@ -99,6 +101,47 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function UserResearchInfoDetail() {
 
+
+	const [modalIsOpen, setmodalIsOpen] = useState(false);
+	const [DeleteUserData, setDeleteUserData] = useState({ id: document.cookie });
+
+	const checkOrgName = (name) => {
+		if (name === DeleteUserData.isbnNumber) {
+			const loginFormData = new FormData();
+			loginFormData.append("id", DeleteUserData.id)
+			loginFormData.append("isbnNumber", DeleteUserData.isbnNumber)
+			axios({
+				method: "delete",
+				url: `${base_url}/client/researchInfo`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "Research info deleted successfully") {
+						toast.success("Research info deleted successfully");
+						setmodalIsOpen(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllResearchInfoFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter valid Qualification Level");
+		}
+
+	}
+
+
+
 	const [UserData, setUserData] = useState({ userId: document.cookie });
 
 	const getAllResearchInfoFromServer = () => {
@@ -144,7 +187,58 @@ export default function UserResearchInfoDetail() {
 				<td>{hostels.journalName}</td>
 				<td>{hostels.publicationDate}</td>
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen}
+						onRequestClose={() => setmodalIsOpen(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering ISBN Number
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter ISBN Number Level"
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, isbnNumber: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkOrgName(hostels.isbnNumber)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
 			</tr>
 		);
 	};

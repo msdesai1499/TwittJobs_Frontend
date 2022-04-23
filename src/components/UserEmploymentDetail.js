@@ -37,12 +37,15 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUpload';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
+
 import Table from 'react-bootstrap/Table';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import BadgeIcon from '@mui/icons-material/Badge';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 
 const drawerWidth = 300;
@@ -98,6 +101,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function UserEmploymentDetail() {
 
+	const [modalIsOpen, setmodalIsOpen] = useState(false);
+	const [DeleteUserData, setDeleteUserData] = useState({ userId: "sn" });
+
+	const checkOrgName = (name) => {
+		if (name === DeleteUserData.namedel) {
+			toast.success("Data Deleted Successfully");
+			setmodalIsOpen(false);
+		} else {
+			toast.error("Please enter valid organization name");
+		}
+
+	}
+
 
 	const [UserData, setUserData] = useState({ userId: document.cookie });
 
@@ -144,8 +160,60 @@ export default function UserEmploymentDetail() {
 				<td>{hostels.toDate}</td>
 				<td>{hostels.experienceCertificateDate}</td>
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
-			</tr>
+				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen}
+						onRequestClose={() => setmodalIsOpen(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering Organization name
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="org_name"
+									label="Enter Name of Organization "
+									InputLabelProps={{ shrink: true }}
+									name="org_name"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, namedel: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkOrgName(hostels.organizationName)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
+
+			</tr >
 		);
 	};
 
@@ -444,6 +512,7 @@ export default function UserEmploymentDetail() {
 										id="o_name"
 										label="Enter Name of Organization"
 										name="o_name"
+
 										onChange={(e) => {
 
 											setUserEmployment({ ...UserEmployment, organizationName: e.target.value })

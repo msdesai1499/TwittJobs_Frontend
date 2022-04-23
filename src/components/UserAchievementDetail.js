@@ -45,6 +45,9 @@ import ArticleIcon from '@mui/icons-material/Article';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
+
 
 const drawerWidth = 300;
 
@@ -99,6 +102,45 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function UserAchievementDetail() {
 
+	const [modalIsOpen, setmodalIsOpen] = useState(false);
+	const [DeleteUserData, setDeleteUserData] = useState({ id: document.cookie });
+
+	const checkOrgName = (name) => {
+		if (name === DeleteUserData.level) {
+			const loginFormData = new FormData();
+			loginFormData.append("id", DeleteUserData.id)
+			loginFormData.append("level", DeleteUserData.level)
+			axios({
+				method: "delete",
+				url: `${base_url}/client/awardsInfo`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "Achievement deleted successfully") {
+						toast.success("Achievement details deleted successfully");
+						setmodalIsOpen(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllAchievementsFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter valid Qualification Level");
+		}
+
+	}
+
+
 
 	const [UserData, setUserData] = useState({ userId: document.cookie });
 
@@ -142,7 +184,58 @@ export default function UserAchievementDetail() {
 				<td>{hostels.level}</td>
 
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen}
+						onRequestClose={() => setmodalIsOpen(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering acheivement level
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter acheivement Level"
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, level: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkOrgName(hostels.level)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
 			</tr>
 
 		);

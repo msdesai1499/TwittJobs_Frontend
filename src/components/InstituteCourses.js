@@ -67,6 +67,8 @@ import axios from "axios";
 import base_url from "../api/bootapi";
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 
 const drawerWidth = 300;
@@ -122,6 +124,121 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstituteCourses() {
+
+
+	const [modalIsOpen1, setmodalIsOpen1] = useState(false);
+	const [modalIsOpen2, setmodalIsOpen2] = useState(false);
+	const [modalIsOpen3, setmodalIsOpen3] = useState(false);
+	const [DeleteUserData, setDeleteUserData] = useState({ orgId: document.cookie });
+
+	const checkpostName = (name) => {
+		if (name === DeleteUserData.postName) {
+			console.log(DeleteUserData);
+			const loginFormData = new FormData();
+			loginFormData.append("orgId", DeleteUserData.orgId)
+			loginFormData.append("postName", DeleteUserData.postName)
+			axios({
+				method: "delete",
+				url: `${base_url}/company/courseSection/post`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "Post deleted successfully") {
+						toast.success("Post deleted successfully");
+						setmodalIsOpen1(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllInstituteCoursePostsFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter Post Details");
+		}
+
+	}
+
+
+	const checkprogramName = (name) => {
+		if (name === DeleteUserData.programName) {
+			console.log(DeleteUserData);
+			const loginFormData = new FormData();
+			loginFormData.append("orgId", DeleteUserData.orgId)
+			loginFormData.append("programName", DeleteUserData.programName)
+			axios({
+				method: "delete",
+				url: `${base_url}/company/courseSection/program`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "Program deleted successully") {
+						toast.success("Program deleted successully");
+						setmodalIsOpen2(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllInstituteCourseProgramsFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter Program Details");
+		}
+
+	}
+
+	const checkcourseName = (name) => {
+		if (name === DeleteUserData.courseName) {
+			console.log(DeleteUserData);
+			const loginFormData = new FormData();
+			loginFormData.append("orgId", DeleteUserData.orgId)
+			loginFormData.append("courseName", DeleteUserData.courseName)
+			axios({
+				method: "delete",
+				url: `${base_url}/company/courseSection/courses`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "CourseName deleted successfully") {
+						toast.success("CourseName deleted successfully");
+						setmodalIsOpen3(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllInstituteCoursesFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter Course Details");
+		}
+
+	}
 
 
 	const getAllInstituteCoursePostsFromServer = () => {
@@ -201,7 +318,58 @@ export default function InstituteCourses() {
 				<td>{inst.postName}</td>
 				<td>{inst.postDetails}</td>
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+				<td><Button onClick={() => setmodalIsOpen1(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen1}
+						onRequestClose={() => setmodalIsOpen1(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering post Name
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter post Name "
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, postName: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkpostName(inst.postName)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen1(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
 			</tr>
 		);
 	};
@@ -214,7 +382,58 @@ export default function InstituteCourses() {
 				<td>{inst.programName}</td>
 				<td>{inst.programDetails}</td>
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+				<td><Button onClick={() => setmodalIsOpen2(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen2}
+						onRequestClose={() => setmodalIsOpen2(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '675px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering program Name
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter program Name "
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, programName: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkprogramName(inst.programName)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen2(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
 			</tr>
 		);
 	};
@@ -228,7 +447,58 @@ export default function InstituteCourses() {
 				<td>{inst.educationDiscipline}</td>
 				<td>{inst.courseDetails}</td>
 
-				<td><Button variant="contained"><BuildCircleIcon /></Button></td>
+				<td><Button onClick={() => setmodalIsOpen3(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen3}
+						onRequestClose={() => setmodalIsOpen3(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '1275px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering Course Name
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter Course Name "
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, courseName: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkcourseName(inst.courseName)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen3(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
 			</tr>
 		);
 	};

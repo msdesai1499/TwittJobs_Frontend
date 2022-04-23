@@ -40,9 +40,66 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import { NavDropdown, Navbar, Nav } from 'react-bootstrap';
 import './App.css';
 import { width } from '@mui/system';
+import axios from "axios";
+import base_url from "../api/bootapi";
+import { ToastContainer, toast } from 'react-toastify';
+import { useState, useEffect } from 'react';
 
 
 function Home() {
+
+
+	const getInstituteDetail = (orgid) => {
+		axios.get(`${base_url}/company/companyDetails`, { params: { id: orgid } }).then(
+			(response) => {
+				//For Success
+				console.log(response)
+				console.log(response.data.organizationName)
+				return response.data.organizationName;
+
+
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+
+
+
+	let items = ["item1", "item2", "item3"];
+
+	const getAllInstituteJobsFromServer = () => {
+		axios.get(`${base_url}/company/posting/alljobs`).then(
+			(response) => {
+				//For Success
+				console.log("Hello" + response)
+				console.log(response.data)
+				setVal(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+
+
+	useEffect(() => {
+		getAllInstituteJobsFromServer();
+
+	}, []);
+
+	const [val, setVal] = useState([])
+
+
 	return (
 		<body style={{ backgroundColor: 'grey' }}>
 
@@ -183,238 +240,25 @@ function Home() {
 
 						</div>
 					</Card>
-					<Grid container  >
-						<Grid item xs={8} >
-							<Card style={{ marginLeft: '1rem', marginRight: '1rem', marginTop: '1rem', marginBottom: '1rem', backgroundColor: '#D3D3D3', paddingBottom: '1rem' }}>
-								<div style={{ maxHeight: '70rem', overflow: 'auto' }}>
-									<Grid container rowSpacing={2}>
-										<Grid item xs={12}>
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', marginTop: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic4} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>Walk In for Asst. Prof @ MIT ACADEMY OF ENGINEERING TEST</h6>
-														<h6><b>COMPUTER SCIENCE/UG</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={12} >
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic1} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>Walk In for Asst. Prof @ MIT ACADEMY OF ENGINEERING TEST</h6>
-														<h6><b>COMPUTER SCIENCE/UG</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right', paddingBottom: '1rem' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={12} >
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic8} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>Walk In for Asst. Prof @ MIT ACADEMY OF ENGINEERING TEST</h6>
-														<h6><b>COMPUTER SCIENCE/UG</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right', paddingBottom: '1rem' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={12} >
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic7} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>Walk In for Asst. Prof @ MIT ACADEMY OF ENGINEERING TEST</h6>
-														<h6><b>COMPUTER SCIENCE/UG</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right', paddingBottom: '1rem' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={12} >
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic6} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>Urgent Requirements @ twittjobs </h6>
-														<h6><b>SKILLEDGE, Pimple Saudagar, Pune Trainer/Django and ReactJS</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right', paddingBottom: '1rem' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={12} >
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic3} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>Professor @ SYMBIOSIS CENTRE FOR MANAGEMENT & HUMAN RESOURCE DEVELOPMENT (SCMHRD)</h6>
-														<h6><b>SCMHRD - Pune Bachelors/PG</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right', paddingBottom: '1rem' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={12} >
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic2} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>University of Pune Jobs 2020 @ Savitribai Phule Pune University</h6>
-														<h6><b>Pune M Phil/PG</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right', paddingBottom: '1rem' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-										<Grid item xs={12} >
-											<Card style={{ marginLeft: '1rem', marginRight: '1rem', height: '10rem' }}>
-												<Grid container columnGap={8}>
-													<Grid item xs={4}>
-														<img src={pic5} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
-													</Grid>
-													<Grid item xs={7}>
-														<h6 style={{ paddingTop: '1rem' }}>Professor @ SYMBIOSIS CENTRE FOR MANAGEMENT & HUMAN RESOURCE DEVELOPMENT (SCMHRD)</h6>
-														<h6><b>SCMHRD - Pune Bachelors/PG</b></h6>
-
-
-													</Grid>
-												</Grid>
-												<div className='container' style={{ display: 'flex', justifyContent: 'right', paddingBottom: '1rem' }}>
-													<Button variant='contained' color='primary' >GET DETAILS</Button>
-													<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
-												</div>
-											</Card>
-										</Grid>
-									</Grid>
-								</div>
-							</Card>
-						</Grid>
-						<Grid item xs={4}>
-							<Card style={{ marginLeft: '1rem', marginRight: '1rem', marginTop: '1rem' }}>
-								<CardHeader
-									title="News & Updates"
-									titleTypographyProps={{ variant: 'h5', fontWeight: "bold", color: "snow" }}
-									titleStyle={{ textAlign: "center" }}
-									style={{ backgroundColor: "#2074d4", textAlign: "center" }}
-								/>
-
-								<Grid container>
-									<Grid item xs={12}>
-										<div style={{ overflow: "auto", maxHeight: '67rem' }}>
-											<div id="news_title" className='container' style={{ paddingTop: '1rem' }}>
-												<h5> AICTE directs private engineering colleges, tech institutes to pay salaries to faculty on time
-												</h5>
-											</div>
-
-											<div id="news_body" className='container' style={{ paddingBottom: '1rem' }} >
-												The All India Council of Technical Education (AICTE) has directed private engineering colleges and other technical institutions to pay salaries to their faculty and staff on time during the COVID-19 lockdown.
-											</div>
-											<Divider />
-											<div id="news_title" className='container' style={{ paddingTop: '1rem' }}>
-												<h5> AICTE directs private engineering colleges, tech institutes to pay salaries to faculty on time
-												</h5>
-											</div>
-
-											<div id="news_body" className='container' style={{ paddingBottom: '1rem' }}>
-												The All India Council of Technical Education (AICTE) has directed private engineering colleges and other technical institutions to pay salaries to their faculty and staff on time during the COVID-19 lockdown.
-											</div>
-											<Divider />
-											<div id="news_title" className='container' style={{ paddingTop: '1rem' }}>
-												<h5> AICTE directs private engineering colleges, tech institutes to pay salaries to faculty on time
-												</h5>
-											</div>
-
-											<div id="news_body" className='container' style={{ paddingBottom: '1rem' }}>
-												The All India Council of Technical Education (AICTE) has directed private engineering colleges and other technical institutions to pay salaries to their faculty and staff on time during the COVID-19 lockdown.
-											</div>
-											<Divider />
-											<div id="news_title" className='container' style={{ paddingTop: '1rem' }}>
-												<h5> AICTE directs private engineering colleges, tech institutes to pay salaries to faculty on time
-												</h5>
-											</div>
-
-											<div id="news_body" className='container' style={{ paddingBottom: '1rem' }}>
-												The All India Council of Technical Education (AICTE) has directed private engineering colleges and other technical institutions to pay salaries to their faculty and staff on time during the COVID-19 lockdown.
-											</div>
-											<Divider />
-											<div id="news_title" className='container' style={{ paddingTop: '1rem' }}>
-												<h5> AICTE directs private engineering colleges, tech institutes to pay salaries to faculty on time
-												</h5>
-											</div>
-
-											<div id="news_body" className='container' style={{ paddingBottom: '1rem' }}>
-												The All India Council of Technical Education (AICTE) has directed private engineering colleges and other technical institutions to pay salaries to their faculty and staff on time during the COVID-19 lockdown.
-											</div>
-											<Divider />
-											<div id="news_title" className='container' style={{ paddingTop: '1rem' }}>
-												<h5> AICTE directs private engineering colleges, tech institutes to pay salaries to faculty on time
-												</h5>
-											</div>
-
-											<div id="news_body" className='container' style={{ paddingBottom: '1rem' }}>
-												The All India Council of Technical Education (AICTE) has directed private engineering colleges and other technical institutions to pay salaries to their faculty and staff on time during the COVID-19 lockdown.
-											</div>
-										</div>
-									</Grid>
+					{val.map((item, index) => {
+						return <Card style={{ marginLeft: '1rem', marginRight: '1rem', marginTop: '1rem', height: '10rem' }}>
+							<Grid container columnGap={8}>
+								<Grid item xs={4}>
+									<img src={pic4} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
 								</Grid>
-							</Card>
-						</Grid>
-					</Grid>
+								<Grid item xs={7}>
+									<h6 style={{ paddingTop: '1rem' }}>{getInstituteDetail(item.orgId)}</h6>
+									<h6><b>{item.postName}</b></h6>
+
+
+								</Grid>
+							</Grid>
+							<div className='container' style={{ display: 'flex', justifyContent: 'right' }}>
+								<Button variant='contained' color='primary' >GET DETAILS</Button>
+								<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
+							</div>
+						</Card>
+					})}
 					<Card style={{ marginLeft: '1rem', marginRight: '1rem' }}>
 						<Grid container>
 							<Grid item xs={12}>
