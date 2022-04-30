@@ -45,8 +45,8 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import axios from "axios";
 import base_url from "../api/bootapi";
-import { ToastContainer, toast } from 'react-toastify';	
-
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -102,7 +102,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function UserDocumentDetail() {
 
 
+	const navigate = useNavigate();
 
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const [UserDocument, setUserDocument] = useState({ userId: document.cookie });
 	const handleSubmit = async (e) => {
@@ -194,6 +201,7 @@ export default function UserDocumentDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

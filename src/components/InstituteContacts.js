@@ -69,6 +69,7 @@ import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { useNavigate } from "react-router-dom";
 Modal.setAppElement('#root');
 
 const drawerWidth = 300;
@@ -124,6 +125,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstituteContacts() {
+
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 
 	const [modalIsOpen, setmodalIsOpen] = useState(false);
@@ -340,6 +351,7 @@ export default function InstituteContacts() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

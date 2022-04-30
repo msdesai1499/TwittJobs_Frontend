@@ -35,7 +35,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
 import axios from "axios";
 import base_url from "../api/bootapi";
-
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -89,6 +89,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserUploadResume() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
 
 	const [UserResume, setUserResume] = useState({ id: document.cookie });
 	const handleSubmit = async (e) => {
@@ -162,6 +172,7 @@ export default function UserUploadResume() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

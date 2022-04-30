@@ -40,11 +40,15 @@ import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Table from 'react-bootstrap/Table';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
 import Modal from 'react-modal';
+import { useNavigate } from "react-router-dom";
+
 Modal.setAppElement('#root');
+
 
 const drawerWidth = 300;
 
@@ -98,6 +102,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserEducationDetails() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const [modalIsOpen, setmodalIsOpen] = useState(false);
 	const [DeleteUserData, setDeleteUserData] = useState({ id: document.cookie });
@@ -310,6 +323,7 @@ export default function UserEducationDetails() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

@@ -39,6 +39,7 @@ import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
 import Grid from '@mui/material/Grid';
 import Textfield from '@mui/material/TextField';
 import Container from '@mui/material/Container';
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -95,6 +96,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function UserActivatedPlanDetail() {
 
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
 	const [open1, setOpen1] = React.useState(true);
 
 	const handleClick = () => {
@@ -137,6 +147,7 @@ export default function UserActivatedPlanDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

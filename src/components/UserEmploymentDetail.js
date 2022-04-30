@@ -45,6 +45,7 @@ import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
 import Modal from 'react-modal';
+import { useNavigate } from "react-router-dom";
 Modal.setAppElement('#root');
 
 
@@ -100,6 +101,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserEmploymentDetail() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const [modalIsOpen, setmodalIsOpen] = useState(false);
 	const [DeleteUserData, setDeleteUserData] = useState({ userId: "sn" });
@@ -306,6 +316,7 @@ export default function UserEmploymentDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

@@ -68,7 +68,7 @@ import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
-
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -123,6 +123,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstituteJobPosting() {
+
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 
 
@@ -259,6 +269,7 @@ export default function InstituteJobPosting() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

@@ -41,6 +41,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -94,6 +95,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserMedicalDetail() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const [UserData, setUserData] = useState({ id: document.cookie });
 	const getAllResearchPapersFromServer = () => {
@@ -197,6 +207,7 @@ export default function UserMedicalDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

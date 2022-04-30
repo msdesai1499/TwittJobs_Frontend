@@ -50,6 +50,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import ReplyIcon from '@mui/icons-material/Reply';
 import PhoneIcon from '@mui/icons-material/Phone';
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 300;
 
 
@@ -103,6 +104,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function AdminManageUserAdd() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -185,6 +195,7 @@ export default function AdminManageUserAdd() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

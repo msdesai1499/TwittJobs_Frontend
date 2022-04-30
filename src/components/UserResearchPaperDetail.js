@@ -100,7 +100,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserResearchPaperDetail() {
+
+
 	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
 
 	const getAllResearchPapersFromServer = () => {
 		axios.get(`${base_url}/client/researchPaper`, { params: { id: document.cookie } }).then(
@@ -200,6 +210,7 @@ export default function UserResearchPaperDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

@@ -51,6 +51,7 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 300;
 
 
@@ -104,6 +105,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function AdminNewsAdd() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
 
 	const [AddNews, setAddNews] = useState({});
 	const handleSubmit = async (e) => {
@@ -224,6 +235,7 @@ export default function AdminNewsAdd() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

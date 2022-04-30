@@ -53,7 +53,9 @@ import { FormControlLabel, FormGroup } from '@mui/material';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import Paper from '@mui/material/Paper';
 import DirectionsIcon from '@mui/icons-material/Directions';
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 300;
+
 
 
 
@@ -105,6 +107,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserPreferenceDetail() {
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
 
 	const [open1, setOpen1] = React.useState(true);
 
@@ -148,6 +159,7 @@ export default function UserPreferenceDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

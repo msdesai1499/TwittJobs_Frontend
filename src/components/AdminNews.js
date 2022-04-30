@@ -127,6 +127,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function AdminNews() {
 
 
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
+
 	const getAllNewsFromServer = () => {
 		axios.get(`${base_url}/newsSection/newsDetails`).then(
 			(response) => {
@@ -243,6 +253,7 @@ export default function AdminNews() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

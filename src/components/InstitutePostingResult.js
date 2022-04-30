@@ -69,7 +69,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import SendIcon from '@mui/icons-material/Send';
-
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 300;
 
 
@@ -123,6 +123,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstitutePostingResult() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -206,6 +215,7 @@ export default function InstitutePostingResult() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

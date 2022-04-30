@@ -27,7 +27,7 @@ const UserLogin = () => {
 	const getDatafromServer = (data) => {
 
 
-		
+
 		axios.post(`${base_url}/login/candidates`, data).then(
 			(response) => {
 				if ((response.data) === "Unsuccessful") {

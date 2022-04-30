@@ -43,6 +43,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import AlignVertical from '@mui/icons-material/AlignVerticalBottom';
 import LocationCity from '@mui/icons-material/LocationCity';
 import SendIcon from '@mui/icons-material/Send';
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 300;
 
 
@@ -96,6 +97,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function AdminManageUser() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -178,6 +189,7 @@ export default function AdminManageUser() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

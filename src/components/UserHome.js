@@ -41,6 +41,7 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUpload';
 import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -96,6 +97,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const steps = ['Enter Personal Details', 'Enter Contact Details', 'Enter Address'];
 
 export default function UserHome() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const [userData, setUserData] = useState({ fname: "", lname: "", mobno: "" });
 	useEffect(() => {
@@ -1040,6 +1050,7 @@ export default function UserHome() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

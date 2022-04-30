@@ -52,6 +52,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import SchoolIcon from '@mui/icons-material/School';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -106,6 +107,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function InstituteHome() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
+
 
 	const [open1, setOpen1] = React.useState(true);
 
@@ -172,6 +183,7 @@ export default function InstituteHome() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>

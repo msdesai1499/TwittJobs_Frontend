@@ -41,6 +41,7 @@ import Textfield from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import axios from "axios";
 import base_url from "../api/bootapi";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -98,6 +99,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserChangePasswordDetail() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 
 	const [UserChangePassword, setUserChangePassword] = useState({ id: document.cookie });
@@ -179,6 +189,7 @@ export default function UserChangePasswordDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

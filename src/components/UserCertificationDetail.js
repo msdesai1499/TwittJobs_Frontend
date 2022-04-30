@@ -45,6 +45,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 
 const drawerWidth = 300;
@@ -99,6 +100,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function UserCertificationDetail() {
+
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 
 	const [UserData, setUserData] = useState({ userId: document.cookie });
@@ -217,6 +228,7 @@ export default function UserCertificationDetail() {
 					<Button color="inherit">About Us</Button>
 					<Button color="inherit">Contact Us</Button>
 					<Button color="inherit">Dashboard</Button>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer

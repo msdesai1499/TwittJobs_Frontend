@@ -45,6 +45,7 @@ import LocationCity from '@mui/icons-material/LocationCity';
 import ReplyIcon from '@mui/icons-material/Reply';
 import SendIcon from '@mui/icons-material/Send';
 import DoneIcon from '@mui/icons-material/Done'
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -99,6 +100,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function AdminInstituteFileImportAdd() {
+
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+
+		document.cookie = null;
+		navigate("/");
+
+	}
 
 	const editorRef = useRef(null);
 	const log = () => {
@@ -181,6 +191,7 @@ export default function AdminInstituteFileImportAdd() {
 					<Typography variant="h6" noWrap component="div">
 						Twittjobs
 					</Typography>
+					<Button onClick={handleLogout} color="inherit">Logout</Button>
 
 				</Toolbar>
 			</AppBar>
