@@ -127,6 +127,76 @@ export default function InstituteJobPostingAdd() {
 
 	}
 
+	const getAllCoursesInfo = () => {
+		axios.get(`${base_url}/company/courseSection/courses`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response.data)
+				setCourseData(response.data);
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+	const getAllProgramInfo = () => {
+		axios.get(`${base_url}/company/courseSection/programs`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response.data)
+				setProgramData(response.data);
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+	const getAllPostInfo = () => {
+		axios.get(`${base_url}/company/courseSection/posts`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response.data)
+				setPostData(response.data);
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+	const getAllBranchInfo = () => {
+		axios.get(`${base_url}/company/companyBranches`, { params: { id: document.cookie } }).then(
+			(response) => {
+				//For Success
+				console.log(response.data)
+				setBranchData(response.data);
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				toast.error("Something went wrong");
+			}
+		);
+	};
+
+
+	useEffect(() => {
+		getAllCoursesInfo();
+		getAllProgramInfo();
+		getAllPostInfo();
+		getAllBranchInfo();
+	}, []);
+
+	const [coursedata, setCourseData] = useState([]);
+	const [programdata, setProgramData] = useState([]);
+	const [postdata, setPostData] = useState([]);
+	const [branchdata, setBranchData] = useState([]);
 
 	const [InstituteJobDetails, setInstituteJobDetails] = useState({ orgId: document.cookie });
 	const handleSubmit = (e) => {
@@ -428,10 +498,7 @@ export default function InstituteJobPostingAdd() {
 																		setInstituteJobDetails({ ...InstituteJobDetails, orgBranch: e.target.value })
 																	}}
 																>
-																	<MenuItem value="Accounts">Accounts</MenuItem>
-																	<MenuItem value="Teaching">Teaching</MenuItem>
-																	<MenuItem value="Asssitance">Assistance</MenuItem>
-																	<MenuItem value="Management">Management</MenuItem>
+																	{branchdata.map(brh => (<MenuItem value={brh.branchLocation}>{brh.branchLocation}</MenuItem>))}
 																</Select>
 															</FormControl>
 														</Grid>
@@ -590,9 +657,7 @@ export default function InstituteJobPostingAdd() {
 																				}}
 
 																			>
-																				<MenuItem value="Course 1">Course 1</MenuItem>
-																				<MenuItem value="Course 2">Course 2</MenuItem>
-																				<MenuItem value="Course 3">Course 3</MenuItem>
+																				{coursedata.map(crs => (<MenuItem value={crs.courseName}>{crs.courseName}</MenuItem>))}
 																			</Select>
 																		</FormControl>
 																	</td>
@@ -610,9 +675,7 @@ export default function InstituteJobPostingAdd() {
 																				}}
 
 																			>
-																				<MenuItem value="Program 1">Program 1</MenuItem>
-																				<MenuItem value="Program 2">Program 2</MenuItem>
-																				<MenuItem value="Program 3">Program 3</MenuItem>
+																				{programdata.map(prg => (<MenuItem value={prg.programName}>{prg.programName}</MenuItem>))}
 																			</Select>
 																		</FormControl>
 																	</td>
@@ -630,9 +693,9 @@ export default function InstituteJobPostingAdd() {
 																				}}
 
 																			>
-																				<MenuItem value="Post 1">Post 1</MenuItem>
-																				<MenuItem value="Post 2">Post 2</MenuItem>
-																				<MenuItem value="Post 3">Post 3</MenuItem>
+
+																				{postdata.map(pst => (<MenuItem value={pst.postName}>{pst.postName}</MenuItem>))}
+
 																			</Select>
 																		</FormControl>
 																	</td>
