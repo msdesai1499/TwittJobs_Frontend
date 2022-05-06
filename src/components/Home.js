@@ -44,9 +44,27 @@ import axios from "axios";
 import base_url from "../api/bootapi";
 import { ToastContainer, toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 function Home() {
+
+	const navigate = useNavigate();
+
+	// const callapplyjob = (e, orgid) => {
+
+
+	// 	if (document.cookie == null) {
+
+	// 		toast.error("Please Login first");
+	// 		navigate("/userlogin");
+
+	// 	}
+	// 	else {
+	// 		toast.success("Apply successfull");
+	// 	}
+
+	// }
 
 
 	const getInstituteDetail = (orgid) => {
@@ -71,7 +89,6 @@ function Home() {
 
 
 
-	let items = ["item1", "item2", "item3"];
 
 	const getAllInstituteJobsFromServer = () => {
 		axios.get(`${base_url}/company/posting/alljobs`).then(
@@ -253,10 +270,11 @@ function Home() {
 
 								</Grid>
 							</Grid>
+
 							<div className='container' style={{ display: 'flex', justifyContent: 'right' }}>
-								<Button variant='contained' color='primary' >GET DETAILS</Button>
 								<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
 							</div>
+
 						</Card>
 					})}
 					<Card style={{ marginLeft: '1rem', marginRight: '1rem' }}>
@@ -316,7 +334,7 @@ function Home() {
 					<div style={{ paddingBottom: '1rem' }}></div>
 				</div>
 			</div>
-		</body>
+		</body >
 	);
 }
 

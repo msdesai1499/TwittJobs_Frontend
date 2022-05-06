@@ -134,9 +134,9 @@ export default function InstituteContactsAdd() {
 
 
 	const [InstituteContactDetails, setInstituteContactDetails] = useState({ orgId: document.cookie });
-	const [InstituteSocialMediaDetails, setInstituteSocialMediaDetails] = useState({ orgId: document.cookie });
+
 	const handleSubmit = (e) => {
-		e.preventDefault();
+		 
 		console.log("Form Submitted");
 		console.log(InstituteContactDetails.orgId);
 
@@ -165,29 +165,6 @@ export default function InstituteContactsAdd() {
 			});
 
 
-		axios({
-			method: "post",
-			url: `${base_url}/company/socialMediaDetails`,
-			data: InstituteSocialMediaDetails,
-
-		})
-			.then(function (response) {
-				//handle success
-
-				if (response.data === "Social Media Info Saved") {
-					toast.success("Organization Social Media Details added Successfully");
-				}
-				else {
-					toast.error("Error Occurred");
-				}
-				console.log(response);
-
-			})
-			.catch(function (response) {
-				//handle error
-				toast.error("Error Occurred");
-				console.log(response);
-			});
 
 	}
 
@@ -349,6 +326,12 @@ export default function InstituteContactsAdd() {
 								</ListItemIcon>
 								<ListItemText primary="Organization contacts" />
 							</ListItemButton>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutesocialmedia">
+								<ListItemIcon>
+									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
+								</ListItemIcon>
+								<ListItemText primary="Organization Social Media" />
+							</ListItemButton>
 
 						</List>
 					</Collapse>
@@ -503,134 +486,12 @@ export default function InstituteContactsAdd() {
 															/>
 														</Grid>
 													</Grid>
-
-												</Card>
-											</Grid>
-											<Grid item xs={6}>
-												<Card>
-													<CardHeader
-														title="Social Media Account URL"
-														titleTypographyProps={{ variant: 'h5' }}
-														titleStyle={{ textAlign: "center" }}
-														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-													/>
-													<Grid container rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="facebook"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<FacebookIcon style={{ color: "blue" }} />
-																		</InputAdornment>
-																	),
-																}}
-																onChange={(e) => {
-
-																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, facebookUrl: e.target.value })
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Twitter"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<TwitterIcon style={{ color: "skyblue" }} />
-																		</InputAdornment>
-																	),
-																}}
-																onChange={(e) => {
-
-																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, twitterUrl: e.target.value })
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Skype"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<Icon icon="mdi:skype" style={{ transform: "scale(2)", color: "darkblue" }} />
-																		</InputAdornment>
-																	),
-																}}
-																onChange={(e) => {
-
-																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, skypeUrl: e.target.value })
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Instagram"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<InstagramIcon style={{ color: "#8a3ab9" }} />
-																		</InputAdornment>
-																	),
-																}}
-																onChange={(e) => {
-
-																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, instagramUrl: e.target.value })
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="Linked In"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<LinkedInIcon style={{ color: "darkblue" }} />
-																		</InputAdornment>
-																	),
-																}}
-																onChange={(e) => {
-
-																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, linkedInUrl: e.target.value })
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<TextField
-																fullWidth
-																type="text"
-																label="YouTube"
-																InputProps={{
-																	startAdornment: (
-																		<InputAdornment position="start">
-																			<YouTubeIcon style={{ color: "red" }} />
-																		</InputAdornment>
-																	),
-																}}
-																onChange={(e) => {
-
-																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, youtubeUrl: e.target.value })
-																}}
-															/>
-														</Grid>
-														<Grid item xs={12}>
-															<div className='container' style={{ padding: "0rem 1rem 1rem 1rem" }}>
-																<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />}>SUBMIT</Button>
-																<Button component="a" href="/institutecontacts" variant="contained" style={{ marginLeft: "1rem " }} endIcon={<ReplyIcon />}>Go Back</Button>
-															</div>
-														</Grid>
+													<Grid item xs={12}>
+														<div className='container' style={{ padding: "0rem 1rem 1rem 1rem" }}>
+															<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />}>SUBMIT</Button>
+															<Button component="a" href="/institutecontacts" variant="contained" style={{ marginLeft: "1rem " }} endIcon={<ReplyIcon />}>Go Back</Button>
+														</div>
 													</Grid>
-
 												</Card>
 											</Grid>
 										</Grid>

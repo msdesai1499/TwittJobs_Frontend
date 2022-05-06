@@ -42,7 +42,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from '@mui/icons-material/Speed';
 import SearchIcon from '@mui/icons-material/Search';
 import DownloadIcon from '@mui/icons-material/Download';
-
+import ReplyIcon from '@mui/icons-material/Reply';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActive';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUpload';
@@ -65,12 +65,9 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import axios from "axios";
 import base_url from "../api/bootapi";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
-import Modal from 'react-modal';
 import { useNavigate } from "react-router-dom";
-Modal.setAppElement('#root');
-
 const drawerWidth = 300;
 
 
@@ -123,7 +120,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function InstituteBranch() {
+export default function InstituteSocialMedia() {
+
 
 	const navigate = useNavigate();
 
@@ -134,143 +132,37 @@ export default function InstituteBranch() {
 
 	}
 
-	const [modalIsOpen, setmodalIsOpen] = useState(false);
-	const [DeleteUserData, setDeleteUserData] = useState({ orgId: document.cookie });
 
-	const checkOrgName = (name) => {
-		if (name === DeleteUserData.branchLocation) {
-			console.log(DeleteUserData);
-			const loginFormData = new FormData();
-			loginFormData.append("orgId", DeleteUserData.orgId)
-			loginFormData.append("branchLocation", DeleteUserData.branchLocation)
-			axios({
-				method: "delete",
-				url: `${base_url}/company/companyBranches`,
-				data: loginFormData,
-				headers: { "Content-Type": "multipart/form-data" },
+	const [InstituteSocialMediaDetails, setInstituteSocialMediaDetails] = useState({ orgId: document.cookie });
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("Form Submitted");
+
+		axios({
+			method: "post",
+			url: `${base_url}/company/socialMediaDetails`,
+			data: InstituteSocialMediaDetails,
+
+		})
+			.then(function (response) {
+				//handle success
+
+				if (response.data === "Social Media Info Saved") {
+					toast.success("Organization Social Media Details added Successfully");
+				}
+				else {
+					toast.error("Error Occurred");
+				}
+				console.log(response);
+
 			})
-				.then(function (response) {
-					//handle success
-					console.log(response);
-					if (response.data === "Branch Location deleted successfully") {
-						toast.success("Branch details deleted successfully");
-						setmodalIsOpen(false);
-					}
-					else {
-						toast.error("Error Occurred");
-					}
-					getAllInstituteBranchFromServer();
-				})
-				.catch(function (response) {
-					//handle error
-					console.log(response);
-					toast.error("Error Occurred cdm");
-				});
-
-		} else {
-			toast.error("Please enter valid Branch");
-		}
+			.catch(function (response) {
+				//handle error
+				toast.error("Error Occurred");
+				console.log(response);
+			});
 
 	}
-
-
-
-	const getAllInstituteBranchFromServer = () => {
-		axios.get(`${base_url}/company/companyBranches`, { params: { id: document.cookie } }).then(
-			(response) => {
-				//For Success
-				console.log(response)
-				console.log(response.data)
-
-				setBanks(response.data);
-
-			},
-			(error) => {
-				//For Error
-				console.log(error)
-				toast.error("Something went wrong");
-			}
-		);
-	};
-
-
-	useEffect(() => {
-		getAllInstituteBranchFromServer();
-	}, []);
-
-
-	const [banks, setBanks] = useState([])
-
-
-
-
-	const renderCard = (inst, index) => {
-
-		return (
-
-			<tr>
-				<td>{inst.branchLocation}</td>
-				<a href={inst.websiteUrl} ><td>{inst.websiteUrl}</td></a>
-				<td>{inst.email}</td>
-				<td>{inst.mobile}</td>
-				<td>{inst.contactPerson}</td>
-				<td>{inst.branchStatus}</td>
-
-				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
-					<Modal isOpen={modalIsOpen}
-						onRequestClose={() => setmodalIsOpen(false)}
-						style={
-							{
-								overlay: {
-									backgroundColor: 'transparent',
-									height: '350px',
-									width: '500px',
-									position: 'absolute',
-									top: '375px',
-									left: '1000px',
-									right: '100px',
-									bottom: '100px'
-								},
-								content: {
-									color: 'black'
-								},
-								zIndex: '1001'
-
-							}
-						}
-					>
-						<div >
-							<h4>
-								Confirm by entering Branch Location
-							</h4>
-							<p>
-								<TextField
-									margin="normal"
-									fullWidth
-									id="del_text"
-									label="Enter Branch Location"
-									InputLabelProps={{ shrink: true }}
-									name="del_text"
-									onChange={(e) => {
-
-										setDeleteUserData({ ...DeleteUserData, branchLocation: e.target.value })
-									}}
-								/>
-
-							</p>
-							<div className='container' style={{
-								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
-							}}>
-								<button onClick={() => checkOrgName(inst.branchLocation)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
-								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
-							</div>
-						</div>
-
-					</Modal>
-				</td>
-			</tr>
-		);
-	};
 
 
 
@@ -399,9 +291,9 @@ export default function InstituteBranch() {
 								<ListItemText primary="Home" />
 							</ListItemButton>
 
+
 						</List>
 					</Collapse>
-
 
 					<ListItemButton onClick={handleClick2}>
 						<ListItemIcon>
@@ -418,7 +310,7 @@ export default function InstituteBranch() {
 								</ListItemIcon>
 								<ListItemText primary="Organization details" />
 							</ListItemButton>
-							<ListItemButton sx={{ pl: 2 }} >
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutebranch">
 								<ListItemIcon>
 									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
 								</ListItemIcon>
@@ -514,37 +406,138 @@ export default function InstituteBranch() {
 					<div className='container'>
 						<Grid container rowSpacing={2}>
 							<Grid item xs={12}>
-								<Card id="Card1">
-									<CardHeader
-										title="Organization Branches"
-										titleTypographyProps={{ variant: 'h5' }}
-										titleStyle={{ textAlign: "center" }}
-										style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
-									/>
-									<div className='container' style={{ paddingBottom: "1rem", paddingTop: "1rem", display: "flex", justifyContent: "right" }}>
-										<Button component="a" href="/institutebranchadd" variant='contained' color="success" endIcon={<AddIcon />}>Add New</Button>
-										<Button variant='contained' color="error" style={{ marginLeft: "1rem" }} endIcon={<DeleteIcon />}>DELETE</Button>
-									</div>
-									<div className='container'>
-										<Table striped bordered hover>
-											<thead>
-												<tr>
+								<form onSubmit={handleSubmit}>
+									<Card id="Card1">
+										<Grid container columnSpacing={6} style={{ paddingTop: "1rem", paddingBottom: "1rem", paddingLeft: '1rem' }}>
+											<Grid item xs={6} style={{ position: "center" }}>
+												<Card>
+													<CardHeader
+														title="Social Media Account URL"
+														titleTypographyProps={{ variant: 'h5' }}
+														titleStyle={{ textAlign: "center" }}
+														style={{ backgroundColor: "#D3D3D3", textAlign: "center" }}
+													/>
+													<Grid container rowSpacing={2} style={{ padding: "1rem 1rem 1rem 1rem" }}>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="facebook"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<FacebookIcon style={{ color: "blue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
 
-													<th>Branch Location</th>
-													<th>Branch Website</th>
-													<th>Email Id</th>
-													<th>Mobile No</th>
-													<th>Contact Person</th>
-													<th>Status</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-											<tbody>
-												{banks.map(renderCard)}
-											</tbody>
-										</Table>
-									</div>
-								</Card>
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, facebookUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Twitter"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<TwitterIcon style={{ color: "skyblue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, twitterUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Skype"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<Icon icon="mdi:skype" style={{ transform: "scale(2)", color: "darkblue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, skypeUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Instagram"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<InstagramIcon style={{ color: "#8a3ab9" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, instagramUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="Linked In"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<LinkedInIcon style={{ color: "darkblue" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, linkedInUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<TextField
+																fullWidth
+																type="text"
+																label="YouTube"
+																InputProps={{
+																	startAdornment: (
+																		<InputAdornment position="start">
+																			<YouTubeIcon style={{ color: "red" }} />
+																		</InputAdornment>
+																	),
+																}}
+																onChange={(e) => {
+
+																	setInstituteSocialMediaDetails({ ...InstituteSocialMediaDetails, youtubeUrl: e.target.value })
+																}}
+															/>
+														</Grid>
+														<Grid item xs={12}>
+															<div className='container' style={{ padding: "0rem 1rem 1rem 1rem" }}>
+																<Button type="submit" variant="contained" color="success" endIcon={<DoneIcon />}>SUBMIT</Button>
+															</div>
+														</Grid>
+													</Grid>
+
+												</Card>
+											</Grid>
+										</Grid>
+									</Card>
+								</form>
 							</Grid>
 						</Grid>
 					</div>

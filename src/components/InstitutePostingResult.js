@@ -296,6 +296,12 @@ export default function InstitutePostingResult() {
 								</ListItemIcon>
 								<ListItemText primary="Organization contacts" />
 							</ListItemButton>
+							<ListItemButton sx={{ pl: 2 }} component="a" href="/institutesocialmedia">
+								<ListItemIcon>
+									<KeyboardDoubleArrowRightOutlinedIcon fontSize="small" />
+								</ListItemIcon>
+								<ListItemText primary="Organization Social Media" />
+							</ListItemButton>
 
 						</List>
 					</Collapse>
