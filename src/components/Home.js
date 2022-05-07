@@ -50,30 +50,62 @@ import { useNavigate } from "react-router-dom";
 function Home() {
 
 	const navigate = useNavigate();
+	const [InstituteJobDetails, setInstituteJobDetails] = useState({ userId: document.cookie });
 
-	// const callapplyjob = (e, orgid) => {
+	const callapplyjob = (jobid) => {
 
 
-	// 	if (document.cookie == null) {
+		if (document.cookie == null) {
 
-	// 		toast.error("Please Login first");
-	// 		navigate("/userlogin");
+			toast.error("Please Login first");
+			navigate("/userlogin");
 
-	// 	}
-	// 	else {
-	// 		toast.success("Apply successfull");
-	// 	}
+		}
+		else {
+			toast.success("Apply successfull");
+			console.log(jobid + "fhudsj");
+			InstituteJobDetails.jobId = jobid
+			InstituteJobDetails.applyDate = new Date()
+			console.log(InstituteJobDetails);
+			axios({
+				method: "post",
+				url: `${base_url}/jobApply`,
+				data: InstituteJobDetails,
 
-	// }
+			})
+				.then(function (response) {
+					//handle success
+
+					if (response.data === "Successfully applied for the given job") {
+						toast.success("Successfully applied for the given job");
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					console.log(response);
+
+				})
+				.catch(function (response) {
+					//handle error
+					toast.error("Error Occurred");
+					console.log(response);
+				});
+
+
+		}
+
+	}
 
 
 	const getInstituteDetail = (orgid) => {
+		var nameorg;
 		axios.get(`${base_url}/company/companyDetails`, { params: { id: orgid } }).then(
 			(response) => {
 				//For Success
 				console.log(response)
 				console.log(response.data.organizationName)
-				return response.data.organizationName;
+				nameorg = response.data.organizationName
+
 
 
 
@@ -83,7 +115,9 @@ function Home() {
 				console.log(error)
 				toast.error("Something went wrong");
 			}
+
 		);
+		return (nameorg);
 	};
 
 
@@ -264,17 +298,18 @@ function Home() {
 									<img src={pic4} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
 								</Grid>
 								<Grid item xs={7}>
-									<h6 style={{ paddingTop: '1rem' }}>{getInstituteDetail(item.orgId)}</h6>
+									<h6 style={{ paddingTop: '1rem' }}>{() => getInstituteDetail(item.orgId)}</h6>
+
 									<h6><b>{item.postName}</b></h6>
 
 
 								</Grid>
 							</Grid>
-
+							{/* <form onSubmit={callapplyjob(item.orgId)}> */}
 							<div className='container' style={{ display: 'flex', justifyContent: 'right' }}>
-								<Button variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
+								<Button id={index} onClick={() => callapplyjob(item.jobId)} variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
 							</div>
-
+							{/* </form> */}
 						</Card>
 					})}
 					<Card style={{ marginLeft: '1rem', marginRight: '1rem' }}>
