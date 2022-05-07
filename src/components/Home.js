@@ -51,7 +51,7 @@ function Home() {
 
 	const navigate = useNavigate();
 	const [InstituteJobDetails, setInstituteJobDetails] = useState({ userId: document.cookie });
-
+	const clgnames = ['MIT Academy of Engineering', 'College of engineering pune', 'Pune Institute of Computer Technology'];
 	const callapplyjob = (jobid) => {
 
 
@@ -299,6 +299,7 @@ function Home() {
 								</Grid>
 								<Grid item xs={7}>
 									<h6 style={{ paddingTop: '1rem' }}>{() => getInstituteDetail(item.orgId)}</h6>
+									<h6 style={{ paddingTop: '1rem' }}>{clgnames[index]}</h6>
 
 									<h6><b>{item.postName}</b></h6>
 
