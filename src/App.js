@@ -58,7 +58,7 @@ import AdminNewsAdd from "./components/AdminNewsAdd"
 import AdminInquiryStandards from "./components/AdminInquiryStandards"
 import AdminInquiryStandardsAdd from "./components/AdminInquiryStandardsAdd"
 import AdminInquiryManagement from "./components/AdminInquiryManagement"
-
+import Profile from "./components/Profile"
 
 const App = () => {
   return (
@@ -125,6 +125,7 @@ const App = () => {
         <Route path="/admininquirystandards" element={<AdminInquiryStandards />} />
         <Route path="/admininquirystandardsadd" element={<AdminInquiryStandardsAdd />} />
         <Route path="/admininquirymanagement" element={<AdminInquiryManagement />} />
+        <Route path={"/profile/"+"*"} element={<Profile />} />
 
 
 

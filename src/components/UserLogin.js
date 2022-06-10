@@ -26,7 +26,7 @@ const UserLogin = () => {
 
 	const getDatafromServer = (data) => {
 
-
+		console.log("Hello");
 
 		axios.post(`${base_url}/login/candidates`, data).then(
 			(response) => {
@@ -38,6 +38,7 @@ const UserLogin = () => {
 
 					console.log(response.data);
 					document.cookie = response.data;
+					
 					navigate("/userhome");
 				}
 

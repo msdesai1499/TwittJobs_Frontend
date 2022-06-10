@@ -54,8 +54,8 @@ function Home() {
 	const clgnames = ['MIT Academy of Engineering', 'College of engineering pune', 'Pune Institute of Computer Technology'];
 	const callapplyjob = (jobid) => {
 
-
-		if (document.cookie == null) {
+		console.log("cookie" + document.cookie);
+		if (document.cookie === null || document.cookie === "null" || document.cookie == 0) {
 
 			toast.error("Please Login first");
 			navigate("/userlogin");
@@ -97,32 +97,27 @@ function Home() {
 	}
 
 
-	const getInstituteDetail = (orgid) => {
-		var nameorg;
-		axios.get(`${base_url}/company/companyDetails`, { params: { id: orgid } }).then(
+	const getInstituteDetail = (orgId) => {
+
+		axios.get(`${base_url}/getOrgName`, { params: { orgId: orgId } }).then(
 			(response) => {
 				//For Success
-				console.log(response)
-				console.log(response.data.organizationName)
-				nameorg = response.data.organizationName
-
-
-
-
+				console.log(response.data)
+				alert(response.data);
 			},
 			(error) => {
 				//For Error
 				console.log(error)
 				toast.error("Something went wrong");
 			}
-
 		);
-		return (nameorg);
+
+
 	};
 
 
 
-
+	const [val, setVal] = useState([])
 
 	const getAllInstituteJobsFromServer = () => {
 		axios.get(`${base_url}/company/posting/alljobs`).then(
@@ -132,6 +127,7 @@ function Home() {
 				console.log(response.data)
 				setVal(response.data);
 
+
 			},
 			(error) => {
 				//For Error
@@ -139,6 +135,7 @@ function Home() {
 				toast.error("Something went wrong");
 			}
 		);
+
 	};
 
 
@@ -148,7 +145,7 @@ function Home() {
 
 	}, []);
 
-	const [val, setVal] = useState([])
+
 
 
 	return (
@@ -293,24 +290,26 @@ function Home() {
 					</Card>
 					{val.map((item, index) => {
 						return <Card style={{ marginLeft: '1rem', marginRight: '1rem', marginTop: '1rem', height: '10rem' }}>
-							<Grid container columnGap={8}>
-								<Grid item xs={4}>
-									<img src={pic4} style={{ height: '110px', maxWidth: '400px', paddingRight: '2rem', paddingTop: '1rem', paddingLeft: '1rem' }} ></img>
+							<Grid container spacing={3}>
+								<Grid item xs={12}>
+									<h6>Post Name : {item.postName}</h6>
 								</Grid>
-								<Grid item xs={7}>
-									<h6 style={{ paddingTop: '1rem' }}>{() => getInstituteDetail(item.orgId)}</h6>
-									<h6 style={{ paddingTop: '1rem' }}>{clgnames[index]}</h6>
+								<Grid item xs={6}>
 
-									<h6><b>{item.postName}</b></h6>
-
+									<h6>Working Type : {item.workingType}</h6>
+									<h6>Branch : {item.orgBranch}</h6>
+								</Grid>
+								<Grid item xs={6}>
+									<h6>Qualification Required : {item.qualification}</h6>
+									<h6>Experience Required : {item.experience}</h6>
 
 								</Grid>
 							</Grid>
-							{/* <form onSubmit={callapplyjob(item.orgId)}> */}
+
 							<div className='container' style={{ display: 'flex', justifyContent: 'right' }}>
 								<Button id={index} onClick={() => callapplyjob(item.jobId)} variant='contained' color='success' style={{ marginLeft: '1rem' }} >APPLY NOW</Button>
 							</div>
-							{/* </form> */}
+
 						</Card>
 					})}
 					<Card style={{ marginLeft: '1rem', marginRight: '1rem' }}>
