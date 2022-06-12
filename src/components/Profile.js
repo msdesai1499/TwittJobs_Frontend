@@ -117,11 +117,13 @@ const App1 = (props) => {
 export default function Profile() {
 
 
-	const [UserData, setUserData] = useState({});
+
 	const [modalIsOpen, setmodalIsOpen] = useState(false);
 	const [DeleteUserData, setDeleteUserData] = useState({ id: 1 });
+	let userData;
 
 	const getUserIdfromUserName = () => {
+
 		let url_loc = window.location.href
 		const myarray = url_loc.split("/");
 		const lastele = myarray.slice(-1);
@@ -129,24 +131,48 @@ export default function Profile() {
 			(response) => {
 				//For Success
 				console.log(response.data)
-				setUserData({ ...UserData, userId: response.data })
+				userData = {
+					userId: response.data
+				}
+				getAllEducationFromServer();
+				getAllEmploymentFromServer();
 			},
 			(error) => {
 				//For Error
 				console.log(error)
 				toast.error("Something went wrong");
+				return error;
+			});
+
+	};
+
+
+
+	useEffect(() => {
+		getUserIdfromUserName()
+	}, []);
+
+
+
+
+	const getAllEducationFromServer = () => {
+		axios.post(`${base_url}/client/educationsDetails`, userData).then(
+			(response) => {
+				//For Success
+				console.log(response.data)
+				setBanks1(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				// toast.error("Something went wrong");
 			}
 		);
 	};
 
-	useEffect(() => {
 
-		getUserIdfromUserName();
-		getAllEducationFromServer();
-	}, []);
-
-
-	const checkOrgName = (name) => {
+	const checkOrgName1 = (name) => {
 		if (name === DeleteUserData.qualificationLevel) {
 			const loginFormData = new FormData();
 			loginFormData.append("id", DeleteUserData.id)
@@ -180,26 +206,9 @@ export default function Profile() {
 		}
 
 	}
+	const [banks1, setBanks1] = useState([])
 
-	const getAllEducationFromServer = () => {
-		axios.post(`${base_url}/client/educationsDetails`, UserData).then(
-			(response) => {
-				//For Success
-				console.log(response.data)
-				setBanks(response.data);
-
-			},
-			(error) => {
-				//For Error
-				console.log(error)
-				// toast.error("Something went wrong");
-			}
-		);
-	};
-
-	const [banks, setBanks] = useState([])
-
-	const renderCard = (hostels, index) => {
+	const renderCard1 = (hostels, index) => {
 
 		return (
 
@@ -258,7 +267,7 @@ export default function Profile() {
 							<div className='container' style={{
 								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
 							}}>
-								<button onClick={() => checkOrgName(hostels.qualificationLevel)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button onClick={() => checkOrgName1(hostels.qualificationLevel)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
 								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
 							</div>
 						</div>
@@ -268,6 +277,107 @@ export default function Profile() {
 			</tr>
 		);
 	}
+
+
+	const [banks2, setBanks2] = useState([])
+	const getAllEmploymentFromServer = () => {
+		const loginFormData = new FormData();
+		loginFormData.append("userId", userData.userId)
+		console.log(loginFormData.get("userId"));
+		axios({
+			method: "post",
+			url: `${base_url}/client/employmentDetail`,
+			data: loginFormData,
+			headers: { "Content-Type": "multipart/form-data" },
+		})
+			.then(function (response) {
+				//handle success
+				console.log(response);
+				setBanks2(response.data);
+			})
+			.catch(function (response) {
+				//handle error
+				console.log(response);
+			});
+	};
+
+	const checkOrgName2 = (name) => {
+		if (name === DeleteUserData.namedel) {
+			toast.success("Data Deleted Successfully");
+			setmodalIsOpen(false);
+		} else {
+			toast.error("Please enter valid organization name");
+		}
+
+	}
+	const renderCard2 = (hostels, index) => {
+
+		return (
+
+			<tr>
+				<td>{hostels.typeOfExperience}</td>
+				<td>{hostels.organizationName}</td>
+				<td>{hostels.fromDate}</td>
+				<td>{hostels.toDate}</td>
+				<td>{hostels.experienceCertificateDate}</td>
+
+				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen}
+						onRequestClose={() => setmodalIsOpen(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering Organization name
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="org_name"
+									label="Enter Name of Organization "
+									InputLabelProps={{ shrink: true }}
+									name="org_name"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, namedel: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkOrgName2(hostels.organizationName)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
+
+			</tr >
+		);
+	};
+
 
 
 
@@ -511,7 +621,7 @@ export default function Profile() {
 										defaultValue='Name here'
 										style={{ paddingLeft: '1rem' }}
 										InputProps={{ readOnly: 'true' }}
-									
+
 
 									/>
 								</div>
@@ -639,7 +749,7 @@ export default function Profile() {
 									</tr>
 								</thead>
 								<tbody>
-									{banks.map(renderCard)}
+									{banks1.map(renderCard1)}
 
 								</tbody>
 							</Table>
@@ -652,81 +762,23 @@ export default function Profile() {
 								<b>EMPLOYMENT DETAILS</b>
 							</Typography>
 						</div>
-
-						<Grid container rowSpacing={4} columnSpacing={0}>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Type of Experience :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Type of Experience here'
-										style={{ paddingLeft: '1rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Organization Name :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Organization Name here'
-										style={{ paddingLeft: '1rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Starting Date :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Starting Date here'
-										style={{ paddingLeft: '1rem', maxWidth: '50rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Ending Date :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Ending Date here'
-										style={{ paddingLeft: '1rem', maxWidth: '50rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-						</Grid>
+						<div style={{ paddingTop: '1rem' }}>
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th>Type of Experience</th>
+										<th>Name of Organization</th>
+										<th>From Date</th>
+										<th>To Date</th>
+										<th>Experience Certificate Issue Date</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{banks2.map(renderCard2)}
+								</tbody>
+							</Table>
+						</div>
 						<Divider style={{ marginTop: '2rem' }} />
 						<div style={{ display: 'flex', justifyContent: 'left', paddingTop: '2rem', paddingBottom: '2rem' }}>
 							<Typography component="h1" variant="h5">
