@@ -136,6 +136,8 @@ export default function Profile() {
 				}
 				getAllEducationFromServer();
 				getAllEmploymentFromServer();
+				getAllResearchInfoFromServer();
+
 			},
 			(error) => {
 				//For Error
@@ -153,7 +155,7 @@ export default function Profile() {
 	}, []);
 
 
-
+	const [banks1, setBanks1] = useState([])
 
 	const getAllEducationFromServer = () => {
 		axios.post(`${base_url}/client/educationsDetails`, userData).then(
@@ -206,7 +208,7 @@ export default function Profile() {
 		}
 
 	}
-	const [banks1, setBanks1] = useState([])
+
 
 	const renderCard1 = (hostels, index) => {
 
@@ -280,6 +282,7 @@ export default function Profile() {
 
 
 	const [banks2, setBanks2] = useState([])
+
 	const getAllEmploymentFromServer = () => {
 		const loginFormData = new FormData();
 		loginFormData.append("userId", userData.userId)
@@ -377,6 +380,140 @@ export default function Profile() {
 			</tr >
 		);
 	};
+
+
+
+	const [banks3, setBanks3] = useState([])
+
+	const getAllResearchInfoFromServer = () => {
+		axios.post(`${base_url}/client/researchInfos`, userData).then(
+			(response) => {
+				//For Success
+				console.log(response)
+				console.log(response.data)
+
+				setBanks3(response.data);
+
+			},
+			(error) => {
+				//For Error
+				console.log(error)
+				// toast.error("Something went wrong");
+			}
+		);
+	};
+
+	const checkOrgName3 = (name) => {
+		if (name === DeleteUserData.isbnNumber) {
+			const loginFormData = new FormData();
+			loginFormData.append("id", DeleteUserData.id)
+			loginFormData.append("isbnNumber", DeleteUserData.isbnNumber)
+			axios({
+				method: "delete",
+				url: `${base_url}/client/researchInfo`,
+				data: loginFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			})
+				.then(function (response) {
+					//handle success
+					console.log(response);
+					if (response.data === "Research info deleted successfully") {
+						toast.success("Research info deleted successfully");
+						setmodalIsOpen(false);
+					}
+					else {
+						toast.error("Error Occurred");
+					}
+					getAllResearchInfoFromServer();
+				})
+				.catch(function (response) {
+					//handle error
+					console.log(response);
+					toast.error("Error Occurred cdm");
+				});
+
+		} else {
+			toast.error("Please enter valid Qualification Level");
+		}
+
+	}
+
+
+
+
+
+
+
+	const renderCard3 = (hostels, index) => {
+
+		return (
+
+			<tr>
+				<td>{hostels.isbnNumber}</td>
+				<td>{hostels.conferenceName}</td>
+				<td>{hostels.placeOfConference}</td>
+				<td>{hostels.date}</td>
+				<td>{hostels.authors}</td>
+				<td>{hostels.titleOfPaper}</td>
+				<td>{hostels.journalName}</td>
+				<td>{hostels.publicationDate}</td>
+
+				<td><Button onClick={() => setmodalIsOpen(true)} variant="contained"><BuildCircleIcon /></Button>
+					<Modal isOpen={modalIsOpen}
+						onRequestClose={() => setmodalIsOpen(false)}
+						style={
+							{
+								overlay: {
+									backgroundColor: 'transparent',
+									height: '350px',
+									width: '500px',
+									position: 'absolute',
+									top: '375px',
+									left: '1000px',
+									right: '100px',
+									bottom: '100px'
+								},
+								content: {
+									color: 'black'
+								},
+								zIndex: '1001'
+
+							}
+						}
+					>
+						<div >
+							<h4>
+								Confirm by entering ISBN Number
+							</h4>
+							<p>
+								<TextField
+									margin="normal"
+									fullWidth
+									id="del_text"
+									label="Enter ISBN Number Level"
+									InputLabelProps={{ shrink: true }}
+									name="del_text"
+									onChange={(e) => {
+
+										setDeleteUserData({ ...DeleteUserData, isbnNumber: e.target.value })
+									}}
+								/>
+
+							</p>
+							<div className='container' style={{
+								display: "flex", justifyContent: "right", paddingBottom: "1rem", paddingRight: "1rem"
+							}}>
+								<button onClick={() => checkOrgName3(hostels.isbnNumber)} variant="contained" color="success" endIcon={<DoneIcon />} >Apply</button>
+								<button variant="contained" style={{ marginLeft: "1rem " }} endIcon={<DeleteIcon />} onClick={() => setmodalIsOpen(false)}>Close</button>
+							</div>
+						</div>
+
+					</Modal>
+				</td>
+			</tr>
+		);
+	};
+
 
 
 
@@ -786,98 +923,26 @@ export default function Profile() {
 							</Typography>
 						</div>
 
-						<Grid container rowSpacing={4} columnSpacing={0}>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Research Level :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Research Level here'
-										style={{ paddingLeft: '1rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Conference Name :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Conference name here'
-										style={{ paddingLeft: '1rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Title of Paper :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Title of Paper here'
-										style={{ paddingLeft: '1rem', maxWidth: '50rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Publication Date :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Publication Date here'
-										style={{ paddingLeft: '1rem', maxWidth: '50rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-							<Grid item xs={4}>
-								<div style={{ display: 'flex', flexDirection: 'row' }}>
-									<div style={{ paddingTop: '.2rem' }}>
-										Journal Name :
-									</div>
-
-
-									<TextField
-										variant='standard'
-										color='warning'
-										defaultValue='Journal name here'
-										style={{ paddingLeft: '1rem', maxWidth: '50rem' }}
-										InputProps={{ readOnly: 'true' }}
-
-
-									/>
-								</div>
-							</Grid>
-						</Grid>
+						<div style={{ paddingTop: '1rem' }}>
+							<Table striped bordered hover>
+								<thead>
+									<tr>
+										<th>ISBN Number</th>
+										<th>Conference Name</th>
+										<th>Place of Conference</th>
+										<th>Date</th>
+										<th>Authors</th>
+										<th>Title of Paper</th>
+										<th>Journal Name</th>
+										<th>Publication Date</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{banks3.map(renderCard3)}
+								</tbody>
+							</Table>
+						</div>
 
 					</div>
 
